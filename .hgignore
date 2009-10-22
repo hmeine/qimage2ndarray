@@ -1,0 +1,4 @@
+^build
+^sip
+~$
+\.(py[co]|so)$
