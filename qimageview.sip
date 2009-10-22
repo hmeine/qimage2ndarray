@@ -21,6 +21,6 @@ SIP_PYOBJECT qimageview(QImage &image);
 	npy_intp dims[2];
 	dims[0] = a0->height();
 	dims[1] = a0->width();
-	sipRes = PyArray_SimpleNew(2, dims, dtype);
+	sipRes = PyArray_SimpleNewFromData(2, dims, dtype, a0->bits());
 }
 %End
