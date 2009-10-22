@@ -17,7 +17,24 @@ import_array();
 SIP_PYOBJECT qimageview(QImage &image);
 %MethodCode
 {
-	NPY_TYPES dtype = NPY_UINT8;
+	NPY_TYPES dtype = NPY_NOTYPE;
+
+	switch(a0->format())
+	{
+	case QImage::Format_Indexed8:
+		dtype = NPY_UINT8;
+		break;
+	case QImage::Format_RGB32:
+	case QImage::Format_ARGB32:
+	case QImage::Format_ARGB32_Premultiplied:
+		dtype = NPY_UINT32;
+		break;
+	default:
+        PyErr_SetString(PyExc_ValueError,
+                        "qimageview can only handle 8- or 32-bit QImages");
+		return NULL;
+	}
+
 	npy_intp dims[2];
 	dims[0] = a0->height();
 	dims[1] = a0->width();
