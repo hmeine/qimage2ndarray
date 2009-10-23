@@ -1,4 +1,4 @@
-import qimageview
+from qimage2ndarray import qimageview
 from PyQt4 import QtGui
 
 from nose.tools import raises, assert_equal
@@ -47,29 +47,30 @@ def test_coordinate_access():
 	qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)
 	qimg.setNumColors(256)
 	qimg.fill(0)
-	qimg.setPixel(12, 10, 42)
 	v = qimageview.qimageview(qimg)
-	qimg.fill(42)
+	qimg.fill(23)
+	qimg.setPixel(12, 10, 42)
 	assert_equal(v.shape, (240, 320))
+	assert_equal(v[10,10], 23)
 	assert_equal(v[10,12], 42)
 	assert_equal(v.nbytes, qimg.numBytes())
 
 def test_RGB32():
 	qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
 	qimg.fill(0)
-	qimg.setPixel(12, 10, 42)
 	v = qimageview.qimageview(qimg)
-	qimg.fill(42)
+	qimg.fill(23)
+	qimg.setPixel(12, 10, 42)
 	assert_equal(v.shape, (240, 320))
+	assert_equal(v[10,10], 23 | 0xff000000)
 	assert_equal(v[10,12], 42 | 0xff000000)
 	assert_equal(v.nbytes, qimg.numBytes())
 
 def test_ARGB32():
 	qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_ARGB32)
 	qimg.fill(0)
-	qimg.setPixel(12, 10, 42)
 	v = qimageview.qimageview(qimg)
-	qimg.fill(42)
+	qimg.setPixel(12, 10, 42)
 	assert_equal(v.shape, (240, 320))
 	assert_equal(v[10,12], 42)
 	assert_equal(v.nbytes, qimg.numBytes())
@@ -78,9 +79,8 @@ def test_odd_size_8bit():
 	qimg = QtGui.QImage(321, 240, QtGui.QImage.Format_Indexed8)
 	qimg.setNumColors(256)
 	qimg.fill(0)
-	qimg.setPixel(12, 10, 42)
 	v = qimageview.qimageview(qimg)
-	qimg.fill(42)
+	qimg.setPixel(12, 10, 42)
 	assert_equal(v.shape, (240, 321))
 	assert_equal(v[10,12], 42)
 	assert_equal(v.strides[0], qimg.bytesPerLine())
@@ -88,9 +88,8 @@ def test_odd_size_8bit():
 def test_odd_size_32bit():
 	qimg = QtGui.QImage(321, 240, QtGui.QImage.Format_ARGB32)
 	qimg.fill(0)
-	qimg.setPixel(12, 10, 42)
 	v = qimageview.qimageview(qimg)
-	qimg.fill(42)
+	qimg.setPixel(12, 10, 42)
 	assert_equal(v.shape, (240, 321))
 	assert_equal(v[10,12], 42)
 	assert_equal(v.strides[0], qimg.bytesPerLine())
