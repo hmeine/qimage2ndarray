@@ -1,5 +1,6 @@
 import numpy as _np
 from qimageview import qimageview as _qimageview
+from PyQt4 import QtGui as _qt
 
 bgra_dtype = _np.dtype({'b': (_np.uint8, 0, 'blue'),
 						'g': (_np.uint8, 1, 'green'),
@@ -61,3 +62,40 @@ def recarray_view(qimage):
 	if raw.itemsize != 4:
 		raise ValueError, "For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)"
 	return raw.view(bgra_dtype, _np.recarray)
+
+def gray2qimage(gray, normalize = False):
+	"""Convert the 2D numpy array `gray` into a 8-bit QImage with a gray
+	colormap.  The first dimension represents the vertical image axis.
+
+	The parameter `normalize` can be used to normalize an image's
+	value range to 0..255:
+
+	`normalize` = (nmin, nmax):
+	  scale & clip image values from nmin..nmax to 0..255
+
+	`normalize` = nmax
+	  lets nmin default to zero, i.e. scale & clip the range 0..nmax
+	  to 0..255
+
+	`normalize` = True:
+	  scale image values to 0..255 (same as passing (gray.min(),
+	  gray.max()))"""
+	if _np.ndim(gray) != 2:
+		raise ValueError("gray2QImage can only convert 2D arrays")
+
+	h, w = gray.shape
+	result = _qt.QImage(w, h, _qt.QImage.Format_Indexed8)
+	for i in range(256):
+		result.setColor(i, _qt.qRgb(i,i,i))
+
+	if normalize:
+		if normalize is True:
+			normalize = gray.min(), gray.max()
+		elif _np.isscalar(normalize):
+			normalize = (0, normalize)
+		nmin, nmax = normalize
+		gray = ((gray - nmin) * 255. / (nmax - nmin))
+
+	_qimageview(result)[:] = gray.clip(0, 255)
+	return result
+
