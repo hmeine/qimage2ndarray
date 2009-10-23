@@ -26,3 +26,12 @@ def test_raw_rgb32():
 	assert_equal(v[10,12], 42 | 0xff000000)
 	assert_equal(v.nbytes, qimg.numBytes())
 
+def test_byte_view_rgb32():
+	qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
+	v = qimage2ndarray.byte_view(qimg)
+	qimg.fill(23)
+	qimg.setPixel(12, 10, 42)
+	assert_equal(v.shape, (240, 320, 4))
+	assert_equal(list(v[10,10]), [23, 0, 0, 0xff])
+	assert_equal(list(v[10,12]), [42, 0, 0, 0xff])
+	assert_equal(v.nbytes, qimg.numBytes())
