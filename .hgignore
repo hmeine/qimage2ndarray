@@ -1,4 +1,3 @@
 ^build
-^sip
 ~$
-\.(py[co]|so)$
+\.(py[co]|so|egg-info)$
