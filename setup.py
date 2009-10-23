@@ -9,7 +9,7 @@ config = PyQt4.pyqtconfig.Configuration()
 # FIXME: is there a better way than to explicitly list the Qt4 include
 # dirs and libraries here?  (before distutils, I used
 # PyQt4.pyqtconfig.QtGuiModuleMakefile to build extensions)
-qimageview = Extension('qimageview',
+qimageview = Extension('qimage2ndarray.qimageview',
 					   sources = ['qimageview.sip'],
 					   include_dirs = [numpy.get_include(),
 									   config.qt_inc_dir,
@@ -32,5 +32,6 @@ class build_ext(sipdistutils.build_ext):
 setup(name = 'qimage2ndarray',
 	  version = '0.1',
 	  description = 'Conversion between QImages and numpy.ndarrays.',
+	  packages = ['qimage2ndarray'],
 	  ext_modules = [qimageview],
 	  cmdclass = {'build_ext': build_ext})
