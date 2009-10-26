@@ -1,3 +1,4 @@
-^build
+^build/
+^old/
 ~$
 \.(py[co]|so|egg-info)$
