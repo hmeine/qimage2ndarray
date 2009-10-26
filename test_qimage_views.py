@@ -43,6 +43,14 @@ def test_rgb_view():
 	qimg.setPixel(12, 10, QtGui.qRgb(12,34,56))
 	assert_equal(list(v[10,12]), [12,34,56])
 
+def test_alpha_view():
+	qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_ARGB32)
+	qimg.fill(23)
+	v = qimage2ndarray.alpha_view(qimg)
+	qimg.setPixel(12, 10, QtGui.qRgb(12,34,56))
+	assert_equal(v[10,12], 255)
+	assert_equal(v[10,11], 0)
+
 def test_recarray_view():
 	qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_ARGB32)
 	qimg.fill(23)

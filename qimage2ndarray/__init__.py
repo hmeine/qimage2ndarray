@@ -33,6 +33,19 @@ def rgb_view(qimage):
 		raise ValueError, "For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)"
 	return bytes[...,2::-1]
 
+def alpha_view(qimage):
+	"""Returns alpha view of a given 32-bit color QImage's memory.
+	The result is a 2D numpy.uint8 array, equivalent to
+	byte_view(qimage)[...,3].  The image must have 32 bit pixel size,
+	i.e. be RGB32, ARGB32, or ARGB32_Premultiplied.  Note that it is
+	not enforced that the given qimage has a format that actually
+	*uses* the alpha channel - for Format_RGB32, the alpha channel
+	usually contains 255 everywhere."""
+	bytes = byte_view(qimage)
+	if bytes.shape[2] != 4:
+		raise ValueError, "For alpha_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)"
+	return bytes[...,3]
+
 def recarray_view(qimage):
 	"""Returns recarray view of a given 32-bit color QImage's memory.
 
