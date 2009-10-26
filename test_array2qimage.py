@@ -68,3 +68,29 @@ def test_gray2qimage_normalize_domain():
 	x = int(255 * 100.0 / 200.0)
 	assert_equal(hex(qImg.pixel(10,14)), hex(QtGui.qRgb(x,x,x)))
 
+def test_gray2qimage_normalize_dont_touch_0_255():
+	a = numpy.zeros((100, 256), dtype = float)
+	a[:] = numpy.arange(256)
+	qImg = qimage2ndarray.gray2qimage(a, normalize = True)
+	b = qimage2ndarray.raw_view(qImg)
+	assert numpy.all(a == b)
+
+def test_gray2qimage_masked():
+	a = numpy.zeros((240, 320), dtype = float)
+	a[12,10] = 42.42
+	a[13,10] = -10
+	a[:,160:] = 100
+	a = numpy.ma.masked_greater(a, 99)
+	qImg = qimage2ndarray.gray2qimage(a, normalize = True)
+	assert not qImg.isNull()
+	assert_equal(qImg.width(), 320)
+	assert_equal(qImg.height(), 240)
+	assert_equal(qImg.format(), QtGui.QImage.Format_Indexed8)
+	assert_equal(a.nbytes, qImg.numBytes() * a.itemsize)
+	assert_equal(qImg.numColors(), 256)
+	assert_equal(hex(qImg.pixel(10,12)), hex(QtGui.qRgb(255,255,255)))
+	assert_equal(hex(qImg.pixel(10,13)), hex(QtGui.qRgb(0,0,0)))
+	x = int(255 * 10.0 / 52.42)
+	assert_equal(hex(qImg.pixel(10,14)), hex(QtGui.qRgb(x,x,x)))
+	assert_equal(QtGui.qAlpha(qImg.pixel(0,10)), 255)
+	assert_equal(QtGui.qAlpha(qImg.pixel(200,10)), 0)
