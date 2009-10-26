@@ -110,7 +110,10 @@ def gray2qimage(gray, normalize = False):
 		elif _np.isscalar(normalize):
 			normalize = (0, normalize)
 		nmin, nmax = normalize
-		gray = ((gray - nmin) * 255. / (nmax - nmin))
+		if nmin:
+			gray = ((gray - nmin) * 255. / (nmax - nmin))
+		else:
+			gray = (gray * 255. / nmax)
 
 	if not _np.ma.is_masked(gray):
 		for i in range(256):
@@ -126,5 +129,77 @@ def gray2qimage(gray, normalize = False):
 
 		result.setColor(255, 0)
 		_qimageview(result)[gray.mask] = 255
+
+	return result
+
+def array2qimage(array, normalize = False):
+	# TODO: document & test scalar data with alpha channel
+	"""Convert a 2D or 3D numpy array into a 32-bit QImage.  The first
+	dimension represents the vertical image axis; the optional third
+	dimension is supposed to contain either three (RGB) or four (RGBA)
+	channels.  Scalar data will be converted into corresponding gray
+	RGB triples; if you want to convert to an (indexed) 8-bit image
+	instead, use `gray2qimage`.
+
+	The parameter `normalize` can be used to normalize an image's
+	value range to 0..255:
+
+	`normalize` = (nmin, nmax):
+	  scale & clip image values from nmin..nmax to 0..255
+
+	`normalize` = nmax
+	  lets nmin default to zero, i.e. scale & clip the range 0..nmax
+	  to 0..255
+
+	`normalize` = True:
+	  scale image values to 0..255 (same as passing (array.min(),
+	  array.max()))
+
+	If `array` contains masked values, the corresponding pixels will
+	be transparent in the result.  Thus, the result will be of
+	QImage.Format_ARGB32 if the input already contains an alpha
+	channel (i.e. has shape (H,W,4)) or if there are masked pixels,
+	and QImage.Format_RGB32 otherwise."""
+	if _np.ndim(array) == 2:
+		array = array[...,None]
+	elif _np.ndim(array) != 3:
+		raise ValueError("array2qimage can only convert 2D or 3D arrays")
+	if array.shape[2] not in (1, 3, 4):
+		raise ValueError("array2qimage expects the last dimension to contain exactly one (scalar/gray), three (R,G,B), or four (R,G,B,A) channels")
+
+	h, w, channels = array.shape
+
+	fmt = _qt.QImage.Format_RGB32
+	hasAlpha = _np.ma.is_masked(array) or channels in (2, 4)
+	if hasAlpha:
+		fmt = _qt.QImage.Format_ARGB32
+
+	result = _qt.QImage(w, h, fmt)
+
+	if normalize:
+		if normalize is True:
+			normalize = array.min(), array.max()
+		elif _np.isscalar(normalize):
+			normalize = (0, normalize)
+		nmin, nmax = normalize
+		if nmin:
+			array = ((array - nmin) * 255. / (nmax - nmin))
+		else:
+			array = (array * 255. / nmax)
+
+	if channels >= 3:
+		rgb_view(result)[:] = array[...,:3].clip(0, 255)
+	else:
+		rgb_view(result)[:] = array[...,:1].clip(0, 255) # scalar data
+
+	alpha = alpha_view(result)
+
+	if channels in (2, 4):
+		alpha[:] = array[...,-1]
+	else:
+		alpha[:] = 255
+
+	if _np.ma.is_masked(array):
+		alpha[:]  *= _np.logical_not(_np.any(array.mask, axis = -1))
 
 	return result
