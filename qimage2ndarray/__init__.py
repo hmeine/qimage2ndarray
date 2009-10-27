@@ -189,16 +189,7 @@ def array2qimage(array, normalize = False):
 
 	result = _qt.QImage(w, h, fmt)
 
-	if normalize:
-		if normalize is True:
-			normalize = array.min(), array.max()
-		elif _np.isscalar(normalize):
-			normalize = (0, normalize)
-		nmin, nmax = normalize
-		if nmin:
-			array = ((array - nmin) * 255. / (nmax - nmin))
-		else:
-			array = (array * 255. / nmax)
+	array = _normalize255(array, normalize)
 
 	if channels >= 3:
 		rgb_view(result)[:] = array[...,:3].clip(0, 255)
