@@ -76,6 +76,26 @@ def recarray_view(qimage):
 		raise ValueError, "For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)"
 	return raw.view(bgra_dtype, _np.recarray)
 
+def _normalize255(array, normalize):
+	if not normalize:
+		return array
+
+	if normalize is True:
+		normalize = array.min(), array.max()
+	elif _np.isscalar(normalize):
+		normalize = (0, normalize)
+
+	nmin, nmax = normalize
+
+	if nmin:
+		array = array - nmin
+
+	scale = 255. / (nmax - nmin)
+	if scale != 1.0:
+		array = array * scale
+
+	return array
+
 def gray2qimage(gray, normalize = False):
 	"""Convert the 2D numpy array `gray` into a 8-bit, indexed QImage
 	with a gray colormap.  The first dimension represents the vertical
@@ -104,16 +124,7 @@ def gray2qimage(gray, normalize = False):
 	h, w = gray.shape
 	result = _qt.QImage(w, h, _qt.QImage.Format_Indexed8)
 
-	if normalize:
-		if normalize is True:
-			normalize = gray.min(), gray.max()
-		elif _np.isscalar(normalize):
-			normalize = (0, normalize)
-		nmin, nmax = normalize
-		if nmin:
-			gray = ((gray - nmin) * 255. / (nmax - nmin))
-		else:
-			gray = (gray * 255. / nmax)
+	gray = _normalize255(gray, normalize)
 
 	if not _np.ma.is_masked(gray):
 		for i in range(256):
@@ -121,6 +132,8 @@ def gray2qimage(gray, normalize = False):
 
 		_qimageview(result)[:] = gray.clip(0, 255)
 	else:
+		# map gray value 1 to gray value 0, in order to make room for
+		# transparent colormap entry:
 		result.setColor(0, _qt.qRgb(0,0,0))
 		for i in range(2, 256):
 			result.setColor(i-1, _qt.qRgb(i,i,i))
