@@ -76,6 +76,8 @@ def recarray_view(qimage):
 		raise ValueError, "For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)"
 	return raw.view(bgra_dtype, _np.recarray)
 
+# --------------------------------------------------------------------
+
 def _normalize255(array, normalize):
 	if not normalize:
 		return array
