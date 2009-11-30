@@ -38,6 +38,10 @@ SIP_PYOBJECT qimageview(QImage &image);
 		dtype = NPY_UINT32;
 		strides[1] = 4;
 		break;
+	case QImage::Format_Invalid:
+        PyErr_SetString(PyExc_ValueError,
+                        "qimageview got invalid QImage");
+		return NULL;
 	default:
         PyErr_SetString(PyExc_ValueError,
                         "qimageview can only handle 8- or 32-bit QImages");
