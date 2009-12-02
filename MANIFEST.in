@@ -1,0 +1,2 @@
+include doc/index.rst doc/Makefile doc/make.bat doc/conf.py
+recursive-include doc/html *.html *.css *.js *.png
