@@ -40,10 +40,12 @@ but qimage2ndarray has the following unique feature set:
 
 .. _masked arrays: http://docs.scipy.org/doc/numpy/reference/maskedarray.generic.html
 
-The extension is open source, BSD-licensed, and the mercurial
+The extension is open source, BSD-licensed__, and the mercurial
 repository can be `browsed online`_ or cloned using Mercurial_::
 
   hg clone http://www.informatik.uni-hamburg.de/~meine/hg/qimage2ndarray/
+
+__ http://www.opensource.org/licenses/bsd-license.php
 
 Usage
 =====
