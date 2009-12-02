@@ -64,7 +64,7 @@ appropriate type or value range).
 .. note::
 
   The reason for this is that ndarrays_ are much more flexible than
-  QImages_, and while it is possible - even using pure python - to
+  QImages_, and while it is possible -- even using pure python -- to
   create QImages that are views into an ndarray's memory, this will
   only work if the latter fulfills certain strict requirements
   w.r.t. dtype, strides / memory layout etc.  Thus, you'd need
@@ -93,8 +93,8 @@ using :func:`raw_view`.
 Converting ndarrays into QImages
 --------------------------------
 
-.. autofunction:: array2qimage(qimage)
-.. autofunction:: gray2qimage(qimage)
+.. autofunction:: array2qimage(array[, normalize])
+.. autofunction:: gray2qimage(gray[, normalize])
 
 Indices and tables
 ==================

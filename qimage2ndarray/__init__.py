@@ -13,7 +13,7 @@ def raw_view(qimage):
 	"""Returns raw 2D view of the given QImage_'s memory.  The result
 	will be a 2-dimensional numpy.ndarray with an appropriately sized
 	integral dtype.  (This function is not intented to be used
-	directly, but used internally by the other - more convenient -
+	directly, but used internally by the other -- more convenient --
 	view creation functions.)
 
 	:param qimage: image whose memory shall be accessed via NumPy
@@ -61,7 +61,7 @@ def alpha_view(qimage):
 	byte_view(qimage)[...,3].  The image must have 32 bit pixel size,
 	i.e. be RGB32, ARGB32, or ARGB32_Premultiplied.  Note that it is
 	not enforced that the given qimage has a format that actually
-	*uses* the alpha channel - for Format_RGB32, the alpha channel
+	*uses* the alpha channel -- for Format_RGB32, the alpha channel
 	usually contains 255 everywhere.
 
 	:param qimage: image whose memory shall be accessed via NumPy
@@ -149,11 +149,11 @@ def gray2qimage(gray, normalize = False):
 	  gray.max()))
 
 	If the source array `gray` contains masked values, the result will
-	have only 255 shades of gray and one color map entry will be used
+	have only 255 shades of gray, and one color map entry will be used
 	to make the corresponding pixels transparent.
 
-	:param array: image data which should be converted (copied) into a QImage_
-	:type array: 2D or 3D numpy.ndarray_ or `numpy.ma.array <masked arrays>`_
+	:param gray: image data which should be converted (copied) into a QImage_
+	:type gray: 2D or 3D numpy.ndarray_ or `numpy.ma.array <masked arrays>`_
 	:param normalize: normalization parameter (see above, default: no value changing)
 	:type normalize: bool, scalar, or pair
 	:rtype: QImage_ with RGB32 or ARGB32 format"""
