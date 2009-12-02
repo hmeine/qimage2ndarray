@@ -140,7 +140,7 @@ def gray2qimage(gray, normalize = False):
 	`normalize` = (nmin, nmax):
 	  scale & clip image values from nmin..nmax to 0..255
 
-	`normalize` = nmax
+	`normalize` = nmax:
 	  lets nmin default to zero, i.e. scale & clip the range 0..nmax
 	  to 0..255
 
@@ -199,7 +199,7 @@ def array2qimage(array, normalize = False):
 	`normalize` = (nmin, nmax):
 	  scale & clip image values from nmin..nmax to 0..255
 
-	`normalize` = nmax
+	`normalize` = nmax:
 	  lets nmin default to zero, i.e. scale & clip the range 0..nmax
 	  to 0..255
 
