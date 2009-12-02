@@ -1,4 +1,5 @@
 ^build/
 ^old/
+^doc/_build
 ~$
 \.(py[co]|so|egg-info)$
