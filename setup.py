@@ -6,11 +6,25 @@ import sipdistutils
 import PyQt4.pyqtconfig
 config = PyQt4.pyqtconfig.Configuration()
 
-qt_lib_dirs = [config.qt_lib_dir]
+# --------------------------------------------------------------------
+
+# Replace the following with
+#  qt_inc_dir = "C:/path/to/Qt/include"
+#  qt_lib_dir = "C:/path/to/Qt/lib"
+# when automatically extracted paths don't fit your installation.
+# (Note that you should use a compatible compiler and Qt version
+#  as was used for building PyQt.)
+qt_inc_dir = config.qt_inc_dir
+qt_lib_dir = config.qt_lib_dir
+
+# --------------------------------------------------------------------
+
+qt_lib_dirs = [qt_lib_dir]
 qt_libraries = ["QtCore", "QtGui"]
+
 if "mingw32" in sys.argv:
 	# FIXME: better criterion - this should only apply to mingw32
-	qt_lib_dirs.append(config.qt_lib_dir.replace(r"\lib", r"\bin"))
+	qt_lib_dirs.append(qt_lib_dir.replace(r"\lib", r"\bin"))
 	qt_libraries = [lib + "4" for lib in qt_libraries]
 
 # FIXME: is there a better way than to explicitly list the Qt4 include
@@ -19,9 +33,9 @@ if "mingw32" in sys.argv:
 qimageview = Extension('qimage2ndarray.qimageview',
 					   sources = ['qimageview.sip'],
 					   include_dirs = [numpy.get_include(),
-									   config.qt_inc_dir,
-									   os.path.join(config.qt_inc_dir, "QtCore"),
-									   os.path.join(config.qt_inc_dir, "QtGui")],
+									   qt_inc_dir,
+									   os.path.join(qt_inc_dir, "QtCore"),
+									   os.path.join(qt_inc_dir, "QtGui")],
 					   library_dirs = qt_lib_dirs,
 					   libraries = qt_libraries)
 
