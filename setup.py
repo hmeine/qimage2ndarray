@@ -24,7 +24,9 @@ qt_libraries = ["QtCore", "QtGui"]
 
 if "mingw32" in sys.argv:
 	# FIXME: better criterion - this should only apply to mingw32
-	qt_lib_dirs.append(qt_lib_dir.replace(r"\lib", r"\bin"))
+	qt_lib_dirs.append(qt_lib_dir.replace(r"\lib", r"\bin"),
+					   # fall back to default Qt DLL location:
+					   os.path.dirname(PyQt4.__file__))
 	qt_libraries = [lib + "4" for lib in qt_libraries]
 
 # FIXME: is there a better way than to explicitly list the Qt4 include
