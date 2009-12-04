@@ -25,11 +25,25 @@ Python using PyQt4_ as the GUI library.
 * Supports value scaling / normalization to 0..255 for convenient
   display of arbitrary NumPy arrays.
 
+Code
+----
+
 The extension is open source, BSD-licensed, and the mercurial
 repository can be browsed online or cloned using Mercurial:
 
   hg clone http://www.informatik.uni-hamburg.de/~meine/hg/qimage2ndarray/
 
+Documentation
+-------------
+
 Documentation can be found in the doc/ subdirectory or on the homepage:
 
   http://kogs-www.informatik.uni-hamburg.de/~meine/software/qimage2ndarray
+
+Contributors
+------------
+
+This extension is written and maintained by Hans Meine
+<meine@informatik.uni-hamburg.de>.
+
+I am grateful for feedback from Ullrich Köthe.
