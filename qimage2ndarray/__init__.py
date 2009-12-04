@@ -1,6 +1,6 @@
 import numpy as _np
-from qimageview import qimageview as _qimageview
 from PyQt4 import QtGui as _qt
+from qimageview import qimageview as _qimageview
 
 bgra_dtype = _np.dtype({'b': (_np.uint8, 0, 'blue'),
 						'g': (_np.uint8, 1, 'green'),
