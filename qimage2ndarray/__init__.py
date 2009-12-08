@@ -1,11 +1,17 @@
+import sys as _sys
 import numpy as _np
 from PyQt4 import QtGui as _qt
 from qimageview import qimageview as _qimageview
 
-bgra_dtype = _np.dtype({'b': (_np.uint8, 0, 'blue'),
-						'g': (_np.uint8, 1, 'green'),
-						'r': (_np.uint8, 2, 'red'),
-						'a': (_np.uint8, 3, 'alpha')})
+if _sys.byteorder == 'little':
+	_bgra = (0, 1, 2, 3)
+else:
+	_bgra = (3, 2, 1, 0)
+
+bgra_dtype = _np.dtype({'b': (_np.uint8, _bgra[0], 'blue'),
+						'g': (_np.uint8, _bgra[1], 'green'),
+						'r': (_np.uint8, _bgra[2], 'red'),
+						'a': (_np.uint8, _bgra[3], 'alpha')})
 """Complex dtype offering the named fields 'r','g','b', and 'a' and
 corresponding long names, conforming to QImage_'s 32-bit memory layout."""
 
@@ -21,24 +27,34 @@ def raw_view(qimage):
 	:rtype: numpy.ndarray_ with shape (height, width)"""
 	return _qimageview(qimage)
 
-def byte_view(qimage):
+def byte_view(qimage, byteorder = 'little'):
 	"""Returns raw 3D view of the given QImage_'s memory.  This will
 	always be a 3-dimensional numpy.ndarray with dtype numpy.uint8.
 	
 	Note that for 32-bit images, the last dimension will be in the
-	[B,G,R,A] order due to QImage_'s memory layout (the alpha channel
-	will be present for Format_RGB32 images, too).
+	[B,G,R,A] order (if little endian) due to QImage_'s memory layout
+	(the alpha channel will be present for Format_RGB32 images, too).
 
 	For 8-bit (indexed) images, the array will still be 3-dimensional,
 	i.e. shape will be (height, width, 1).
 
+	The order of channels in the last axis depends on the `byteorder`,
+	which defaults to 'little', i.e. BGRA order.  You may set the
+	argument `byteorder` to 'big' to get ARGB, or use None which means
+	sys.byteorder here, i.e. return native order for the machine the
+	code is running on.
+
 	:param qimage: image whose memory shall be accessed via NumPy
 	:type qimage: QImage_
+	:param byteorder: specify order of channels in last axis
 	:rtype: numpy.ndarray_ with shape (height, width, 1 or 4) and dtype uint8"""
 	raw = _qimageview(qimage)
-	return raw.view(_np.uint8).reshape(raw.shape + (-1, ))
+	result = raw.view(_np.uint8).reshape(raw.shape + (-1, ))
+	if byteorder and byteorder != _sys.byteorder:
+		result = result[...,::-1]
+	return result
 
-def rgb_view(qimage):
+def rgb_view(qimage, byteorder = 'big'):
 	"""Returns RGB view of a given 32-bit color QImage_'s memory.
 	Similarly to byte_view(), the result is a 3D numpy.uint8 array,
 	but reduced to the rgb dimensions (without alpha), and reordered
@@ -47,13 +63,29 @@ def rgb_view(qimage):
 	RGB32, ARGB32, or ARGB32_Premultiplied.  (Note that in the latter
 	case, the values are of course premultiplied with alpha.)
 
+	The order of channels in the last axis depends on the `byteorder`,
+	which defaults to 'big', i.e. RGB order.  You may set the argument
+	`byteorder` to 'little' to get BGR, or use None which means
+	sys.byteorder here, i.e. return native order for the machine the
+	code is running on.
+
 	:param qimage: image whose memory shall be accessed via NumPy
 	:type qimage: QImage_ with 32-bit pixel type
+	:param byteorder: specify order of channels in last axis
 	:rtype: numpy.ndarray_ with shape (height, width, 3) and dtype uint8"""
 	bytes = byte_view(qimage)
 	if bytes.shape[2] != 4:
 		raise ValueError, "For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)"
-	return bytes[...,2::-1]
+
+	if byteorder is None:
+		byteorder = _sys.byteorder
+	elif byteorder != _sys.byteorder:
+		bytes = bytes[...,::-1]
+
+	if byteorder == 'little':
+		return bytes[...,:3] # strip A off BGRA
+	else:
+		return bytes[...,1:] # strip A off ARGB
 
 def alpha_view(qimage):
 	"""Returns alpha view of a given 32-bit color QImage_'s memory.
@@ -70,7 +102,7 @@ def alpha_view(qimage):
 	bytes = byte_view(qimage)
 	if bytes.shape[2] != 4:
 		raise ValueError, "For alpha_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)"
-	return bytes[...,3]
+	return bytes[...,_bgra[3]]
 
 def recarray_view(qimage):
 	"""Returns recarray_ view of a given 32-bit color QImage_'s
