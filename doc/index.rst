@@ -78,7 +78,7 @@ appropriate type or value range).
 Converting QImages into numpy.ndarrays
 --------------------------------------
 
-QImages can be viewn as `recarrays <numpy.recarray>`_ using
+QImages can be viewn as recarrays_ using
 :func:`recarray_view`, as uint8-valued array using :func:`rgb_view`,
 :func:`alpha_view`, or just :func:`byte_view`, or as raw 2D array
 using :func:`raw_view`.
@@ -89,8 +89,6 @@ using :func:`raw_view`.
 .. autofunction:: alpha_view(qimage)
 .. autofunction:: byte_view(qimage)
 .. autofunction:: raw_view(qimage)
-
-.. _numpy.recarray: http://docs.scipy.org/doc/numpy/reference/generated/numpy.recarray.html
 
 Converting ndarrays into QImages
 --------------------------------
@@ -109,8 +107,13 @@ Indices and tables
 .. _PyQt4: http://www.riverbankcomputing.co.uk/software/pyqt/
 .. _QImage: http://doc.trolltech.com/qimage.html
 .. _QImages: http://doc.trolltech.com/qimage.html
+
 .. _numpy.ndarray: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
 .. _numpy.ndarrays: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
 .. _ndarray: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
 .. _ndarrays: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
 .. _ndarray.base: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.base.html
+
+.. _recarray: http://docs.scipy.org/doc/numpy/reference/generated/numpy.recarray.html
+.. _recarrays: http://docs.scipy.org/doc/numpy/reference/generated/numpy.recarray.html
+.. _numpy.recarray: http://docs.scipy.org/doc/numpy/reference/generated/numpy.recarray.html

@@ -73,8 +73,8 @@ def alpha_view(qimage):
 	return bytes[...,3]
 
 def recarray_view(qimage):
-	"""Returns `recarray <numpy.recarray>`_ view of a given 32-bit
-	color QImage_'s memory.
+	"""Returns recarray_ view of a given 32-bit color QImage_'s
+	memory.
 
 	The result is a 2D array with a complex record dtype, offering the
 	named fields 'r','g','b', and 'a' and corresponding long names.
