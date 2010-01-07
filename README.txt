@@ -46,4 +46,5 @@ Contributors
 This extension is written and maintained by Hans Meine
 <meine@informatik.uni-hamburg.de>.
 
-I am grateful for feedback from Ullrich Köthe.
+I am grateful for feedback from Ullrich Köthe and PowerPC/endianness
+testing by Helge Kreutzmann.
