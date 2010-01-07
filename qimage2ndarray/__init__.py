@@ -73,14 +73,11 @@ def rgb_view(qimage, byteorder = 'big'):
 	:type qimage: QImage_ with 32-bit pixel type
 	:param byteorder: specify order of channels in last axis
 	:rtype: numpy.ndarray_ with shape (height, width, 3) and dtype uint8"""
-	bytes = byte_view(qimage)
-	if bytes.shape[2] != 4:
-		raise ValueError, "For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)"
-
 	if byteorder is None:
 		byteorder = _sys.byteorder
-	elif byteorder != _sys.byteorder:
-		bytes = bytes[...,::-1]
+	bytes = byte_view(qimage, byteorder)
+	if bytes.shape[2] != 4:
+		raise ValueError, "For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)"
 
 	if byteorder == 'little':
 		return bytes[...,:3] # strip A off BGRA
@@ -99,7 +96,7 @@ def alpha_view(qimage):
 	:param qimage: image whose memory shall be accessed via NumPy
 	:type qimage: QImage_ with 32-bit pixel type
 	:rtype: numpy.ndarray_ with shape (height, width) and dtype uint8"""
-	bytes = byte_view(qimage)
+	bytes = byte_view(qimage, byteorder = None)
 	if bytes.shape[2] != 4:
 		raise ValueError, "For alpha_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)"
 	return bytes[...,_bgra[3]]
