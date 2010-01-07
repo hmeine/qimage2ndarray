@@ -70,5 +70,7 @@ def test_recarray_view():
 	assert_equal(v["g"][10,12], 34)
 	assert_equal(v["g"].sum(), 34)
 	assert_equal(v["green"].sum(), 34)
-	assert_equal(v[10,12]["g"], 34)
 	assert_equal(v.g[10,12], 34)
+	# this worked in the past, but with NumPy 1.2.1, I get:
+	# TypeError: function takes at most 2 arguments (3 given)
+	assert_equal(v[10,12]["g"], 34)
