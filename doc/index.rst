@@ -47,6 +47,16 @@ repository can be `browsed online`_ or cloned using Mercurial_::
 
 __ http://www.opensource.org/licenses/bsd-license.php
 
+Changelog
+=========
+
+Version 0.2:
+  - Fixed endianness issues (tested on PowerPC arch)
+  - Simplified installation on Windows (e.g. with Qt DLLs bundled with PyQt)
+
+Version 0.1:
+  - Initial Relase
+
 Usage
 =====
 
