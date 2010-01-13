@@ -18,6 +18,8 @@ import sys, os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.append(os.path.abspath('.'))
 
+import qimage2ndarray
+
 # -- General configuration -----------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
@@ -45,7 +47,7 @@ copyright = u'2009, Hans Meine'
 # built documents.
 #
 # The short X.Y version.
-version = '0.2'
+version = qimage2ndarray.__version__
 # The full version, including alpha/beta/rc tags.
 release = version
 
