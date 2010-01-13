@@ -53,12 +53,12 @@ class build_ext(sipdistutils.build_ext):
 					source])
 
 setup(name = 'qimage2ndarray',
-	  version = '0.1',
+	  version = '0.2',
 	  description = 'Conversion between QImages and numpy.ndarrays.',
 	  author = "Hans Meine",
 	  author_email = "meine@informatik.uni-hamburg.de",
 	  url = "http://kogs-www.informatik.uni-hamburg.de/~meine/software/qimage2ndarray",
-#	  download_url = "....tgz",
+	  download_url = "http://kogs-www.informatik.uni-hamburg.de/~meine/software/qimage2ndarray/dist",
 	  keywords = ["QImage", "numpy", "ndarray", "image", "convert", "PyQt4"],
 	  packages = ['qimage2ndarray'],
 	  ext_modules = [qimageview],
