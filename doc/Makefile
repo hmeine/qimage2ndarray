@@ -29,7 +29,7 @@ help:
 
 clean:
 	-rm -rf $(BUILDDIR)/html $(BUILDDIR)/latex $(BUILDDIR)/qthelp \
-		    $(BUILDDIR)/linkcheck $(BUILDDIR)/doctest
+		    $(BUILDDIR)/linkcheck $(BUILDDIR)/doctest $(BUILDDIR)/doctrees
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
