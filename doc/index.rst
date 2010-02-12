@@ -50,6 +50,9 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
+Version 0.3:
+  - Let array2qimage support 2 channels (gray + alpha)
+
 Version 0.2:
   - Fixed endianness issues (tested on PowerPC arch)
   - Simplified installation on Windows (e.g. with Qt DLLs bundled with PyQt)

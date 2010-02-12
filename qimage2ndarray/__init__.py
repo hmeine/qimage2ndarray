@@ -183,6 +183,9 @@ def gray2qimage(gray, normalize = False):
 	have only 255 shades of gray, and one color map entry will be used
 	to make the corresponding pixels transparent.
 
+	A full alpha channel cannot be supported with indexed images;
+	instead, use `array2qimage` to convert into a 32-bit QImage.
+
 	:param gray: image data which should be converted (copied) into a QImage_
 	:type gray: 2D or 3D numpy.ndarray_ or `numpy.ma.array <masked arrays>`_
 	:param normalize: normalization parameter (see above, default: no value changing)
@@ -216,13 +219,22 @@ def gray2qimage(gray, normalize = False):
 	return result
 
 def array2qimage(array, normalize = False):
-	# TODO: document & test scalar data with alpha channel
-	"""Convert a 2D or 3D numpy array into a 32-bit QImage_.  The first
-	dimension represents the vertical image axis; the optional third
-	dimension is supposed to contain either three (RGB) or four (RGBA)
-	channels.  Scalar data will be converted into corresponding gray
-	RGB triples; if you want to convert to an (indexed) 8-bit image
-	instead, use `gray2qimage`.
+	"""Convert a 2D or 3D numpy array into a 32-bit QImage_.  The
+	first dimension represents the vertical image axis; the optional
+	third dimension is supposed to contain 1-4 channels:
+
+	========= ===================
+	#channels interpretation
+	========= ===================
+	        1 scalar/gray
+	        2 scalar/gray + alpha
+	        3 RGB
+	        4 RGB + alpha
+	========= ===================
+
+	Scalar data will be converted into corresponding gray RGB triples;
+	if you want to convert to an (indexed) 8-bit image instead, use
+	`gray2qimage` (which cannot support an alpha channel though).
 
 	The parameter `normalize` can be used to normalize an image's
 	value range to 0..255:
@@ -253,8 +265,8 @@ def array2qimage(array, normalize = False):
 		array = array[...,None]
 	elif _np.ndim(array) != 3:
 		raise ValueError("array2qimage can only convert 2D or 3D arrays")
-	if array.shape[2] not in (1, 3, 4):
-		raise ValueError("array2qimage expects the last dimension to contain exactly one (scalar/gray), three (R,G,B), or four (R,G,B,A) channels")
+	if array.shape[2] not in (1, 2, 3, 4):
+		raise ValueError("array2qimage expects the last dimension to contain exactly one (scalar/gray), two (gray+alpha), three (R,G,B), or four (R,G,B,A) channels")
 
 	h, w, channels = array.shape
 

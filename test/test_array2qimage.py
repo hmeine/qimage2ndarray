@@ -110,6 +110,20 @@ def test_scalar2qimage():
 	assert_equal(hex(qImg.pixel(10,14)), hex(QtGui.qRgb(0,0,0)))    # zero pixel
 	assert_equal(hex(qImg.pixel(10,13)), hex(QtGui.qRgb(0,0,0)))    # min pixel
 
+def test_scalar2qimage_with_alpha():
+	a = numpy.zeros((240, 320, 2), dtype = float)
+	a[...,1] = 255
+	a[12,10] = (42.42, 128)
+	a[13,10] = (-10, 0)
+	qImg = qimage2ndarray.array2qimage(a)
+	assert not qImg.isNull()
+	assert_equal(qImg.width(), 320)
+	assert_equal(qImg.height(), 240)
+	assert_equal(qImg.format(), QtGui.QImage.Format_ARGB32)
+	assert_equal(hex(qImg.pixel(10,12)), hex(QtGui.qRgba(42,42,42,128))) # max pixel
+	assert_equal(hex(qImg.pixel(10,14)), hex(QtGui.qRgba(0,0,0,255)))    # zero pixel
+	assert_equal(hex(qImg.pixel(10,13)), hex(QtGui.qRgba(0,0,0,0)))      # min pixel
+
 def test_scalar2qimage_normalize():
 	a = numpy.zeros((240, 320), dtype = float)
 	a[12,10] = 42.42
