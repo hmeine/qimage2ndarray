@@ -52,8 +52,12 @@ class build_ext(sipdistutils.build_ext):
 				   ["-I", config.pyqt_sip_dir,
 					source])
 
+for line in file("qimage2ndarray/__init__.py"):
+	if line.startswith("__version__"):
+		exec line
+
 setup(name = 'qimage2ndarray',
-	  version = '0.2',
+	  version = __version__,
 	  description = 'Conversion between QImages and numpy.ndarrays.',
 	  author = "Hans Meine",
 	  author_email = "meine@informatik.uni-hamburg.de",
