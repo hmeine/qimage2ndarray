@@ -91,7 +91,7 @@ appropriate type or value range).
 Converting QImages into numpy.ndarrays
 --------------------------------------
 
-QImages can be viewn as recarrays_ using
+QImages can be viewed as recarrays_ using
 :func:`recarray_view`, as uint8-valued array using :func:`rgb_view`,
 :func:`alpha_view`, or just :func:`byte_view`, or as raw 2D array
 using :func:`raw_view`.
