@@ -19,6 +19,9 @@ qt_lib_dir = config.qt_lib_dir
 
 # --------------------------------------------------------------------
 
+# Is there a better way than to explicitly list the Qt4 include
+# dirs and libraries here?  (before distutils, I used
+# PyQt4.pyqtconfig.QtGuiModuleMakefile to build extensions)
 qt_lib_dirs = [qt_lib_dir]
 qt_libraries = ["QtCore", "QtGui"]
 
@@ -29,17 +32,23 @@ if "mingw32" in sys.argv:
 						os.path.dirname(PyQt4.__file__)))
 	qt_libraries = [lib + "4" for lib in qt_libraries]
 
-# FIXME: is there a better way than to explicitly list the Qt4 include
-# dirs and libraries here?  (before distutils, I used
-# PyQt4.pyqtconfig.QtGuiModuleMakefile to build extensions)
 qimageview = Extension('qimage2ndarray.qimageview',
 					   sources = ['qimageview.sip'],
 					   include_dirs = [numpy.get_include(),
 									   qt_inc_dir,
 									   os.path.join(qt_inc_dir, "QtCore"),
-									   os.path.join(qt_inc_dir, "QtGui")],
-					   library_dirs = qt_lib_dirs,
-					   libraries = qt_libraries)
+									   os.path.join(qt_inc_dir, "QtGui")])
+
+if sys.platform == 'darwin':
+	# Qt is distributed as 'framework' on OS X; obviously we need this
+	# special handling?!
+	for lib in qt_libraries:
+		qimageview.extra_link_args.extend(['-framework', lib])
+	for d in qt_lib_dirs:
+		qimageview.extra_link_args.append('-F' + d)
+else:
+	qimageview.libraries.extend(qt_libraries)
+	qimageview.library_dirs.extend(qt_lib_dirs)
 
 class build_ext(sipdistutils.build_ext):
 	def _sip_compile(self, sip_bin, source, sbf):
