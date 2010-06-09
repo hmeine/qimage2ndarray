@@ -35,6 +35,9 @@ but qimage2ndarray has the following unique feature set:
 * `Masked arrays`_ are also supported and are converted into QImages
   with transparent pixels.
 
+* Supports recarrays_ (and comes with an appropriate dtype) for
+  convenient access to RGB(A) channels (see :func:`recarray_view`).
+
 * Supports value scaling / normalization to 0..255 for convenient
   display of arbitrary NumPy arrays.
 
