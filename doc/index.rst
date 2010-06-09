@@ -50,8 +50,9 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
-Version 0.3:
+Version 1.0:
   - Let array2qimage support 2 channels (gray + alpha)
+  - Fixed installation on OS X (where Qt libs come as "Frameworks")
 
 Version 0.2:
   - Fixed endianness issues (tested on PowerPC arch)
