@@ -34,6 +34,13 @@ def test_gray2qimage_normalize():
 	x = int(255 * 10.0 / 52.42)
 	assert_equal(hex(qImg.pixel(10,14)), hex(QtGui.qRgb(x,x,x)))
 
+def test_empty2qimage():
+	a = numpy.ones((240, 320), dtype = float)
+	qImg = qimage2ndarray.gray2qimage(a, normalize = True)
+	assert_equal(hex(qImg.pixel(10,13)), hex(QtGui.qRgb(0,0,0)))
+	qImg = qimage2ndarray.array2qimage(a, normalize = True)
+	assert_equal(hex(qImg.pixel(10,13)), hex(QtGui.qRgb(0,0,0)))
+
 def test_gray2qimage_normalize_onlymax():
 	a = numpy.zeros((240, 320), dtype = float)
 	a[12,10] = 42.42

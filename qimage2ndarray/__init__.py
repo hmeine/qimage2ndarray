@@ -154,9 +154,10 @@ def _normalize255(array, normalize):
 	if nmin:
 		array = array - nmin
 
-	scale = 255. / (nmax - nmin)
-	if scale != 1.0:
-		array = array * scale
+	if nmax != nmin:
+		scale = 255. / (nmax - nmin)
+		if scale != 1.0:
+			array = array * scale
 
 	return array
 
