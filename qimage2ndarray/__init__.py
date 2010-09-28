@@ -140,24 +140,28 @@ def recarray_view(qimage):
 
 # --------------------------------------------------------------------
 
-def _normalize255(array, normalize):
-	if not normalize:
-		return array
+def _normalize255(array, normalize, clip = (0, 255)):
+	if normalize:
+		if normalize is True:
+			normalize = array.min(), array.max()
+			if clip == (0, 255):
+				clip = None
+		elif _np.isscalar(normalize):
+			normalize = (0, normalize)
 
-	if normalize is True:
-		normalize = array.min(), array.max()
-	elif _np.isscalar(normalize):
-		normalize = (0, normalize)
+		nmin, nmax = normalize
 
-	nmin, nmax = normalize
+		if nmin:
+			array = array - nmin
 
-	if nmin:
-		array = array - nmin
+		if nmax != nmin:
+			scale = 255. / (nmax - nmin)
+			if scale != 1.0:
+				array = array * scale
 
-	if nmax != nmin:
-		scale = 255. / (nmax - nmin)
-		if scale != 1.0:
-			array = array * scale
+	if clip:
+		low, high = clip
+		_np.clip(array, low, high, array)
 
 	return array
 
@@ -198,13 +202,12 @@ def gray2qimage(gray, normalize = False):
 	h, w = gray.shape
 	result = _qt.QImage(w, h, _qt.QImage.Format_Indexed8)
 
-	gray = _normalize255(gray, normalize)
 
 	if not _np.ma.is_masked(gray):
 		for i in range(256):
 			result.setColor(i, _qt.qRgb(i,i,i))
 
-		_qimageview(result)[:] = gray.clip(0, 255)
+		_qimageview(result)[:] = _normalize255(gray, normalize)
 	else:
 		# map gray value 1 to gray value 0, in order to make room for
 		# transparent colormap entry:
@@ -212,7 +215,7 @@ def gray2qimage(gray, normalize = False):
 		for i in range(2, 256):
 			result.setColor(i-1, _qt.qRgb(i,i,i))
 
-		_qimageview(result)[:] = gray.clip(1, 255) - 1
+		_qimageview(result)[:] = _normalize255(gray, normalize, clip = (1, 255)) - 1
 
 		result.setColor(255, 0)
 		_qimageview(result)[gray.mask] = 255
@@ -281,9 +284,9 @@ def array2qimage(array, normalize = False):
 	array = _normalize255(array, normalize)
 
 	if channels >= 3:
-		rgb_view(result)[:] = array[...,:3].clip(0, 255)
+		rgb_view(result)[:] = array[...,:3]
 	else:
-		rgb_view(result)[:] = array[...,:1].clip(0, 255) # scalar data
+		rgb_view(result)[:] = array[...,:1] # scalar data
 
 	alpha = alpha_view(result)
 
