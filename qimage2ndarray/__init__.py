@@ -197,11 +197,11 @@ def gray2qimage(gray, normalize = False):
 	:type normalize: bool, scalar, or pair
 	:rtype: QImage_ with RGB32 or ARGB32 format"""
 	if _np.ndim(gray) != 2:
-		raise ValueError("gray2QImage can only convert 2D arrays")
+		raise ValueError("gray2QImage can only convert 2D arrays" +
+						 " (try using array2qimage)" if _np.ndim(gray) == 3 else "")
 
 	h, w = gray.shape
 	result = _qt.QImage(w, h, _qt.QImage.Format_Indexed8)
-
 
 	if not _np.ma.is_masked(gray):
 		for i in range(256):
