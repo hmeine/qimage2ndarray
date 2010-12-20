@@ -25,8 +25,9 @@ qt_lib_dir = config.qt_lib_dir
 qt_lib_dirs = [qt_lib_dir]
 qt_libraries = ["QtCore", "QtGui"]
 
-if "mingw32" in sys.argv:
-	# FIXME: better criterion - this should only apply to mingw32
+# TODO: is this the right criterion?
+# seems to be correct for mingw32 and msvc at least:
+if sys.platform.startswith("win"): # was: if "mingw32" in sys.argv:
 	qt_lib_dirs.extend((qt_lib_dir.replace(r"\lib", r"\bin"),
 						# fall back to default Qt DLL location:
 						os.path.dirname(PyQt4.__file__)))
