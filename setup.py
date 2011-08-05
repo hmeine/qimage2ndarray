@@ -1,6 +1,6 @@
 from distutils.core import setup, Extension
 
-import sys, os.path, numpy
+import sys, os.path, glob, numpy
 import sipdistutils
 
 import PyQt4.pyqtconfig
@@ -40,16 +40,29 @@ qimageview = Extension('qimage2ndarray.qimageview',
 									   os.path.join(qt_inc_dir, "QtCore"),
 									   os.path.join(qt_inc_dir, "QtGui")])
 
+qtInFrameworks = False
+
 if sys.platform == 'darwin':
-	# Qt is distributed as 'framework' on OS X; obviously we need this
-	# special handling?!
+	# official Qt is distributed as 'framework' on OS X (not always,
+	# e.g. with MacPorts..); obviously we need this special handling?!
+	if not glob.glob(os.path.join(qt_lib_dir, "libQtCore.*")):
+		assert os.path.isdir("%s/QtCore.framework" % qt_lib_dir), \
+			"PyQt4's 'qt_lib_dirs' config variable invalid, " \
+			"but QtCore.framework not found either!"
+		qtInFrameworks = True
+
+if qtInFrameworks:
 	for lib in qt_libraries:
 		qimageview.extra_link_args.extend(['-framework', lib])
 	for d in qt_lib_dirs:
 		qimageview.extra_link_args.append('-F' + d)
+		for qtlib in ("QtCore", "QtGui"):
+			qimageview.include_dirs.append("%s/%s.framework/Headers" % (d, qtlib))
 else:
 	qimageview.libraries.extend(qt_libraries)
 	qimageview.library_dirs.extend(qt_lib_dirs)
+	qimageview.include_dirs.append(os.path.join(qt_inc_dir, "QtCore"))
+	qimageview.include_dirs.append(os.path.join(qt_inc_dir, "QtGui"))
 
 class build_ext(sipdistutils.build_ext):
 	def _sip_compile(self, sip_bin, source, sbf):
