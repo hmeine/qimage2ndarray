@@ -1,6 +1,6 @@
 from distutils.core import setup, Extension
 
-import sys, os.path, glob, numpy
+import sys, os, glob, numpy
 import sipdistutils
 
 import PyQt4.pyqtconfig
@@ -28,69 +28,70 @@ qt_libraries = ["QtCore", "QtGui"]
 # TODO: is this the right criterion?
 # seems to be correct for mingw32 and msvc at least:
 if sys.platform.startswith("win"): # was: if "mingw32" in sys.argv:
-	qt_lib_dirs.extend((qt_lib_dir.replace(r"\lib", r"\bin"),
-						# fall back to default Qt DLL location:
-						os.path.dirname(PyQt4.__file__)))
-	qt_libraries = [lib + "4" for lib in qt_libraries]
+    qt_lib_dirs.extend((qt_lib_dir.replace(r"\lib", r"\bin"),
+                        # fall back to default Qt DLL location:
+                        os.path.dirname(PyQt4.__file__)))
+    qt_libraries = [lib + "4" for lib in qt_libraries]
 
 qimageview = Extension('qimage2ndarray.qimageview',
-					   sources = ['qimageview.sip'],
-					   include_dirs = [numpy.get_include(),
-									   qt_inc_dir,
-									   os.path.join(qt_inc_dir, "QtCore"),
-									   os.path.join(qt_inc_dir, "QtGui")])
+                       sources = ['qimageview.sip'],
+                       include_dirs = [numpy.get_include(),
+                                       qt_inc_dir,
+                                       os.path.join(os.getcwd(), "include"),
+                                       os.path.join(qt_inc_dir, "QtCore"),
+                                       os.path.join(qt_inc_dir, "QtGui")])
 
 qtInFrameworks = False
 
 if sys.platform == 'darwin':
-	# official Qt is distributed as 'framework' on OS X (not always,
-	# e.g. with MacPorts..); obviously we need this special handling?!
-	if not glob.glob(os.path.join(qt_lib_dir, "libQtCore.*")):
-		assert os.path.isdir("%s/QtCore.framework" % qt_lib_dir), \
-			"PyQt4's 'qt_lib_dirs' config variable invalid, " \
-			"but QtCore.framework not found either!"
-		qtInFrameworks = True
+    # official Qt is distributed as 'framework' on OS X (not always,
+    # e.g. with MacPorts..); obviously we need this special handling?!
+    if not glob.glob(os.path.join(qt_lib_dir, "libQtCore.*")):
+        assert os.path.isdir("%s/QtCore.framework" % qt_lib_dir), \
+            "PyQt4's 'qt_lib_dirs' config variable invalid, " \
+            "but QtCore.framework not found either!"
+        qtInFrameworks = True
 
 if qtInFrameworks:
-	for lib in qt_libraries:
-		qimageview.extra_link_args.extend(['-framework', lib])
-	for d in qt_lib_dirs:
-		qimageview.extra_link_args.append('-F' + d)
-		for qtlib in ("QtCore", "QtGui"):
-			qimageview.include_dirs.append("%s/%s.framework/Headers" % (d, qtlib))
+    for lib in qt_libraries:
+        qimageview.extra_link_args.extend(['-framework', lib])
+    for d in qt_lib_dirs:
+        qimageview.extra_link_args.append('-F' + d)
+        for qtlib in ("QtCore", "QtGui"):
+            qimageview.include_dirs.append("%s/%s.framework/Headers" % (d, qtlib))
 else:
-	qimageview.libraries.extend(qt_libraries)
-	qimageview.library_dirs.extend(qt_lib_dirs)
-	qimageview.include_dirs.append(os.path.join(qt_inc_dir, "QtCore"))
-	qimageview.include_dirs.append(os.path.join(qt_inc_dir, "QtGui"))
+    qimageview.libraries.extend(qt_libraries)
+    qimageview.library_dirs.extend(qt_lib_dirs)
+    qimageview.include_dirs.append(os.path.join(qt_inc_dir, "QtCore"))
+    qimageview.include_dirs.append(os.path.join(qt_inc_dir, "QtGui"))
 
 class build_ext(sipdistutils.build_ext):
-	def _sip_compile(self, sip_bin, source, sbf):
-		import PyQt4.pyqtconfig
-		config = PyQt4.pyqtconfig.Configuration()
-		self.spawn([sip_bin,
-					"-c", self.build_temp,
-					"-b", sbf] +
-				   config.pyqt_sip_flags.split() +
-				   ["-I", config.pyqt_sip_dir,
-					source])
+    def _sip_compile(self, sip_bin, source, sbf):
+        import PyQt4.pyqtconfig
+        config = PyQt4.pyqtconfig.Configuration()
+        self.spawn([sip_bin,
+                    "-c", self.build_temp,
+                    "-b", sbf] +
+                   config.pyqt_sip_flags.split() +
+                   ["-I", config.pyqt_sip_dir,
+                    source])
 
 for line in file("qimage2ndarray/__init__.py"):
-	if line.startswith("__version__"):
-		exec line
+    if line.startswith("__version__"):
+        exec line
 
 setup(name = 'qimage2ndarray',
-	  version = __version__,
-	  description = 'Conversion between QImages and numpy.ndarrays.',
-	  author = "Hans Meine",
-	  author_email = "meine@informatik.uni-hamburg.de",
-	  url = "http://kogs-www.informatik.uni-hamburg.de/~meine/software/qimage2ndarray",
-	  download_url = "http://kogs-www.informatik.uni-hamburg.de/~meine/software/qimage2ndarray/dist",
-	  keywords = ["QImage", "numpy", "ndarray", "image", "convert", "PyQt4"],
-	  packages = ['qimage2ndarray'],
-	  ext_modules = [qimageview],
-	  cmdclass = {'build_ext': build_ext},
-	  long_description = """\
+      version = __version__,
+      description = 'Conversion between QImages and numpy.ndarrays.',
+      author = "Hans Meine",
+      author_email = "meine@informatik.uni-hamburg.de",
+      url = "http://kogs-www.informatik.uni-hamburg.de/~meine/software/qimage2ndarray",
+      download_url = "http://kogs-www.informatik.uni-hamburg.de/~meine/software/qimage2ndarray/dist",
+      keywords = ["QImage", "numpy", "ndarray", "image", "convert", "PyQt4"],
+      packages = ['qimage2ndarray'],
+      ext_modules = [qimageview],
+      cmdclass = {'build_ext': build_ext},
+      long_description = """\
 qimage2ndarray is a small python extension for quickly converting
 between QImages and numpy.ndarrays (in both directions).  These are
 very common tasks when programming e.g. scientific visualizations in
@@ -113,15 +114,15 @@ Python using PyQt4 as the GUI library.
 * Supports value scaling / normalization to 0..255 for convenient
   display of arbitrary NumPy arrays.
 """,
-	  classifiers = [
-	"Programming Language :: Python",
-	"Development Status :: 5 - Production/Stable",
-	"Intended Audience :: Developers",
-	"Intended Audience :: Science/Research",
-	"License :: OSI Approved :: BSD License",
-	"Operating System :: OS Independent",
-	"Topic :: Multimedia :: Graphics",
-	"Topic :: Software Development :: Libraries :: Python Modules",
-	"Topic :: Software Development :: User Interfaces",
-	]
+      classifiers = [
+    "Programming Language :: Python",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: User Interfaces",
+    ]
 )
