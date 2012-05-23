@@ -38,8 +38,11 @@ PyObject *qimageview(QImage &image, PyObject *imageWrapper)
 	PyObject *result = PyArray_New(&PyArray_Type, 2, dims, dtype, strides, image.bits(),
 								   0/* itemsize (ignored) */, NPY_CARRAY, NULL);
 
-	PyArray_BASE(result) = imageWrapper;
-	Py_INCREF(imageWrapper);
+	if(imageWrapper)
+	{
+		PyArray_BASE(result) = imageWrapper;
+		Py_INCREF(imageWrapper);
+	}
 
 	return result;
 }
