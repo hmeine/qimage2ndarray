@@ -1,9 +1,40 @@
 from distutils.core import setup, Extension
 
 import sys, os, glob, numpy
-import sipdistutils
 
-import PyQt4.pyqtconfig
+error = None
+
+try:
+    from PyQt4 import QtCore
+except ImportError:
+    error = "PyQt4 not found at all", "could not import PyQt4.QtCore", "python-qt4"
+
+if not error: # if QtCore is missing, QtGui will not be present either...
+    try:
+        from PyQt4 import QtGui
+    except ImportError:
+        error = "PyQt4 not installed completely", "could not import PyQt4.QtGui, only QtCore", None
+
+if not error:
+    try:
+        import PyQt4.pyqtconfig
+    except ImportError:
+        error = "PyQt4 development files not installed", "could not import PyQt4.pyqtconfig", "python-qt4-dev"
+
+if not error:
+    try:
+        import sipdistutils
+    except ImportError:
+        error = "sip development files not installed", "could not import sipdistutils", "python-sip-dev"
+
+if error:
+    message, reason, package = error
+    sys.stderr.write("ERROR: %s.\n  (%s)\n" % (message, reason))
+    if package:
+        sys.stderr.write("=> Try install packages named similar to '%s'.\n" % package)
+    sys.stderr.write("\n")
+    sys.exit(1)
+
 config = PyQt4.pyqtconfig.Configuration()
 
 # --------------------------------------------------------------------
