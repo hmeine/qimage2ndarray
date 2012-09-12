@@ -17,10 +17,10 @@ import_array();
 SIP_PYOBJECT qimageview(QImage &image);
 %MethodCode
 {
-	PyObject *view = qimageview(*a0, PyTuple_GetItem(sipArgs, 0));
-	if(!view)
-		return NULL;
+    PyObject *view = qimageview(*a0, PyTuple_GetItem(sipArgs, 0));
+    if(!view)
+        return NULL;
 
-	sipRes = view;
+    sipRes = view;
 }
 %End
