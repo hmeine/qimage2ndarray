@@ -1,5 +1,5 @@
 // -*-c++-*-
-%Module qimageview 0
+%Module(name = qimageview, version = 0)
 
 %Import QtCore/QtCoremod.sip
 %Import QtGui/QtGuimod.sip
