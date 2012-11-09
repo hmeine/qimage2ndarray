@@ -53,6 +53,11 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
+Version 1.1:
+  - gracefully handle empty normalization range
+  - improved compilation support (on Windows and OS X)
+  - small optimizations
+
 Version 1.0:
   - Let array2qimage support 2 channels (gray + alpha)
   - Fixed installation on OS X (where Qt libs come as "Frameworks")
