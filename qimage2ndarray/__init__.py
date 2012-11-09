@@ -1,5 +1,6 @@
 import sys as _sys
 import numpy as _np
+
 from PyQt4 import QtGui as _qt
 from qimageview import qimageview as _qimageview
 
@@ -10,10 +11,12 @@ if _sys.byteorder == 'little':
 else:
     _bgra = (3, 2, 1, 0)
 
-bgra_dtype = _np.dtype({'b': (_np.uint8, _bgra[0], 'blue'),
-                        'g': (_np.uint8, _bgra[1], 'green'),
-                        'r': (_np.uint8, _bgra[2], 'red'),
-                        'a': (_np.uint8, _bgra[3], 'alpha')})
+_bgra_fields = {'b': (_np.uint8, _bgra[0], 'blue'),
+                'g': (_np.uint8, _bgra[1], 'green'),
+                'r': (_np.uint8, _bgra[2], 'red'),
+                'a': (_np.uint8, _bgra[3], 'alpha')}
+
+bgra_dtype = _np.dtype(_bgra_fields)
 """Complex dtype offering the named fields 'r','g','b', and 'a' and
 corresponding long names, conforming to QImage_'s 32-bit memory layout."""
 
@@ -274,10 +277,8 @@ def array2qimage(array, normalize = False):
 
     h, w, channels = array.shape
 
-    fmt = _qt.QImage.Format_RGB32
     hasAlpha = _np.ma.is_masked(array) or channels in (2, 4)
-    if hasAlpha:
-        fmt = _qt.QImage.Format_ARGB32
+    fmt = _qt.QImage.Format_ARGB32 if hasAlpha else _qt.QImage.Format_RGB32
 
     result = _qt.QImage(w, h, fmt)
 
