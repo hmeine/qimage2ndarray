@@ -57,6 +57,7 @@ Version 1.1:
   - gracefully handle empty normalization range
   - improved compilation support (on Windows and OS X)
   - small optimizations
+  - support alternative Qt bindings (PythonQt, used by MeVisLab)
 
 Version 1.0:
   - Let array2qimage support 2 channels (gray + alpha)
