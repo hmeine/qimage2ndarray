@@ -43,10 +43,10 @@ but qimage2ndarray has the following unique feature set:
 
 .. _masked arrays: http://docs.scipy.org/doc/numpy/reference/maskedarray.generic.html
 
-The extension is open source, BSD-licensed__, and the mercurial
-repository can be `browsed online`_ or cloned using Mercurial_::
+The extension is open source, BSD-licensed__, and the
+repository can be `browsed online`_ or cloned using Git_::
 
-  hg clone http://www.informatik.uni-hamburg.de/~meine/hg/qimage2ndarray/
+  git clone https://github.com/hmeine/qimage2ndarray.git
 
 __ http://www.opensource.org/licenses/bsd-license.php
 
@@ -125,8 +125,8 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`search`
 
-.. _browsed online: http://www.informatik.uni-hamburg.de/~meine/hg/qimage2ndarray/
-.. _Mercurial: http://mercurial.selenic.com/wiki/
+.. _browsed online: https://github.com/hmeine/qimage2ndarray
+.. _Git: http://git-scm.com
 .. _PyQt4: http://www.riverbankcomputing.co.uk/software/pyqt/
 .. _QImage: http://doc.trolltech.com/qimage.html
 .. _QImages: http://doc.trolltech.com/qimage.html

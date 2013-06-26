@@ -28,10 +28,10 @@ Python using PyQt4_ as the GUI library.
 Code
 ----
 
-The extension is open source, BSD-licensed, and the mercurial
-repository can be browsed online or cloned using Mercurial:
+The extension is open source, BSD-licensed, and the
+repository can be browsed online or cloned using Git:
 
-  hg clone http://www.informatik.uni-hamburg.de/~meine/hg/qimage2ndarray/
+  git clone https://github.com/hmeine/qimage2ndarray.git
 
 Documentation
 -------------
