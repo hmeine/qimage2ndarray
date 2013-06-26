@@ -1,4 +1,4 @@
-Copyright (c) 2009, Hans Meine <meine@informatik.uni-hamburg.de>
+Copyright (c) 2009, Hans Meine <hans_meine@gmx.net>
 All rights reserved. 
  
 Redistribution and use in source and binary forms, with or without

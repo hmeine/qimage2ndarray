@@ -43,8 +43,7 @@ Documentation can be found in the doc/ subdirectory or on the homepage:
 Contributors
 ------------
 
-This extension is written and maintained by Hans Meine
-<meine@informatik.uni-hamburg.de>.
+This extension is written and maintained by Hans Meine <hans_meine@gmx.net>.
 
 I am grateful for feedback from Ullrich Köthe and PowerPC/endianness
 testing by Helge Kreutzmann.
