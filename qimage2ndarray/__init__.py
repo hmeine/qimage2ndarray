@@ -88,7 +88,7 @@ def rgb_view(qimage, byteorder = 'big'):
         byteorder = _sys.byteorder
     bytes = byte_view(qimage, byteorder)
     if bytes.shape[2] != 4:
-        raise ValueError, "For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)"
+        raise ValueError("For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)")
 
     if byteorder == 'little':
         return bytes[...,:3] # strip A off BGRA
@@ -109,7 +109,7 @@ def alpha_view(qimage):
     :rtype: numpy.ndarray_ with shape (height, width) and dtype uint8"""
     bytes = byte_view(qimage, byteorder = None)
     if bytes.shape[2] != 4:
-        raise ValueError, "For alpha_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)"
+        raise ValueError("For alpha_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)")
     return bytes[...,_bgra[3]]
 
 def recarray_view(qimage):
@@ -144,7 +144,7 @@ def recarray_view(qimage):
     :rtype: numpy.ndarray_ with shape (height, width) and dtype :data:`bgra_dtype`"""
     raw = _qimageview(qimage)
     if raw.itemsize != 4:
-        raise ValueError, "For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)"
+        raise ValueError("For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)")
     return raw.view(bgra_dtype, _np.recarray)
 
 # --------------------------------------------------------------------
