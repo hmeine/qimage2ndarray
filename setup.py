@@ -70,7 +70,8 @@ qimageview = Extension('qimage2ndarray.qimageview',
                                        qt_inc_dir,
                                        os.path.join(os.getcwd(), "include"),
                                        os.path.join(qt_inc_dir, "QtCore"),
-                                       os.path.join(qt_inc_dir, "QtGui")])
+                                       os.path.join(qt_inc_dir, "QtGui")],
+                       define_macros = [('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')])
 
 qtInFrameworks = False
 
