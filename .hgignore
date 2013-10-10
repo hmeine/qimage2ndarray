@@ -1,6 +1,0 @@
-^(build|dist)/
-^old/
-^doc/(doctrees|html|latex|qthelp|linkcheck|doctest)
-^MANIFEST$
-~$
-\.(py[co]|so|egg-info)$
