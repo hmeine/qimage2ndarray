@@ -3,11 +3,12 @@ import numpy as _np
 
 try:
     from PyQt4 import QtGui as _qt
-    from qimageview import qimageview as _qimageview
 except ImportError:
     from PythonQt import QtGui as _qt
     from qimageview import QImage2ndarray as _temp
     _qimageview = _temp.qimageview
+else:
+    from qimageview import qimageview as _qimageview
 
 __version__ = "1.1"
 
