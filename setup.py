@@ -108,7 +108,7 @@ class build_ext(sipdistutils.build_ext):
                    ["-I", config.pyqt_sip_dir,
                     source])
 
-for line in file("qimage2ndarray/__init__.py"):
+for line in open("qimage2ndarray/__init__.py"):
     if line.startswith("__version__"):
         exec(line)
 
