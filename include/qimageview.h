@@ -2,6 +2,10 @@
 #include <numpy/arrayobject.h>
 #include <QtGui/QImage>
 
+#ifndef NPY_1_7_API_VERSION
+#  define NPY_ARRAY_CARRAY NPY_CARRAY
+#endif
+
 PyObject *qimageview(QImage &image, PyObject *imageWrapper)
 {
     NPY_TYPES dtype = NPY_NOTYPE;
@@ -36,11 +40,11 @@ PyObject *qimageview(QImage &image, PyObject *imageWrapper)
     }
 
     PyObject *result = PyArray_New(&PyArray_Type, 2, dims, dtype, strides, image.bits(),
-                                   0/* itemsize (ignored) */, NPY_CARRAY, NULL);
+                                   0/* itemsize (ignored) */, NPY_ARRAY_CARRAY, NULL);
 
     if(imageWrapper)
     {
-        PyArray_BASE(result) = imageWrapper;
+        PyArray_SetBaseObject(reinterpret_cast<PyArrayObject *>(result), imageWrapper);
         Py_INCREF(imageWrapper);
     }
 
