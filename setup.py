@@ -148,6 +148,7 @@ Python using PyQt4 as the GUI library.
 """,
       classifiers = [
     "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
