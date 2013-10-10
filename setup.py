@@ -110,7 +110,7 @@ class build_ext(sipdistutils.build_ext):
 
 for line in file("qimage2ndarray/__init__.py"):
     if line.startswith("__version__"):
-        exec line
+        exec(line)
 
 setup(name = 'qimage2ndarray',
       version = __version__,

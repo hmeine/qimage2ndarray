@@ -39,8 +39,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'qimage2ndarray'
-copyright = u'2009, Hans Meine'
+project = 'qimage2ndarray'
+copyright = '2009, Hans Meine'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -174,8 +174,8 @@ htmlhelp_basename = 'qimage2ndarraydoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'qimage2ndarray.tex', u'qimage2ndarray Documentation',
-   u'Hans Meine', 'manual'),
+  ('index', 'qimage2ndarray.tex', 'qimage2ndarray Documentation',
+   'Hans Meine', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
