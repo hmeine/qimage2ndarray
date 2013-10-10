@@ -29,16 +29,16 @@ Code
 ----
 
 The extension is open source, BSD-licensed, and the
-repository can be browsed online or cloned using Git:
+repository can be `browsed online`_ or cloned using Git:
 
   git clone https://github.com/hmeine/qimage2ndarray.git
 
 Documentation
 -------------
 
-Documentation can be found in the doc/ subdirectory or on the homepage:
+Documentation can be found in the doc/ subdirectory or on GitHub:
 
-  http://kogs-www.informatik.uni-hamburg.de/~meine/software/qimage2ndarray
+  http://hmeine.github.io/qimage2ndarray
 
 Contributors
 ------------
@@ -47,3 +47,5 @@ This extension is written and maintained by Hans Meine <hans_meine@gmx.net>.
 
 I am grateful for feedback from Ullrich Köthe and PowerPC/endianness
 testing by Helge Kreutzmann.
+
+.. _browsed online: https://github.com/hmeine/qimage2ndarray
