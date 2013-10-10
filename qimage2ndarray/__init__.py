@@ -10,7 +10,7 @@ except ImportError:
 else:
     from .qimageview import qimageview as _qimageview
 
-__version__ = "1.1"
+__version__ = "1.2"
 
 if _sys.byteorder == 'little':
     _bgra = (0, 1, 2, 3)

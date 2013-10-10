@@ -53,11 +53,16 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
+Version 1.2:
+  - support Python 3.x (in addition to Python 2.x, same codebase)
+  - move documentation away from uni-hamburg.de, too
+
 Version 1.1:
   - gracefully handle empty normalization range
   - improved compilation support (on Windows and OS X)
   - small optimizations
   - support alternative Qt bindings (PythonQt, used by MeVisLab)
+  - update URLs/email to move away from uni-hamburg.de
 
 Version 1.0:
   - Let array2qimage support 2 channels (gray + alpha)
