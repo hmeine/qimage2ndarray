@@ -141,8 +141,8 @@ Indices and tables
 .. _browsed online: https://github.com/hmeine/qimage2ndarray
 .. _Git: http://git-scm.com
 .. _PyQt4: http://www.riverbankcomputing.co.uk/software/pyqt/
-.. _QImage: http://doc.trolltech.com/qimage.html
-.. _QImages: http://doc.trolltech.com/qimage.html
+.. _QImage: http://qt-project.org/doc/qt-4.8/qimage.html
+.. _QImages: http://qt-project.org/doc/qt-4.8/qimage.html
 
 .. _numpy.ndarray: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
 .. _numpy.ndarrays: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
