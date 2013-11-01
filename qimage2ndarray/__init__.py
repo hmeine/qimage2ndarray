@@ -316,7 +316,7 @@ def array2qimage(array, normalize = False):
 
 
 def imread(filename):
-    """Convenience function that uses the QImage constructor to read an
+    """Convenience function that uses the QImage_ constructor to read an
     image from the given file and return an `rgb_view` of the result.
     This is intentionally similar to scipy.ndimage.imread (which uses
     PIL), scipy.misc.imread, or matplotlib.pyplot.imread (using PIL

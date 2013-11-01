@@ -127,6 +127,11 @@ Converting ndarrays into QImages
 .. autofunction:: array2qimage(array[, normalize])
 .. autofunction:: gray2qimage(gray[, normalize])
 
+Loading Images
+--------------
+
+.. autofunction:: imread(filename)
+
 Indices and tables
 ==================
 
