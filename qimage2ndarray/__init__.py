@@ -26,6 +26,7 @@ bgra_dtype = _np.dtype(_bgra_fields)
 """Complex dtype offering the named fields 'r','g','b', and 'a' and
 corresponding long names, conforming to QImage_'s 32-bit memory layout."""
 
+
 def raw_view(qimage):
     """Returns raw 2D view of the given QImage_'s memory.  The result
     will be a 2-dimensional numpy.ndarray with an appropriately sized
@@ -37,6 +38,7 @@ def raw_view(qimage):
     :type qimage: QImage_
     :rtype: numpy.ndarray_ with shape (height, width)"""
     return _qimageview(qimage)
+
 
 def byte_view(qimage, byteorder = 'little'):
     """Returns raw 3D view of the given QImage_'s memory.  This will
@@ -64,6 +66,7 @@ def byte_view(qimage, byteorder = 'little'):
     if byteorder and byteorder != _sys.byteorder:
         result = result[...,::-1]
     return result
+
 
 def rgb_view(qimage, byteorder = 'big'):
     """Returns RGB view of a given 32-bit color QImage_'s memory.
@@ -95,6 +98,7 @@ def rgb_view(qimage, byteorder = 'big'):
     else:
         return bytes[...,1:] # strip A off ARGB
 
+
 def alpha_view(qimage):
     """Returns alpha view of a given 32-bit color QImage_'s memory.
     The result is a 2D numpy.uint8 array, equivalent to
@@ -111,6 +115,7 @@ def alpha_view(qimage):
     if bytes.shape[2] != 4:
         raise ValueError("For alpha_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)")
     return bytes[...,_bgra[3]]
+
 
 def recarray_view(qimage):
     """Returns recarray_ view of a given 32-bit color QImage_'s
@@ -147,7 +152,7 @@ def recarray_view(qimage):
         raise ValueError("For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)")
     return raw.view(bgra_dtype, _np.recarray)
 
-# --------------------------------------------------------------------
+
 
 def _normalize255(array, normalize, clip = (0, 255)):
     if normalize:
@@ -173,6 +178,7 @@ def _normalize255(array, normalize, clip = (0, 255)):
         _np.clip(array, low, high, array)
 
     return array
+
 
 def gray2qimage(gray, normalize = False):
     """Convert the 2D numpy array `gray` into a 8-bit, indexed QImage_
@@ -230,6 +236,7 @@ def gray2qimage(gray, normalize = False):
         _qimageview(result)[gray.mask] = 255
 
     return result
+
 
 def array2qimage(array, normalize = False):
     """Convert a 2D or 3D numpy array into a 32-bit QImage_.  The
@@ -306,3 +313,24 @@ def array2qimage(array, normalize = False):
         alpha[:]  *= _np.logical_not(_np.any(array.mask, axis = -1))
 
     return result
+
+
+def imread(filename):
+    """Convenience function that uses the QImage constructor to read an
+    image from the given file and return an `rgb_view` of the result.
+    This is intentionally similar to scipy.ndimage.imread (which uses
+    PIL), scipy.misc.imread, or matplotlib.pyplot.imread (using PIL
+    for non-PNGs).
+
+    For grayscale images, return 2D array (even if it comes from a 32-bit
+    representation; this is a consequence of the QImage API).
+    """
+    qImage = _qt.QImage(filename)
+    if qImage.isGrayscale():
+        if qImage.depth() == 8:
+            return byte_view(qImage)[...,0]
+        elif qImage.depth() in (24, 32):
+            return rgb_view(qImage)[...,0]
+        else:
+            raise RuntimeError('imread(): 1-bit images not supported yet')
+    return rgb_view(qImage)
