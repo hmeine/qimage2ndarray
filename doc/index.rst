@@ -53,6 +53,9 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
+Version 1.3:
+  - added imread()
+
 Version 1.2:
   - support Python 3.x (in addition to Python 2.x, same codebase)
   - move documentation away from uni-hamburg.de, too

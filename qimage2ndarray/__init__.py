@@ -10,7 +10,7 @@ except ImportError:
 else:
     from .qimageview import qimageview as _qimageview
 
-__version__ = "1.2"
+__version__ = "1.3"
 
 if _sys.byteorder == 'little':
     _bgra = (0, 1, 2, 3)
@@ -324,6 +324,8 @@ def imread(filename):
 
     For grayscale images, return 2D array (even if it comes from a 32-bit
     representation; this is a consequence of the QImage API).
+
+    This function has been added in version 1.3.
     """
     qImage = _qt.QImage(filename)
     if qImage.isGrayscale():
