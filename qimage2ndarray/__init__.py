@@ -26,6 +26,10 @@ bgra_dtype = _np.dtype(_bgra_fields)
 """Complex dtype offering the named fields 'r','g','b', and 'a' and
 corresponding long names, conforming to QImage_'s 32-bit memory layout."""
 
+def _qimage_or_filename_view(qimage):
+    if isinstance(qimage, basestring):
+        qimage = _qt.QImage(qimage)
+    return _qimageview(qimage)
 
 def raw_view(qimage):
     """Returns raw 2D view of the given QImage_'s memory.  The result
@@ -37,7 +41,7 @@ def raw_view(qimage):
     :param qimage: image whose memory shall be accessed via NumPy
     :type qimage: QImage_
     :rtype: numpy.ndarray_ with shape (height, width)"""
-    return _qimageview(qimage)
+    return _qimage_or_filename_view(qimage)
 
 
 def byte_view(qimage, byteorder = 'little'):
@@ -57,11 +61,14 @@ def byte_view(qimage, byteorder = 'little'):
     sys.byteorder here, i.e. return native order for the machine the
     code is running on.
 
+    For your convenience, `qimage` may also be a filename, see
+    `Loading Images`_ in the documentation.
+
     :param qimage: image whose memory shall be accessed via NumPy
     :type qimage: QImage_
     :param byteorder: specify order of channels in last axis
     :rtype: numpy.ndarray_ with shape (height, width, 1 or 4) and dtype uint8"""
-    raw = _qimageview(qimage)
+    raw = _qimage_or_filename_view(qimage)
     result = raw.view(_np.uint8).reshape(raw.shape + (-1, ))
     if byteorder and byteorder != _sys.byteorder:
         result = result[...,::-1]
@@ -82,6 +89,9 @@ def rgb_view(qimage, byteorder = 'big'):
     `byteorder` to 'little' to get BGR, or use None which means
     sys.byteorder here, i.e. return native order for the machine the
     code is running on.
+
+    For your convenience, `qimage` may also be a filename, see
+    `Loading Images`_ in the documentation.
 
     :param qimage: image whose memory shall be accessed via NumPy
     :type qimage: QImage_ with 32-bit pixel type
@@ -108,6 +118,9 @@ def alpha_view(qimage):
     *uses* the alpha channel -- for Format_RGB32, the alpha channel
     usually contains 255 everywhere.
 
+    For your convenience, `qimage` may also be a filename, see
+    `Loading Images`_ in the documentation.
+
     :param qimage: image whose memory shall be accessed via NumPy
     :type qimage: QImage_ with 32-bit pixel type
     :rtype: numpy.ndarray_ with shape (height, width) and dtype uint8"""
@@ -125,6 +138,9 @@ def recarray_view(qimage):
     named fields 'r','g','b', and 'a' and corresponding long names.
     Thus, each color components can be accessed either via string
     indexing or via attribute lookup (through numpy.recarray_):
+
+    For your convenience, `qimage` may also be a filename, see
+    `Loading Images`_ in the documentation.
 
     >>> from PyQt4.QtGui import QImage, qRgb
     >>> qimg = QImage(320, 240, QImage.Format_ARGB32)
@@ -147,7 +163,7 @@ def recarray_view(qimage):
     :param qimage: image whose memory shall be accessed via NumPy
     :type qimage: QImage_ with 32-bit pixel type
     :rtype: numpy.ndarray_ with shape (height, width) and dtype :data:`bgra_dtype`"""
-    raw = _qimageview(qimage)
+    raw = _qimage_or_filename_view(qimage)
     if raw.itemsize != 4:
         raise ValueError("For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)")
     return raw.view(bgra_dtype, _np.recarray)
