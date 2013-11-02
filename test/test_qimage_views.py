@@ -1,7 +1,7 @@
 import qimage2ndarray
 from PyQt4 import QtGui
 
-from nose.tools import raises, assert_equal
+from nose.tools import assert_equal
 
 def test_raw_indexed8():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)

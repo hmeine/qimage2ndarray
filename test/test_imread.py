@@ -1,7 +1,6 @@
 import qimage2ndarray, os, numpy
-from PyQt4 import QtGui
 
-from nose.tools import raises, assert_equal
+from nose.tools import assert_equal
 from nose.plugins.skip import SkipTest
 
 
@@ -37,7 +36,7 @@ def test_imread_colored():
     assert_equal(rgb.shape, (11, 16, 3))
 
     
-def test_imread_colored():
+def test_imread_gray():
     filename = _locate_test_image('test_gray.jpg')
 
     gray = qimage2ndarray.imread(filename)

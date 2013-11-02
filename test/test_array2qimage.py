@@ -1,7 +1,7 @@
 import qimage2ndarray, numpy
 from PyQt4 import QtGui
 
-from nose.tools import raises, assert_equal
+from nose.tools import assert_equal
 
 def test_gray2qimage():
     a = numpy.zeros((240, 320), dtype = float)
@@ -215,7 +215,7 @@ def test_rgb2qimage():
     assert_equal(hex(qImg.pixel(10,13)), hex(QtGui.qRgb(0,0,0)))
     assert_equal(hex(qImg.pixel(10,14)), hex(QtGui.qRgb(0,0,0)))
 
-def test_scalar2qimage_normalize():
+def test_rgb2qimage_normalize():
     a = numpy.zeros((240, 320, 3), dtype = float)
     a[12,10] = (42.42, 20, 14)
     a[13,10] = (-10, 20, 0)
