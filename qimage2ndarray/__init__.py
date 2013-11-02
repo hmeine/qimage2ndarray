@@ -350,11 +350,23 @@ def imread(filename):
     This function has been added in version 1.3.
     """
     qImage = _qt.QImage(filename)
-    if qImage.isGrayscale():
-        if qImage.depth() == 8:
-            return byte_view(qImage)[...,0]
-        elif qImage.depth() in (24, 32):
-            return rgb_view(qImage)[...,0]
-        else:
-            raise RuntimeError('imread(): 1-bit images not supported yet')
-    return rgb_view(qImage)
+
+    isGray = qImage.isGrayscale()
+    if isGray and qImage.depth() == 8:
+        return byte_view(qImage)[...,0]
+
+    hasAlpha = qImage.hasAlphaChannel()
+
+    if hasAlpha:
+        targetFormat = _qt.QImage.Format_ARGB32
+    else:
+        targetFormat = _qt.QImage.Format_RGB32
+    if qImage.format() != targetFormat:
+        qImage = qImage.convertToFormat(targetFormat)
+
+    result = rgb_view(qImage)
+    if isGray:
+        result = result[...,0]
+    if hasAlpha:
+        result = _np.dstack((result, alpha_view(qImage)))
+    return result

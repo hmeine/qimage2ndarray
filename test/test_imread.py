@@ -23,8 +23,8 @@ def test_imread_box():
     assert_equal(gray.shape, (50, 111))
 
     
-def test_imread_colored():
-    filename = _locate_test_image('test_colored.jpg')
+def test_imread_rgba():
+    filename = _locate_test_image('test_colored_shadow.png')
 
     rgb = qimage2ndarray.imread(filename)
 
@@ -33,7 +33,7 @@ def test_imread_colored():
 
     assert_equal(numpy.ndim(rgb), 3)
 
-    assert_equal(rgb.shape, (11, 16, 3))
+    assert_equal(rgb.shape, (50, 111, 4))
 
     
 def test_imread_gray():
@@ -48,7 +48,8 @@ def test_imread_gray():
     assert_equal(gray.shape, (11, 16))
 
 
-all_test_images = map(_locate_test_image, ['test_box.png', 'test_colored.jpg', 'test_gray.jpg'])
+all_test_images = map(_locate_test_image, ['test_box.png', 'test_colored.jpg', 'test_gray.jpg',
+                                           'test_colored_shadow.png'])#, 'test_box_shadow.png'])
 
 def test_imread_against_scipy_ndimage():
     try:
@@ -57,6 +58,7 @@ def test_imread_against_scipy_ndimage():
         raise SkipTest
 
     for filename in all_test_images:
+        print filename
         a = scipy.ndimage.imread(filename)
         b = qimage2ndarray.imread(filename)
         assert_equal(a.shape, b.shape)
