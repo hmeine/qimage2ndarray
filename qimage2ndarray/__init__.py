@@ -26,8 +26,14 @@ bgra_dtype = _np.dtype(_bgra_fields)
 """Complex dtype offering the named fields 'r','g','b', and 'a' and
 corresponding long names, conforming to QImage_'s 32-bit memory layout."""
 
+try:
+    _basestring = basestring
+except NameError:
+    # 'basestring' undefined, must be Python 3
+    _basestring = str
+
 def _qimage_or_filename_view(qimage):
-    if isinstance(qimage, basestring):
+    if isinstance(qimage, _basestring):
         qimage = _qt.QImage(qimage)
     return _qimageview(qimage)
 

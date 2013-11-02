@@ -71,7 +71,6 @@ def test_imread_against_scipy_misc():
     for filename in all_test_images:
         a = scipy.misc.imread(filename)
         b = qimage2ndarray.imread(filename)
-        print a.shape, b.shape
         assert_equal(a.shape, b.shape)
         assert numpy.all(a == b)
 
@@ -84,7 +83,6 @@ def test_imread_against_matplotlib():
     for filename in all_test_images:
         a = matplotlib.pyplot.imread(filename)
         b = qimage2ndarray.imread(filename)
-        print a.shape, b.shape
         assert_equal(a.shape, b.shape)
         if a.max() == 1.0: # strange MPL API: only the PNG has 0..1.0 range
             a *= 255
