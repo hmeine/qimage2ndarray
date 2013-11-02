@@ -130,6 +130,18 @@ Converting ndarrays into QImages
 Loading Images
 --------------
 
+There are two ways to read images:
+
+1. The :func:`imread` function mimicks existing API in other
+   libraries, returning an ndarray whose dimensionality and shape
+   depends on whether the image is a color or grayscale image.
+
+2. Also, the view functions (all five of them) can be passed a
+   filename instead of a qimage.  This can be useful, e.g. in case you
+   want to get a recarray_ (:func:`recarray_view`), just the alpha
+   channel (:func:`alpha_view`), or the original ARGB image data
+   (:func:`byte_view`).
+
 .. autofunction:: imread(filename)
 
 Indices and tables
