@@ -43,8 +43,10 @@ but qimage2ndarray has the following unique feature set:
 
 .. _masked arrays: http://docs.scipy.org/doc/numpy/reference/maskedarray.generic.html
 
-The extension is open source, BSD-licensed__, and the
-repository can be `browsed online`_ or cloned using Git_::
+qimage2ndarray works with both Python 2.x and Python 3.x on all major
+platforms, and with different Python wrappers of Qt.  The extension is
+open source, BSD-licensed__, and the repository can be `browsed
+online`_ or cloned using Git_::
 
   git clone https://github.com/hmeine/qimage2ndarray.git
 
@@ -55,6 +57,7 @@ Changelog
 
 Version 1.3:
   - added imread()
+  - added implicit loading in view functions
 
 Version 1.2:
   - support Python 3.x (in addition to Python 2.x, same codebase)

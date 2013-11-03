@@ -58,7 +58,6 @@ def test_imread_against_scipy_ndimage():
         raise SkipTest
 
     for filename in all_test_images:
-        print filename
         a = scipy.ndimage.imread(filename)
         b = qimage2ndarray.imread(filename)
         assert_equal(a.shape, b.shape)
