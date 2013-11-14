@@ -73,18 +73,7 @@ qimageview = Extension('qimage2ndarray.qimageview',
                                        os.path.join(qt_inc_dir, "QtGui")],
                        define_macros = [('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')])
 
-qtInFrameworks = False
-
-if sys.platform == 'darwin':
-    # official Qt is distributed as 'framework' on OS X (not always,
-    # e.g. with MacPorts..); obviously we need this special handling?!
-    if not glob.glob(os.path.join(qt_lib_dir, "libQtCore.*")):
-        assert os.path.isdir("%s/QtCore.framework" % qt_lib_dir), \
-            "PyQt4's 'qt_lib_dirs' config variable invalid, " \
-            "but QtCore.framework not found either!"
-        qtInFrameworks = True
-
-if qtInFrameworks:
+if sys.platform == 'darwin' and config.qt_framework:
     for lib in qt_libraries:
         qimageview.extra_link_args.extend(['-framework', lib])
     for d in qt_lib_dirs:
