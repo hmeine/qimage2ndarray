@@ -76,10 +76,13 @@ qimageview = Extension('qimage2ndarray.qimageview',
 if sys.platform == 'darwin' and config.qt_framework:
     for lib in qt_libraries:
         qimageview.extra_link_args.extend(['-framework', lib])
-    for d in qt_lib_dirs:
-        qimageview.extra_link_args.append('-F' + d)
-        for qtlib in ("QtCore", "QtGui"):
-            qimageview.include_dirs.append("%s/%s.framework/Headers" % (d, qtlib))
+    if hasattr(config, 'qt_framework_dir'):
+        d = config.qt_framework_dir
+    else:
+        d = config.qt_lib_dir
+    qimageview.extra_link_args.append('-F' + d)
+    for qtlib in ("QtCore", "QtGui"):
+        qimageview.include_dirs.append("%s/%s.framework/Headers" % (d, qtlib))
 else:
     qimageview.libraries.extend(qt_libraries)
     qimageview.library_dirs.extend(qt_lib_dirs)
