@@ -4,6 +4,8 @@
 
 #ifndef NPY_1_7_API_VERSION
 #  define NPY_ARRAY_CARRAY NPY_CARRAY
+
+#  define PyArray_SetBaseObject(array, ptr) PyArray_BASE(array) = ptr
 #endif
 
 PyObject *qimageview(QImage &image, PyObject *imageWrapper)
