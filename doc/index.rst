@@ -55,12 +55,16 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
+Version 1.4:
+  - restored compatibility with NumPy 1.6 (lost in 1.2)
+
 Version 1.3:
   - added imread()
   - added implicit loading in view functions
 
 Version 1.2:
   - support Python 3.x (in addition to Python 2.x, same codebase)
+  - adapted to NumPy 1.7 API
   - move documentation away from uni-hamburg.de, too
 
 Version 1.1:
