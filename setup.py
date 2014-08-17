@@ -31,7 +31,7 @@ if error:
     message, reason, package = error
     sys.stderr.write("ERROR: %s.\n  (%s)\n" % (message, reason))
     if package:
-        sys.stderr.write("=> Try install packages named similar to '%s'.\n" % package)
+        sys.stderr.write("=> Try installing packages named similar to '%s'.\n" % package)
     sys.stderr.write("\n")
     sys.exit(1)
 
