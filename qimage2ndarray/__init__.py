@@ -1,14 +1,8 @@
 import sys as _sys
 import numpy as _np
 
-try:
-    from PyQt4 import QtGui as _qt
-except ImportError:
-    from PythonQt import QtGui as _qt
-    from .qimageview import QImage2ndarray as _temp
-    _qimageview = _temp.qimageview
-else:
-    from .qimageview_python import qimageview as _qimageview
+from .dynqt import QtGui as _qt
+from .qimageview_python import qimageview as _qimageview
 
 __version__ = "1.3.1"
 

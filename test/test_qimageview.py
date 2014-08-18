@@ -1,5 +1,5 @@
 from qimage2ndarray import _qimageview
-from PyQt4 import QtGui
+from qimage2ndarray.dynqt import QtGui
 
 from nose.tools import raises, assert_equal
 

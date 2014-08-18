@@ -1,35 +1,50 @@
 import numpy as np
-from PyQt4 import QtGui
-from PyQt4.QtGui import QImage
+from qimage2ndarray.dynqt import qt, QtGui
+
+def PyQt4_data(image):
+    # PyQt4's QImage.bits() returns a sip.voidptr that supports
+    # conversion to string via asstring(size) or getting its base
+    # address via int(...):
+    return (int(image.bits()), False)
+
+def PySide_data(image):
+    # PySide's QImage.bits() returns a buffer object like this:
+    # <read-write buffer ptr 0x7fc3f4821600, size 76800 at 0x111269570>
+    return image.bits()
+
+getdata = dict(
+    PyQt4 = PyQt4_data,
+    PySide = PySide_data,
+)[qt.name()]
 
 
 def qimageview(image):
-    if not isinstance(image, QImage):
+    if not isinstance(image, QtGui.QImage):
         raise TypeError("image argument must be a QImage instance")
 
     shape = image.height(), image.width()
     strides0 = image.bytesPerLine()
 
     format = image.format()
-    if format == QImage.Format_Indexed8:
+    if format == QtGui.QImage.Format_Indexed8:
         dtype = "|u1"
         strides1 = 1
-    elif format in (QImage.Format_RGB32, QImage.Format_ARGB32, QImage.Format_ARGB32_Premultiplied):
+    elif format in (QtGui.QImage.Format_RGB32, QtGui.QImage.Format_ARGB32, QtGui.QImage.Format_ARGB32_Premultiplied):
         dtype = "|u4"
         strides1 = 4
-    elif format == QImage.Format_Invalid:
+    elif format == QtGui.QImage.Format_Invalid:
         raise ValueError("qimageview got invalid QImage")
     else:
         raise ValueError("qimageview can only handle 8- or 32-bit QImages")
 
     image.__array_interface__ = {
-        '__ref': image,
         'shape': shape,
-        'data': (int(image.bits()), False),
-        'strides': (strides0, strides1),
         'typestr': dtype,
+        'data': getdata(image),
+        'strides': (strides0, strides1),
+        'version': 3,
     }
 
-    arr = np.array(image, copy=False)
+    result = np.asarray(image)
     del image.__array_interface__
-    return arr
+    return result
