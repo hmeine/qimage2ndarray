@@ -1,5 +1,5 @@
 from qimage2ndarray import _qimageview
-from qimage2ndarray.dynqt import QtGui
+from qimage2ndarray.dynqt import qt, QtGui
 
 from nose.tools import raises, assert_equal
 
@@ -7,10 +7,16 @@ def test_viewcreation():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
     v = _qimageview(qimg)
     assert_equal(v.shape, (240, 320))
-    assert v.base is qimg
-    del qimg
-    w, h = v.base.width(), v.base.height() # should not segfault
-    assert (w, h) == (320, 240)
+    assert v.base is not None
+    if qt.name() != 'PySide':
+        assert v.base is qimg
+        del qimg
+        w, h = v.base.width(), v.base.height() # should not segfault
+        assert (w, h) == (320, 240)
+    else:
+        del qimg
+        assert (v[:] > 0).sum() > 0 # should not segfault
+
 
 @raises(TypeError)
 def test_qimageview_noargs():
