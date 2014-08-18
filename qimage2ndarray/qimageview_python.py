@@ -7,10 +7,15 @@ def PyQt4_data(image):
     # address via int(...):
     return (int(image.bits()), False)
 
+import re
+_re_buffer_address = re.compile('<read-write buffer ptr 0x([0-9a-f]*),')
+
 def PySide_data(image):
     # PySide's QImage.bits() returns a buffer object like this:
     # <read-write buffer ptr 0x7fc3f4821600, size 76800 at 0x111269570>
-    return image.bits()
+    ma = _re_buffer_address.match(repr(image.bits()))
+    assert ma, 'could not parse address from %r' % (image.bits(), )
+    return (int(ma.group(1), 16), False)
 
 getdata = dict(
     PyQt4 = PyQt4_data,
