@@ -8,7 +8,7 @@ except ImportError:
     from .qimageview import QImage2ndarray as _temp
     _qimageview = _temp.qimageview
 else:
-    from .qimageview import qimageview as _qimageview
+    from .qimageview_python import qimageview as _qimageview
 
 __version__ = "1.3.1"
 
