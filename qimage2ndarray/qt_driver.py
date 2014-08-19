@@ -89,16 +89,29 @@ class QtDriver(object):
     @staticmethod
     def _initPyQt4():
         """initialize PyQt4 to be compatible with PySide"""
-        import sip
         if 'PyQt4.QtCore' in sys.modules:
-            # too late to configure API, let's check that it was properly parameterized...
-            for api in ('QVariant', 'QString'):
-                if sip.getapi(api) != 2:
-                    raise RuntimeError('%s API already set to V%d, but should be 2' % (api, sip.getapi(api)))
+            # too late to configure API
+            pass
         else:
+            import sip
             sip.setapi("QString", 2)
             sip.setapi("QVariant", 2)
 
+    @staticmethod
+    def requireCompatibleAPI():
+        """If PyQt4's API should be configured to be compatible with PySide's
+        (i.e. QString and QVariant should not be explicitly exported,
+        cf. documentation of sip.setapi()), call this function to check that
+        the PyQt4 was properly imported.  (It will always be configured this
+        way by this module, but it could have been imported before we got a
+        hand on doing so.)
+        """
+        if 'PyQt4.QtCore' in sys.modules:
+            import sip
+            for api in ('QVariant', 'QString'):
+                if sip.getapi(api) != 2:
+                    raise RuntimeError('%s API already set to V%d, but should be 2' % (api, sip.getapi(api)))
+            
     @staticmethod
     def _initPythonQt():
         import pythonqt_workarounds
