@@ -5,7 +5,7 @@ qimage2ndarray
 .. toctree::
    :maxdepth: 2
 
-qimage2ndarray is a small python extension for quickly converting
+qimage2ndarray is a small python package for quickly converting
 between QImages_ and numpy.ndarrays_ (in both directions).  These are
 very common tasks when programming e.g. scientific visualizations in
 Python using PyQt4_ as the GUI library.
@@ -17,8 +17,8 @@ but qimage2ndarray has the following unique feature set:
   and memory layout, with and without alpha channels, into QImages
   (e.g. for display or saving using Qt).
 
-* Using a tiny C++ extension, qimage2ndarray makes it possible to
-  create ndarrays_ that are *views* into a given QImage_'s memory.
+* qimage2ndarray makes it possible to create ndarrays_ that are
+  *views* into a given QImage_'s memory.
 
   This allows for very efficient data handling and makes it possible
   to modify Qt image data in-place (e.g. for brightness/gamma or alpha
