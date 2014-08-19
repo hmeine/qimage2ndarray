@@ -57,6 +57,7 @@ Changelog
 
 Version 1.4:
   - restored compatibility with NumPy 1.6 (lost in 1.2)
+  - added imsave()
 
 Version 1.3:
   - added imread()

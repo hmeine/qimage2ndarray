@@ -300,7 +300,7 @@ def array2qimage(array, normalize = False):
     if _np.ndim(array) == 2:
         array = array[...,None]
     elif _np.ndim(array) != 3:
-        raise ValueError("array2qimage can only convert 2D or 3D arrays")
+        raise ValueError("array2qimage can only convert 2D or 3D arrays (got %d dimensions)" % _np.ndim(array))
     if array.shape[2] not in (1, 2, 3, 4):
         raise ValueError("array2qimage expects the last dimension to contain exactly one (scalar/gray), two (gray+alpha), three (R,G,B), or four (R,G,B,A) channels")
 
@@ -364,3 +364,14 @@ def imread(filename):
     if hasAlpha:
         result = _np.dstack((result, alpha_view(qImage)))
     return result
+
+
+def imsave(filename, image, normalize = False):
+    """Convenience function that uses QImage.save to save an image to the
+    given file.  This is intentionally similar to scipy.misc.imsave.
+
+    This function has been added in version 1.4.
+    """
+
+    qImage = array2qimage(image, normalize = normalize)
+    return qImage.save(filename)

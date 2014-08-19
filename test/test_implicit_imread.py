@@ -1,4 +1,4 @@
-import qimage2ndarray, os, numpy
+import qimage2ndarray, numpy
 
 from test_imread import all_test_images, _locate_test_image
 
