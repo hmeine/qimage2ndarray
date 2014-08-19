@@ -41,10 +41,12 @@ but qimage2ndarray has the following unique feature set:
 * Supports value scaling / normalization to 0..255 for convenient
   display of arbitrary NumPy arrays.
 
+* Recent additions are convenient image loading / saving methods 
+
 .. _masked arrays: http://docs.scipy.org/doc/numpy/reference/maskedarray.generic.html
 
 qimage2ndarray works with both Python 2.x and Python 3.x on all major
-platforms, and with different Python wrappers of Qt.  The extension is
+platforms, and with different Python wrappers of Qt.  The package is
 open source, BSD-licensed__, and the repository can be `browsed
 online`_ or cloned using Git_::
 
@@ -56,11 +58,11 @@ Changelog
 =========
 
 Version 1.4:
+  - added :func:`imsave()`
   - restored compatibility with NumPy 1.6 (lost in 1.2)
-  - added imsave()
 
 Version 1.3:
-  - added imread()
+  - added :func:`imread()`
   - added implicit loading in view functions
 
 Version 1.2:
@@ -135,8 +137,8 @@ Converting ndarrays into QImages
 .. autofunction:: array2qimage(array[, normalize])
 .. autofunction:: gray2qimage(gray[, normalize])
 
-Loading Images
---------------
+Loading and Saving Images
+-------------------------
 
 There are two ways to read images from disk directly into `ndarrays`:
 
@@ -153,7 +155,13 @@ There are two ways to read images from disk directly into `ndarrays`:
 
 .. autofunction:: imread(filename)
 
-Indices and tables
+Finally, there is also a tiny wrapper around :func:`array2qimage` and
+`QImage.save()` for saving images to disk:
+
+.. autofunction:: imsave(filename, array[, normalize])
+
+
+Indices and Tables
 ==================
 
 * :ref:`genindex`

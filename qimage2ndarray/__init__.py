@@ -62,7 +62,7 @@ def byte_view(qimage, byteorder = 'little'):
     code is running on.
 
     For your convenience, `qimage` may also be a filename, see
-    `Loading Images`_ in the documentation.
+    `Loading and Saving Images`_ in the documentation.
 
     :param qimage: image whose memory shall be accessed via NumPy
     :type qimage: QImage_
@@ -91,7 +91,7 @@ def rgb_view(qimage, byteorder = 'big'):
     code is running on.
 
     For your convenience, `qimage` may also be a filename, see
-    `Loading Images`_ in the documentation.
+    `Loading and Saving Images`_ in the documentation.
 
     :param qimage: image whose memory shall be accessed via NumPy
     :type qimage: QImage_ with 32-bit pixel type
@@ -119,7 +119,7 @@ def alpha_view(qimage):
     usually contains 255 everywhere.
 
     For your convenience, `qimage` may also be a filename, see
-    `Loading Images`_ in the documentation.
+    `Loading and Saving Images`_ in the documentation.
 
     :param qimage: image whose memory shall be accessed via NumPy
     :type qimage: QImage_ with 32-bit pixel type
@@ -140,7 +140,7 @@ def recarray_view(qimage):
     indexing or via attribute lookup (through numpy.recarray_):
 
     For your convenience, `qimage` may also be a filename, see
-    `Loading Images`_ in the documentation.
+    `Loading and Saving Images`_ in the documentation.
 
     >>> from PyQt4.QtGui import QImage, qRgb
     >>> qimg = QImage(320, 240, QImage.Format_ARGB32)
@@ -366,12 +366,17 @@ def imread(filename):
     return result
 
 
-def imsave(filename, image, normalize = False):
+def imsave(filename, image, normalize = False, format = None, quality = -1):
     """Convenience function that uses QImage.save to save an image to the
     given file.  This is intentionally similar to scipy.misc.imsave.
+    However, it supports different optional arguments:
 
+    :param normalize: see :func:`array2qimage` (which is used internally)
+    :param format: image filetype (e.g. 'PNG'),  (default: check filename's suffix)
+    :param quality: see QImage.save (0 = small .. 100 = uncompressed, -1 = default compression)
+    :returns: boolean success, see QImage.save
+    
     This function has been added in version 1.4.
     """
-
     qImage = array2qimage(image, normalize = normalize)
-    return qImage.save(filename)
+    return qImage.save(filename, format, quality)
