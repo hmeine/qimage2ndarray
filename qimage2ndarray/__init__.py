@@ -4,7 +4,7 @@ import numpy as _np
 from .dynqt import QtGui as _qt
 from .qimageview_python import qimageview as _qimageview
 
-__version__ = "1.3.1"
+__version__ = "1.4"
 
 if _sys.byteorder == 'little':
     _bgra = (0, 1, 2, 3)
