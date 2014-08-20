@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>qimage2ndarray &mdash; qimage2ndarray 1.3 documentation</title>
+    <title>qimage2ndarray &mdash; qimage2ndarray 1.4 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '1.3',
+        URL_ROOT:    './',
+        VERSION:     '1.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="qimage2ndarray 1.3 documentation" href="#" /> 
+    <link rel="top" title="qimage2ndarray 1.4 documentation" href="#" /> 
   </head>
   <body>
     <div class="related">
@@ -34,7 +32,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="#">qimage2ndarray 1.3 documentation</a> &raquo;</li> 
+        <li><a href="#">qimage2ndarray 1.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -49,7 +47,7 @@
 <ul class="simple">
 </ul>
 </div>
-<p>qimage2ndarray is a small python extension for quickly converting
+<p>qimage2ndarray is a small python package for quickly converting
 between <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImages</a> and <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarrays</a> (in both directions).  These are
 very common tasks when programming e.g. scientific visualizations in
 Python using <a class="reference external" href="http://www.riverbankcomputing.co.uk/software/pyqt/">PyQt4</a> as the GUI library.</p>
@@ -60,8 +58,8 @@ but qimage2ndarray has the following unique feature set:</p>
 and memory layout, with and without alpha channels, into QImages
 (e.g. for display or saving using Qt).</p>
 </li>
-<li><p class="first">Using a tiny C++ extension, qimage2ndarray makes it possible to
-create <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">ndarrays</a> that are <em>views</em> into a given <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>&#8216;s memory.</p>
+<li><p class="first">qimage2ndarray makes it possible to create <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">ndarrays</a> that are
+<em>views</em> into a given <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>&#8216;s memory.</p>
 <p>This allows for very efficient data handling and makes it possible
 to modify Qt image data in-place (e.g. for brightness/gamma or alpha
 mask modifications).</p>
@@ -83,25 +81,41 @@ convenient access to RGB(A) channels (see <tt class="xref py py-func docutils li
 <li><p class="first">Supports value scaling / normalization to 0..255 for convenient
 display of arbitrary NumPy arrays.</p>
 </li>
+<li><p class="first">Recent additions are convenient image loading / saving methods</p>
+</li>
 </ul>
 <p>qimage2ndarray works with both Python 2.x and Python 3.x on all major
-platforms, and with different Python wrappers of Qt.  The extension is
+platforms, and with different Python wrappers of Qt.  The package is
 open source, <a class="reference external" href="http://www.opensource.org/licenses/bsd-license.php">BSD-licensed</a>, and the repository can be <a class="reference external" href="https://github.com/hmeine/qimage2ndarray">browsed
 online</a> or cloned using <a class="reference external" href="http://git-scm.com">Git</a>:</p>
-<div class="highlight-python"><pre>git clone https://github.com/hmeine/qimage2ndarray.git</pre>
+<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/hmeine/qimage2ndarray.git
+</pre></div>
 </div>
 <div class="section" id="changelog">
 <h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
+<dt>Version 1.4:</dt>
+<dd><ul class="first last simple">
+<li><em>pure python</em> version of qimage2ndarray</li>
+<li>PySide support</li>
+<li>added <tt class="xref py py-func docutils literal"><span class="pre">imsave()</span></tt></li>
+</ul>
+</dd>
+<dt>Version 1.3.1:</dt>
+<dd><ul class="first last simple">
+<li>restored compatibility with NumPy 1.6 (lost in 1.2)</li>
+</ul>
+</dd>
 <dt>Version 1.3:</dt>
 <dd><ul class="first last simple">
-<li>added imread()</li>
+<li>added <tt class="xref py py-func docutils literal"><span class="pre">imread()</span></tt></li>
 <li>added implicit loading in view functions</li>
 </ul>
 </dd>
 <dt>Version 1.2:</dt>
 <dd><ul class="first last simple">
 <li>support Python 3.x (in addition to Python 2.x, same codebase)</li>
+<li>adapted to NumPy 1.7 API</li>
 <li>move documentation away from uni-hamburg.de, too</li>
 </ul>
 </dd>
@@ -173,7 +187,7 @@ named fields &#8216;r&#8217;,&#8217;g&#8217;,&#8217;b&#8217;, and &#8216;a&#8217
 Thus, each color components can be accessed either via string
 indexing or via attribute lookup (through <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.recarray.html">numpy.recarray</a>):</p>
 <p>For your convenience, <cite>qimage</cite> may also be a filename, see
-<a class="reference internal" href="#loading-images">Loading Images</a> in the documentation.</p>
+<a class="reference internal" href="#loading-and-saving-images">Loading and Saving Images</a> in the documentation.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PyQt4.QtGui</span> <span class="kn">import</span> <span class="n">QImage</span><span class="p">,</span> <span class="n">qRgb</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qimg</span> <span class="o">=</span> <span class="n">QImage</span><span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="n">QImage</span><span class="o">.</span><span class="n">Format_ARGB32</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qimg</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">qRgb</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">56</span><span class="p">))</span>
@@ -208,9 +222,7 @@ indexing or via attribute lookup (through <a class="reference external" href="ht
 <dl class="data">
 <dt id="qimage2ndarray.bgra_dtype">
 <tt class="descname">bgra_dtype</tt><em class="property"> = dtype([(('blue', 'b'), 'u1'), (('green', 'g'), 'u1'), (('red', 'r'), 'u1'), (('alpha', 'a'), 'u1')])</em><a class="headerlink" href="#qimage2ndarray.bgra_dtype" title="Permalink to this definition">¶</a></dt>
-<dd><p>Complex dtype offering the named fields &#8216;r&#8217;,&#8217;g&#8217;,&#8217;b&#8217;, and &#8216;a&#8217; and
-corresponding long names, conforming to <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>&#8216;s 32-bit memory layout.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="qimage2ndarray.rgb_view">
@@ -228,7 +240,7 @@ which defaults to &#8216;big&#8217;, i.e. RGB order.  You may set the argument
 sys.byteorder here, i.e. return native order for the machine the
 code is running on.</p>
 <p>For your convenience, <cite>qimage</cite> may also be a filename, see
-<a class="reference internal" href="#loading-images">Loading Images</a> in the documentation.</p>
+<a class="reference internal" href="#loading-and-saving-images">Loading and Saving Images</a> in the documentation.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -257,7 +269,7 @@ not enforced that the given qimage has a format that actually
 <em>uses</em> the alpha channel &#8211; for Format_RGB32, the alpha channel
 usually contains 255 everywhere.</p>
 <p>For your convenience, <cite>qimage</cite> may also be a filename, see
-<a class="reference internal" href="#loading-images">Loading Images</a> in the documentation.</p>
+<a class="reference internal" href="#loading-and-saving-images">Loading and Saving Images</a> in the documentation.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -286,7 +298,7 @@ argument <cite>byteorder</cite> to &#8216;big&#8217; to get ARGB, or use None wh
 sys.byteorder here, i.e. return native order for the machine the
 code is running on.</p>
 <p>For your convenience, <cite>qimage</cite> may also be a filename, see
-<a class="reference internal" href="#loading-images">Loading Images</a> in the documentation.</p>
+<a class="reference internal" href="#loading-and-saving-images">Loading and Saving Images</a> in the documentation.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -436,17 +448,18 @@ instead, use <cite>array2qimage</cite> to convert into a 32-bit QImage.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="loading-images">
-<h3>Loading Images<a class="headerlink" href="#loading-images" title="Permalink to this headline">¶</a></h3>
-<p>There are two ways to read images:</p>
+<div class="section" id="loading-and-saving-images">
+<h3>Loading and Saving Images<a class="headerlink" href="#loading-and-saving-images" title="Permalink to this headline">¶</a></h3>
+<p>There are two ways to read images from disk directly into <cite>ndarrays</cite>:</p>
 <ol class="arabic simple">
 <li>The <a class="reference internal" href="#qimage2ndarray.imread" title="qimage2ndarray.imread"><tt class="xref py py-func docutils literal"><span class="pre">imread()</span></tt></a> function mimicks existing API in other
 libraries, returning an ndarray whose dimensionality and shape
 depends on whether the image is a color or grayscale image.</li>
 <li>Also, the view functions (all five of them) can be passed a
-filename instead of a qimage.  This can be useful, e.g. in case you
-want to get a <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.recarray.html">recarray</a> (<a class="reference internal" href="#qimage2ndarray.recarray_view" title="qimage2ndarray.recarray_view"><tt class="xref py py-func docutils literal"><span class="pre">recarray_view()</span></tt></a>), just the alpha
-channel (<a class="reference internal" href="#qimage2ndarray.alpha_view" title="qimage2ndarray.alpha_view"><tt class="xref py py-func docutils literal"><span class="pre">alpha_view()</span></tt></a>), or the original ARGB image data
+filename instead of a qimage.  This can be more useful than
+<a class="reference internal" href="#qimage2ndarray.imread" title="qimage2ndarray.imread"><tt class="xref py py-func docutils literal"><span class="pre">imread()</span></tt></a>, e.g. in case you want to get a <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.recarray.html">recarray</a>
+(<a class="reference internal" href="#qimage2ndarray.recarray_view" title="qimage2ndarray.recarray_view"><tt class="xref py py-func docutils literal"><span class="pre">recarray_view()</span></tt></a>), just the alpha channel
+(<a class="reference internal" href="#qimage2ndarray.alpha_view" title="qimage2ndarray.alpha_view"><tt class="xref py py-func docutils literal"><span class="pre">alpha_view()</span></tt></a>), or the original ARGB image data
 (<a class="reference internal" href="#qimage2ndarray.byte_view" title="qimage2ndarray.byte_view"><tt class="xref py py-func docutils literal"><span class="pre">byte_view()</span></tt></a>).</li>
 </ol>
 <dl class="function">
@@ -462,10 +475,37 @@ representation; this is a consequence of the QImage API).</p>
 <p>This function has been added in version 1.3.</p>
 </dd></dl>
 
+<p>Finally, there is also a tiny wrapper around <a class="reference internal" href="#qimage2ndarray.array2qimage" title="qimage2ndarray.array2qimage"><tt class="xref py py-func docutils literal"><span class="pre">array2qimage()</span></tt></a> and
+<cite>QImage.save()</cite> for saving images to disk:</p>
+<dl class="function">
+<dt id="qimage2ndarray.imsave">
+<tt class="descname">imsave</tt><big>(</big><em>filename</em>, <em>array</em><span class="optional">[</span>, <em>normalize</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#qimage2ndarray.imsave" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience function that uses QImage.save to save an image to the
+given file.  This is intentionally similar to scipy.misc.imsave.
+However, it supports different optional arguments:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>normalize</strong> &#8211; see <a class="reference internal" href="#qimage2ndarray.array2qimage" title="qimage2ndarray.array2qimage"><tt class="xref py py-func docutils literal"><span class="pre">array2qimage()</span></tt></a> (which is used internally)</li>
+<li><strong>format</strong> &#8211; image filetype (e.g. &#8216;PNG&#8217;),  (default: check filename&#8217;s suffix)</li>
+<li><strong>quality</strong> &#8211; see QImage.save (0 = small .. 100 = uncompressed, -1 = default compression)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean success, see QImage.save</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This function has been added in version 1.4.</p>
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="indices-and-tables">
-<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<h2>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
 <li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
@@ -486,10 +526,10 @@ representation; this is a consequence of the QImage API).</p>
 <li><a class="reference internal" href="#module-qimage2ndarray">Usage</a><ul>
 <li><a class="reference internal" href="#converting-qimages-into-numpy-ndarrays">Converting QImages into numpy.ndarrays</a></li>
 <li><a class="reference internal" href="#converting-ndarrays-into-qimages">Converting ndarrays into QImages</a></li>
-<li><a class="reference internal" href="#loading-images">Loading Images</a></li>
+<li><a class="reference internal" href="#loading-and-saving-images">Loading and Saving Images</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and Tables</a></li>
 </ul>
 </li>
 </ul>
@@ -522,12 +562,12 @@ representation; this is a consequence of the QImage API).</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="#">qimage2ndarray 1.3 documentation</a> &raquo;</li> 
+        <li><a href="#">qimage2ndarray 1.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2009-2013, Hans Meine.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>
