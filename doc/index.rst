@@ -59,7 +59,7 @@ Changelog
 
 Version 1.4:
   - *pure python* version of qimage2ndarray
-  - PySide support
+  - PySide support (Python 2 only yet)
   - added :func:`imsave()`
 
 Version 1.3.1:
