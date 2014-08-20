@@ -16,5 +16,4 @@ def test_imsave():
             assert_equal(a.shape, b.shape)
             assert numpy.all(a == b)
     finally:
-        #os.unlink(tempFilename)
-        print tempFilename
+        os.unlink(tempFilename)
