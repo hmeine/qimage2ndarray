@@ -2,7 +2,13 @@ import sys as _sys
 import numpy as _np
 
 from .dynqt import QtGui as _qt
-from .qimageview_python import qimageview as _qimageview
+
+from .dynqt import qt as _qt_driver
+if _qt_driver.name() == 'PythonQt':
+    from .qimageview import QImage2ndarray as _temp
+    _qimageview = _temp.qimageview
+else:
+    from .qimageview_python import qimageview as _qimageview
 
 __version__ = "1.4"
 
