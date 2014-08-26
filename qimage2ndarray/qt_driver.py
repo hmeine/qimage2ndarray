@@ -112,15 +112,9 @@ class QtDriver(object):
                 if sip.getapi(api) != 2:
                     raise RuntimeError('%s API already set to V%d, but should be 2' % (api, sip.getapi(api)))
             
-    @staticmethod
-    def _initPythonQt():
-        import pythonqt_workarounds
-
     def importMod(self, mod):
         if self._drv == 'PyQt4':
             self._initPyQt4()
-        if self._drv == 'PythonQt':
-            self._initPythonQt()
         qt = __import__('%s.%s' % (self._drv, mod))
         return getattr(qt, mod)
 
