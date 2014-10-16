@@ -351,9 +351,12 @@ def imread(filename, masked = False):
     will be 2 (grayscale+alpha) or 4 (RGB+alpha).  Alternatively, one may
     pass `masked = True' in order to get `numpy.ma.array <masked
     arrays>`_ back.  Note that only fully transparent pixels are masked
-    (and that masked arrays only support binary masks).
+    (and that masked arrays only support binary masks).  The value of
+    `masked` is ignored when the loaded image has no alpha channel
+    (i.e., one would not get a masked array in that case).
 
     This function has been added in version 1.3.
+
     """
     qImage = _qt.QImage(filename)
 
