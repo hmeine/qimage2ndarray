@@ -347,6 +347,9 @@ def imread(filename):
     For grayscale images, return 2D array (even if it comes from a 32-bit
     representation; this is a consequence of the QImage API).
 
+    For images with an alpha channel, the resulting number of channels
+    will be 2 (grayscale+alpha) or 4 (RGB+alpha).
+
     This function has been added in version 1.3.
     """
     qImage = _qt.QImage(filename)
