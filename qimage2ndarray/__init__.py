@@ -337,7 +337,7 @@ def array2qimage(array, normalize = False):
     return result
 
 
-def imread(filename):
+def imread(filename, masked = False):
     """Convenience function that uses the QImage_ constructor to read an
     image from the given file and return an `rgb_view` of the result.
     This is intentionally similar to scipy.ndimage.imread (which uses
@@ -348,7 +348,10 @@ def imread(filename):
     representation; this is a consequence of the QImage API).
 
     For images with an alpha channel, the resulting number of channels
-    will be 2 (grayscale+alpha) or 4 (RGB+alpha).
+    will be 2 (grayscale+alpha) or 4 (RGB+alpha).  Alternatively, one may
+    pass `masked = True' in order to get `numpy.ma.array <masked
+    arrays>`_ back.  Note that only fully transparent pixels are masked
+    (and that masked arrays only support binary masks).
 
     This function has been added in version 1.3.
     """
@@ -371,7 +374,13 @@ def imread(filename):
     if isGray:
         result = result[...,0]
     if hasAlpha:
-        result = _np.dstack((result, alpha_view(qImage)))
+        if masked:
+            mask = (alpha_view(qImage) == 0)
+            if _np.ndim(result) == 3:
+                mask = _np.repeat(mask[...,None], 3, axis = 2)
+            result = _np.ma.masked_array(result, mask)
+        else:
+            result = _np.dstack((result, alpha_view(qImage)))
     return result
 
 
