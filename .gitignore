@@ -9,3 +9,4 @@
 *.py[co]
 *.so
 *.egg-info
+.DS_Store
