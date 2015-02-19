@@ -1,8 +1,8 @@
 import numpy as np
 from qimage2ndarray.dynqt import qt, QtGui
 
-def PyQt4_data(image):
-    # PyQt4's QImage.bits() returns a sip.voidptr that supports
+def PyQtX_data(image):
+    # PyQtX's QImage.bits() returns a sip.voidptr that supports
     # conversion to string via asstring(size) or getting its base
     # address via int(...):
     return (int(image.bits()), False)
@@ -21,10 +21,9 @@ def PySide_data(image):
     assert ma, 'could not parse address from %r' % (image.bits(), )
     return (int(ma.group(1), 16), False)
 
-getdata = dict(
-    PyQt4 = PyQt4_data,
-    PySide = PySide_data,
-)[qt.name()]
+getdata = dict(PyQt4 = PyQtX_data,
+               PyQt5 = PyQtX_data
+               PySide = PySide_data,)[qt.name()]
 
 
 def qimageview(image):
@@ -38,7 +37,9 @@ def qimageview(image):
     if format == QtGui.QImage.Format_Indexed8:
         dtype = "|u1"
         strides1 = 1
-    elif format in (QtGui.QImage.Format_RGB32, QtGui.QImage.Format_ARGB32, QtGui.QImage.Format_ARGB32_Premultiplied):
+    elif format in ( QtGui.QImage.Format_RGB32,
+    QtGui.QImage.Format_ARGB32,
+    QtGui.QImage.Format_ARGB32_Premultiplied):
         dtype = "|u4"
         strides1 = 4
     elif format == QtGui.QImage.Format_Invalid:

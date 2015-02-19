@@ -53,7 +53,7 @@ def raw_view(qimage):
 def byte_view(qimage, byteorder = 'little'):
     """Returns raw 3D view of the given QImage_'s memory.  This will
     always be a 3-dimensional numpy.ndarray with dtype numpy.uint8.
-    
+
     Note that for 32-bit images, the last dimension will be in the
     [B,G,R,A] order (if little endian) due to QImage_'s memory layout
     (the alpha channel will be present for Format_RGB32 images, too).
@@ -148,7 +148,7 @@ def recarray_view(qimage):
     For your convenience, `qimage` may also be a filename, see
     `Loading and Saving Images`_ in the documentation.
 
-    >>> from PyQt4.QtGui import QImage, qRgb
+    >>> from PyQt5.QtGui import QImage, qRgb
     >>> qimg = QImage(320, 240, QImage.Format_ARGB32)
     >>> qimg.fill(qRgb(12,34,56))
     >>>
@@ -381,7 +381,7 @@ def imsave(filename, image, normalize = False, format = None, quality = -1):
     :param format: image filetype (e.g. 'PNG'),  (default: check filename's suffix)
     :param quality: see QImage.save (0 = small .. 100 = uncompressed, -1 = default compression)
     :returns: boolean success, see QImage.save
-    
+
     This function has been added in version 1.4.
     """
     qImage = array2qimage(image, normalize = normalize)
