@@ -22,7 +22,7 @@ def PySide_data(image):
     return (int(ma.group(1), 16), False)
 
 getdata = dict(PyQt4 = PyQtX_data,
-               PyQt5 = PyQtX_data
+               PyQt5 = PyQtX_data,
                PySide = PySide_data,)[qt.name()]
 
 
@@ -37,7 +37,7 @@ def qimageview(image):
     if format == QtGui.QImage.Format_Indexed8:
         dtype = "|u1"
         strides1 = 1
-    elif format in ( QtGui.QImage.Format_RGB32,
+    elif format in (QtGui.QImage.Format_RGB32,
     QtGui.QImage.Format_ARGB32,
     QtGui.QImage.Format_ARGB32_Premultiplied):
         dtype = "|u4"
