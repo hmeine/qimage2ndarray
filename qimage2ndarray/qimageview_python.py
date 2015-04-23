@@ -9,7 +9,7 @@ def PyQt4_data(image):
 
 def _re_buffer_address_match(buf_repr):
     import re
-    _re_buffer_address = re.compile('<read-write buffer ptr 0x([0-9a-f]*),')
+    _re_buffer_address = re.compile('<read-write buffer ptr 0x([0-9a-fA-F]*),')
     global _re_buffer_address_match
     _re_buffer_address_match = _re_buffer_address.match
     return _re_buffer_address_match(buf_repr)
