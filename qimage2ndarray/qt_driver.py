@@ -16,7 +16,7 @@
 It will dynamically decide which one to use:
 
 * First, the environment variable QT_DRIVER is checked
-  (may be one of 'PyQt4', 'PySide', 'PythonQt').
+  (may be one of 'PyQt5', 'PyQt4', 'PySide', 'PythonQt').
 * If unset, previously imported binding modules are detected (in sys.modules).
 * If no bindings are loaded, the environment variable QT_API is checked
   (used by ETS and ipython, may be 'pyside' or 'pyqt').
@@ -57,13 +57,14 @@ def getprop_other(getter):
     return getter()
 
 class QtDriver(object):
-    DRIVERS = ('PyQt4', 'PySide', 'PythonQt')
-    
+    DRIVERS = ('PyQt5', 'PyQt4', 'PySide', 'PythonQt')
+
     @classmethod
     def detect_qt(cls):
         for drv in cls.DRIVERS:
             if drv in sys.modules:
                 return drv
+
         if '_PythonQt' in sys.modules:
             return 'PythonQt'
         return None
@@ -82,7 +83,9 @@ class QtDriver(object):
             drv = os.environ.get('QT_API')
         if drv is None:
             drv = 'PyQt4' # default to PyQt4
-        drv = {'pyside' : 'PySide', 'pyqt' : 'PyQt4'}.get(drv, drv) # map ETS syntax
+
+        # map ETS syntax
+        drv = {'pyside' : 'PySide', 'pyqt' : 'PyQt4'}.get(drv, drv)
         assert drv in self.DRIVERS
         self._drv = drv
 
@@ -110,8 +113,10 @@ class QtDriver(object):
             import sip
             for api in ('QVariant', 'QString'):
                 if sip.getapi(api) != 2:
-                    raise RuntimeError('%s API already set to V%d, but should be 2' % (api, sip.getapi(api)))
-            
+                    raise RuntimeError(('%s API already set to V%d, '
+                                        'but should be 2'
+                                        %(api, sip.getapi(api))))
+
     def importMod(self, mod):
         if self._drv == 'PyQt4':
             self._initPyQt4()

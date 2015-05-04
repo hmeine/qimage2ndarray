@@ -22,7 +22,7 @@ def test_imread_box():
 
     assert_equal(gray.shape, (50, 111))
 
-    
+
 def test_imread_rgba():
     filename = _locate_test_image('test_colored_shadow.png')
 
@@ -35,7 +35,7 @@ def test_imread_rgba():
 
     assert_equal(rgb.shape, (50, 111, 4))
 
-    
+
 def test_imread_gray():
     filename = _locate_test_image('test_gray.jpg')
 
@@ -74,6 +74,7 @@ def test_imread_against_scipy_misc():
         b = qimage2ndarray.imread(filename)
         assert_equal(a.shape, b.shape)
         assert numpy.all(a == b)
+
 
 def test_imread_against_matplotlib():
     try:

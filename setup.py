@@ -1,24 +1,5 @@
-try:
-    from setuptools import setup, Extension
-except ImportError:
-    from distutils.core import setup, Extension
 
-import sys, os, glob, numpy
-
-try:
-    import PyQt4
-except ImportError:
-    PyQt4 = None
-
-try:
-    import PySide
-except ImportError:
-    PySide = None
-
-try:
-    import PythonQt
-except ImportError:
-    PythonQt = None
+from distutils.core import setup
 
 for line in open("qimage2ndarray/__init__.py"):
     if line.startswith("__version__"):
@@ -31,11 +12,8 @@ setup(name = 'qimage2ndarray',
       author_email = "hans_meine@gmx.net",
       url = "https://github.com/hmeine/qimage2ndarray",
       download_url = "https://github.com/hmeine/qimage2ndarray/releases",
-      keywords = ["QImage", "numpy", "ndarray", "image", "convert", "PyQt4"],
+      keywords = ["QImage", "numpy", "ndarray", "image", "convert", "PyQt4", "PyQt5"],
       install_requires = ['numpy'],
-      extras_require = dict(PyQt4 = 'PyQt4',
-                            PySide = 'PySide'),
-      tests_require = 'nose',
       packages = ['qimage2ndarray'],
       long_description = """\
 qimage2ndarray is a small python extension for quickly converting
