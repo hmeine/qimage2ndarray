@@ -16,7 +16,7 @@
 It will dynamically decide which one to use:
 
 * First, the environment variable QT_DRIVER is checked
-  (may be one of 'PyQt4', 'PySide', 'PythonQt').
+  (may be one of 'PyQt5', 'PyQt4', 'PySide', 'PythonQt').
 * If unset, previously imported binding modules are detected (in sys.modules).
 * If no bindings are loaded, the environment variable QT_API is checked
   (used by ETS and ipython, may be 'pyside' or 'pyqt').
@@ -57,7 +57,7 @@ def getprop_other(getter):
     return getter()
 
 class QtDriver(object):
-    DRIVERS = ('PyQt4', 'PySide', 'PythonQt')
+    DRIVERS = ('PyQt5', 'PyQt4', 'PySide', 'PythonQt')
     
     @classmethod
     def detect_qt(cls):
