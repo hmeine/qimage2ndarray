@@ -1,8 +1,8 @@
 import numpy as np
 from qimage2ndarray.dynqt import qt, QtGui
 
-def PyQt4_data(image):
-    # PyQt4's QImage.bits() returns a sip.voidptr that supports
+def PyQt_data(image):
+    # PyQt4/PyQt5's QImage.bits() returns a sip.voidptr that supports
     # conversion to string via asstring(size) or getting its base
     # address via int(...):
     return (int(image.bits()), False)
@@ -22,7 +22,8 @@ def PySide_data(image):
     return (int(ma.group(1), 16), False)
 
 getdata = dict(
-    PyQt4 = PyQt4_data,
+    PyQt4 = PyQt_data,
+    PyQt5 = PyQt_data,
     PySide = PySide_data,
 )[qt.name()]
 
