@@ -58,6 +58,7 @@ def getprop_other(getter):
 
 class QtDriver(object):
     DRIVERS = ('PyQt5', 'PyQt4', 'PySide', 'PythonQt')
+    DEFAULT = 'PyQt4'
     
     @classmethod
     def detect_qt(cls):
@@ -81,7 +82,7 @@ class QtDriver(object):
         if drv is None:
             drv = os.environ.get('QT_API')
         if drv is None:
-            drv = 'PyQt4' # default to PyQt4
+            drv = self.DEFAULT
         drv = {'pyside' : 'PySide', 'pyqt' : 'PyQt4'}.get(drv, drv) # map ETS syntax
         assert drv in self.DRIVERS
         self._drv = drv
