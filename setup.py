@@ -1,24 +1,7 @@
 try:
-    from setuptools import setup, Extension
+    from setuptools import setup
 except ImportError:
-    from distutils.core import setup, Extension
-
-import sys, os, glob, numpy
-
-try:
-    import PyQt4
-except ImportError:
-    PyQt4 = None
-
-try:
-    import PySide
-except ImportError:
-    PySide = None
-
-try:
-    import PythonQt
-except ImportError:
-    PythonQt = None
+    from distutils.core import setup
 
 for line in open("qimage2ndarray/__init__.py"):
     if line.startswith("__version__"):
