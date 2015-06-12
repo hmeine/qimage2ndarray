@@ -45,7 +45,7 @@ Contributors
 
 This extension is written and maintained by Hans Meine <hans_meine@gmx.net>.
 
-I am grateful for feedback from Ullrich Köthe and PowerPC/endianness
-testing by Helge Kreutzmann.
+I am grateful for feedback from Ullrich Köthe, PowerPC/endianness
+testing by Helge Kreutzmann and initial PyQt5 support by Rudolf Hoefler.
 
 .. _browsed online: https://github.com/hmeine/qimage2ndarray

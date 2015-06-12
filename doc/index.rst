@@ -57,6 +57,9 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
+Version 1.5:
+  - PyQt5 support
+
 Version 1.4:
   - *pure python* version of qimage2ndarray
   - PySide support (Python 2 only yet)

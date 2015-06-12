@@ -10,7 +10,7 @@ if _qt_driver.name() == 'PythonQt':
 else:
     from .qimageview_python import qimageview as _qimageview
 
-__version__ = "1.4"
+__version__ = "1.5"
 
 if _sys.byteorder == 'little':
     _bgra = (0, 1, 2, 3)
