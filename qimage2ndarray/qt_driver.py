@@ -83,7 +83,7 @@ class QtDriver(object):
             drv = os.environ.get('QT_API')
         if drv is None:
             drv = self.DEFAULT
-        drv = {'pyside' : 'PySide', 'pyqt' : 'PyQt4'}.get(drv, drv) # map ETS syntax
+        drv = {'pyside' : 'PySide', 'pyqt' : 'PyQt4', 'pyqt5' : 'PyQt5'}.get(drv, drv) # map ETS syntax
         assert drv in self.DRIVERS
         self._drv = drv
 
