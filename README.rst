@@ -10,20 +10,31 @@ Python using PyQt4_ as the GUI library.
   and memory layout, with and without alpha channels, into QImages
   (e.g. for display or saving using Qt).
 
-* Using a tiny C++ extension, qimage2ndarray makes it possible to
-  create ndarrays_ that are *views* into a given QImage_'s memory.
+* qimage2ndarray makes it possible to create ndarrays_ that are
+  *views* into a given QImage_'s memory.
 
   This allows for very efficient data handling and makes it possible
   to modify Qt image data in-place (e.g. for brightness/gamma or alpha
   mask modifications).
 
-* qimage2ndarray is stable and unit-tested.
+* qimage2ndarray is stable and unit-tested:
+
+  * proper reference counting even with views (ndarray.base_ points to
+    the underlying QImage_)
+
+  * handles non-standard widths and respects QImage's 32-bit row
+    alignment
 
 * `Masked arrays`_ are also supported and are converted into QImages
   with transparent pixels.
 
+* Supports recarrays_ (and comes with an appropriate dtype) for
+  convenient access to RGB(A) channels (see :func:`recarray_view`).
+
 * Supports value scaling / normalization to 0..255 for convenient
   display of arbitrary NumPy arrays.
+
+* Recent additions are convenient image loading / saving methods
 
 Code
 ----
@@ -43,7 +54,7 @@ Documentation can be found in the doc/ subdirectory or on GitHub:
 Contributors
 ------------
 
-This extension is written and maintained by Hans Meine <hans_meine@gmx.net>.
+This package is written and maintained by Hans Meine <hans_meine@gmx.net>.
 
 I am grateful for feedback from Ullrich Köthe, PowerPC/endianness
 testing by Helge Kreutzmann and initial PyQt5 support by Rudolf Hoefler.
