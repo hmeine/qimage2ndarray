@@ -46,9 +46,10 @@ but qimage2ndarray has the following unique feature set:
 .. _masked arrays: http://docs.scipy.org/doc/numpy/reference/maskedarray.generic.html
 
 qimage2ndarray works with both Python 2.x and Python 3.x on all major
-platforms, and with different Python wrappers of Qt.  The package is
-open source, BSD-licensed__, and the repository can be `browsed
-online`_ or cloned using Git_::
+platforms, and with different Python wrappers of Qt (PyQt4 and PyQt5,
+and PySide and PythonQt on Python 2.x only at the moment).  The
+package is open source, BSD-licensed__, and the repository can be
+`browsed online`_ or cloned using Git_::
 
   git clone https://github.com/hmeine/qimage2ndarray.git
 
