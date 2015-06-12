@@ -31,18 +31,23 @@ Python using PyQt4 as the GUI library.
   and memory layout, with and without alpha channels, into QImages
   (e.g. for display or saving using Qt).
 
-* qimage2ndarray makes it possible to create ndarrays_ that are
-  *views* into a given QImage_'s memory.
+* qimage2ndarray makes it possible to create ndarrays that are
+  *views* into a given QImage's memory.
 
   This allows for very efficient data handling and makes it possible
   to modify Qt image data in-place (e.g. for brightness/gamma or alpha
   mask modifications).
 
-* `Masked arrays`_ are also supported and are converted into QImages
+* Masked arrays are also supported and are converted into QImages
   with transparent pixels.
+
+* Supports recarrays (and comes with an appropriate dtype) for
+  convenient access to RGB(A) channels.
 
 * Supports value scaling / normalization to 0..255 for convenient
   display of arbitrary NumPy arrays.
+
+* qimage2ndarray is stable and unit-tested.
 """,
       classifiers = [
     "Programming Language :: Python",

@@ -32,6 +32,8 @@ but qimage2ndarray has the following unique feature set:
   * handles non-standard widths and respects QImage's 32-bit row
     alignment
 
+  * tested with Python 2 and Python 3, and various Qt wrappers
+
 * `Masked arrays`_ are also supported and are converted into QImages
   with transparent pixels.
 
