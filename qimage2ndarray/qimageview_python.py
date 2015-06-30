@@ -15,11 +15,15 @@ def _re_buffer_address_match(buf_repr):
     return _re_buffer_address_match(buf_repr)
 
 def PySide_data(image):
-    # PySide's QImage.bits() returns a buffer object like this:
+    # PySide's QImage.bits() returns a memoryview object that can be used
+    # directly or a buffer object like this:
     # <read-write buffer ptr 0x7fc3f4821600, size 76800 at 0x111269570>
-    ma = _re_buffer_address_match(repr(image.bits()))
-    assert ma, 'could not parse address from %r' % (image.bits(), )
-    return (int(ma.group(1), 16), False)
+    bits = image.bits()
+    if "buffer" in repr(bits):
+        ma = _re_buffer_address_match(repr(image.bits()))
+        assert ma, 'could not parse address from %r' % (image.bits(), )
+        return (int(ma.group(1), 16), False)
+    return bits
 
 getdata = dict(
     PyQt4 = PyQt_data,
