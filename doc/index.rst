@@ -60,6 +60,9 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
+Version 1.5.1:
+  - small installation and documentation fixes
+
 Version 1.5:
   - PyQt5 support
 
