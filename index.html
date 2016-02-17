@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>qimage2ndarray &mdash; qimage2ndarray 1.5 documentation</title>
+    <title>qimage2ndarray &mdash; qimage2ndarray 1.5.1 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.5',
+        VERSION:     '1.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="qimage2ndarray 1.5 documentation" href="#" /> 
+    <link rel="top" title="qimage2ndarray 1.5.1 documentation" href="#" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -32,7 +32,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.5 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.5.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -70,6 +70,7 @@ mask modifications).</p>
 the underlying <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>)</li>
 <li>handles non-standard widths and respects QImage&#8217;s 32-bit row
 alignment</li>
+<li>tested with Python 2 and Python 3, and various Qt wrappers</li>
 </ul>
 </li>
 <li><p class="first"><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/maskedarray.generic.html">Masked arrays</a> are also supported and are converted into QImages
@@ -95,6 +96,11 @@ package is open source, <a class="reference external" href="http://www.opensourc
 <div class="section" id="changelog">
 <h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
+<dt>Version 1.5.1:</dt>
+<dd><ul class="first last simple">
+<li>small installation and documentation fixes</li>
+</ul>
+</dd>
 <dt>Version 1.5:</dt>
 <dd><ul class="first last simple">
 <li>PyQt5 support</li>
@@ -201,13 +207,13 @@ indexing or via attribute lookup (through <a class="reference external" href="ht
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">qimage2ndarray</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">qimage2ndarray</span><span class="o">.</span><span class="n">recarray_view</span><span class="p">(</span><span class="n">qimg</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">red</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="s">&quot;r&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">red</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">red</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
 <span class="go">12</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pixel</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pixel</span><span class="p">[</span><span class="s">&quot;r&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pixel</span><span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">]</span>
 <span class="go">12</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">g</span> <span class="o">==</span> <span class="n">v</span><span class="p">[</span><span class="s">&quot;g&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">g</span> <span class="o">==</span> <span class="n">v</span><span class="p">[</span><span class="s2">&quot;g&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 <span class="go">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">alpha</span> <span class="o">==</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 <span class="go">True</span>
@@ -576,12 +582,12 @@ However, it supports different optional arguments:</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.5 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.5.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2009-2013, Hans Meine.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.4.
     </div>
   </body>
 </html>
