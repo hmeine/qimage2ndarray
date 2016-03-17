@@ -9,11 +9,15 @@ def test_viewcreation():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
     v = _qimageview(qimg)
     assert_equal(v.shape, (240, 320))
-    assert v.base is qimg
-    del qimg
-    w, h = v.base.width(), v.base.height() # should not segfault
-    assert_equal((w, h), (320, 240))
-
+    assert v.base
+    if v.base is qimg:
+        del qimg
+        w, h = v.base.width(), v.base.height() # should not segfault
+        assert_equal((w, h), (320, 240))
+    else:
+        # PySide returns a memoryview in Python 3 and a buffer in Python 2
+        del qimg
+        assert(v.base[10] is not None)
 
 @raises(TypeError)
 def test_qimageview_noargs():
