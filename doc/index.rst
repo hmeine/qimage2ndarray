@@ -60,6 +60,9 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
+Version 1.6:
+  - finally, also support PySide on Python 3 (closing last known issue)
+
 Version 1.5.1:
   - small installation and documentation fixes
 
