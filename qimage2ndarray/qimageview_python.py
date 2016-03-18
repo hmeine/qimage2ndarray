@@ -1,4 +1,4 @@
-import numpy as np
+import numpy as np, sys
 from qimage2ndarray.dynqt import qt, QtGui
 
 def PyQt_data(image):
@@ -21,11 +21,17 @@ def PySide_data(image):
     assert ma, 'could not parse address from %r' % (image.bits(), )
     return (int(ma.group(1), 16), False)
 
-getdata = dict(
-    PyQt4 = PyQt_data,
-    PyQt5 = PyQt_data,
-    PySide = PySide_data,
-)[qt.name()]
+def direct_buffer_data(image):
+    return image.bits()
+
+getdata = {
+    ('PyQt4', 2) : PyQt_data,
+    ('PyQt5', 2) : PyQt_data,
+    ('PySide', 2) : PySide_data,
+    ('PyQt4', 3) : PyQt_data,
+    ('PyQt5', 3) : PyQt_data,
+    ('PySide', 3) : direct_buffer_data,
+}[qt.name(), sys.version_info.major]
 
 validFormats_8bit = [getattr(QtGui.QImage, name) for name in ('Format_Indexed8', 'Format_Grayscale8') if name in dir(QtGui.QImage)]
 validFormats_32bit = (QtGui.QImage.Format_RGB32, QtGui.QImage.Format_ARGB32, QtGui.QImage.Format_ARGB32_Premultiplied)
