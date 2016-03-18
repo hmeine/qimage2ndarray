@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>qimage2ndarray &mdash; qimage2ndarray 1.5.1 documentation</title>
+    <title>qimage2ndarray &mdash; qimage2ndarray 1.6 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.5.1',
+        VERSION:     '1.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="qimage2ndarray 1.5.1 documentation" href="#" /> 
+    <link rel="top" title="qimage2ndarray 1.6 documentation" href="#" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -32,7 +32,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.5.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -90,12 +90,17 @@ platforms, and with different Python wrappers of Qt (PyQt4 and PyQt5,
 and PySide and PythonQt on Python 2.x only at the moment).  The
 package is open source, <a class="reference external" href="http://www.opensource.org/licenses/bsd-license.php">BSD-licensed</a>, and the repository can be
 <a class="reference external" href="https://github.com/hmeine/qimage2ndarray">browsed online</a> or cloned using <a class="reference external" href="http://git-scm.com">Git</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/hmeine/qimage2ndarray.git
+<div class="highlight-python"><div class="highlight"><pre><span></span>git clone https://github.com/hmeine/qimage2ndarray.git
 </pre></div>
 </div>
 <div class="section" id="changelog">
 <h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
+<dt>Version 1.6:</dt>
+<dd><ul class="first last simple">
+<li>finally, also support PySide on Python 3 (closing last known issue)</li>
+</ul>
+</dd>
 <dt>Version 1.5.1:</dt>
 <dd><ul class="first last simple">
 <li>small installation and documentation fixes</li>
@@ -200,7 +205,7 @@ Thus, each color components can be accessed either via string
 indexing or via attribute lookup (through <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.recarray.html">numpy.recarray</a>):</p>
 <p>For your convenience, <cite>qimage</cite> may also be a filename, see
 <a class="reference internal" href="#loading-and-saving-images">Loading and Saving Images</a> in the documentation.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PyQt4.QtGui</span> <span class="kn">import</span> <span class="n">QImage</span><span class="p">,</span> <span class="n">qRgb</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PyQt4.QtGui</span> <span class="kn">import</span> <span class="n">QImage</span><span class="p">,</span> <span class="n">qRgb</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qimg</span> <span class="o">=</span> <span class="n">QImage</span><span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="n">QImage</span><span class="o">.</span><span class="n">Format_ARGB32</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qimg</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">qRgb</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">56</span><span class="p">))</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -582,12 +587,12 @@ However, it supports different optional arguments:</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.5.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.6 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2009-2013, Hans Meine.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
 </html>
