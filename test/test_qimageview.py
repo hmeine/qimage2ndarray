@@ -1,5 +1,6 @@
 from qimage2ndarray import _qimageview
 from qimage2ndarray.dynqt import qt, QtGui
+import numpy
 
 from nose.tools import raises, assert_equal
 from compat import setNumColors, numBytes
@@ -9,11 +10,12 @@ def test_viewcreation():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
     v = _qimageview(qimg)
     assert_equal(v.shape, (240, 320))
-    assert v.base is qimg
+    assert v.base is not None
     del qimg
-    w, h = v.base.width(), v.base.height() # should not segfault
-    assert_equal((w, h), (320, 240))
-
+    if hasattr(v.base, 'width'):
+        w, h = v.base.width(), v.base.height() # should not segfault
+        assert_equal((w, h), (320, 240))
+    v[239] = numpy.arange(320) # should not segfault
 
 @raises(TypeError)
 def test_qimageview_noargs():
