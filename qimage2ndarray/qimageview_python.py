@@ -24,6 +24,9 @@ def PySide_data(image):
 def direct_buffer_data(image):
     return image.bits()
 
+# I would have preferred a more pythonic (duck-typing-like) approach
+# based on introspection, but finding out which one of the above functions
+# works at runtime is quite hard
 getdata = {
     ('PyQt4', 2) : PyQt_data,
     ('PyQt5', 2) : PyQt_data,
