@@ -49,9 +49,9 @@ but qimage2ndarray has the following unique feature set:
 
 qimage2ndarray works with both Python 2.x and Python 3.x on all major
 platforms, and with different Python wrappers of Qt (PyQt4 and PyQt5,
-and PySide and PythonQt on Python 2.x only at the moment).  The
-package is open source, BSD-licensed__, and the repository can be
-`browsed online`_ or cloned using Git_::
+PySide, PySide2 and PythonQt).  The package is open source,
+BSD-licensed__, and the repository can be `browsed online`_ or cloned
+using Git_::
 
   git clone https://github.com/hmeine/qimage2ndarray.git
 
@@ -59,6 +59,10 @@ __ http://www.opensource.org/licenses/bsd-license.php
 
 Changelog
 =========
+
+Version 1.7:
+  - add support for PySide2
+  - changed default driver from PyQt4 to PyQt5
 
 Version 1.6:
   - finally, also support PySide on Python 3 (closing last known issue)
