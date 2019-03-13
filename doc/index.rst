@@ -60,6 +60,9 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
+Version 1.8:
+  - improve exception when calling `imread` on non-existing file
+
 Version 1.7:
   - add support for PySide2
   - changed default driver from PyQt4 to PyQt5

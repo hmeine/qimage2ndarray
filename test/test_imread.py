@@ -1,6 +1,6 @@
 import qimage2ndarray, os, numpy
 
-from nose.tools import assert_equal
+from nose.tools import assert_equal, raises
 from nose.plugins.skip import SkipTest
 
 
@@ -8,6 +8,13 @@ def _locate_test_image(basename):
     result = os.path.join(os.path.dirname(__file__), basename)
     assert os.path.exists(result)
     return result
+
+
+@raises(IOError)
+def test_imread_file_not_found():
+    filename = 'non_existing_image_file.png'
+
+    qimage2ndarray.imread(filename)
 
 
 def test_imread_box():

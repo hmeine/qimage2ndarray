@@ -360,6 +360,9 @@ def imread(filename, masked = False):
     """
     qImage = _qt.QImage(filename)
 
+    if qImage.isNull():
+        raise IOError('loading %r failed' % filename)
+
     isGray = qImage.isGrayscale()
     if isGray and qImage.depth() == 8:
         return byte_view(qImage)[...,0]
