@@ -38,8 +38,14 @@ getdata = {
     ('PySide2', 3) : direct_buffer_data,
 }[qt.name(), sys.version_info.major]
 
-validFormats_8bit = [getattr(QtGui.QImage, name) for name in ('Format_Indexed8', 'Format_Grayscale8') if name in dir(QtGui.QImage)]
-validFormats_32bit = (QtGui.QImage.Format_RGB32, QtGui.QImage.Format_ARGB32, QtGui.QImage.Format_ARGB32_Premultiplied)
+VALIDFORMATS_8BIT = tuple(
+    getattr(QtGui.QImage, name)
+    for name in ('Format_Indexed8', 'Format_Grayscale8')
+    if name in dir(QtGui.QImage))
+VALIDFORMATS_32BIT = (
+    QtGui.QImage.Format_RGB32,
+    QtGui.QImage.Format_ARGB32,
+    QtGui.QImage.Format_ARGB32_Premultiplied)
 
 def qimageview(image):
     if not isinstance(image, QtGui.QImage):
@@ -49,10 +55,10 @@ def qimageview(image):
     strides0 = image.bytesPerLine()
 
     format = image.format()
-    if format in validFormats_8bit:
+    if format in VALIDFORMATS_8BIT:
         dtype = "|u1"
         strides1 = 1
-    elif format in validFormats_32bit:
+    elif format in VALIDFORMATS_32BIT:
         dtype = "|u4"
         strides1 = 4
     elif format == QtGui.QImage.Format_Invalid:
