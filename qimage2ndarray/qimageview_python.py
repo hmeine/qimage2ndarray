@@ -1,3 +1,10 @@
+'''Pure-python version of previously necessary C extension providing
+read/write access to the memory of a QImage.
+
+Over time, it became possible to get rid of the compiled extension on
+all supported backends, so this is now used for all Qt python bindings.
+'''
+
 import numpy as np, sys
 from qimage2ndarray.dynqt import qt, QtGui
 
@@ -36,6 +43,7 @@ getdata = {
     ('PyQt5', 3) : PyQt_data,
     ('PySide', 3) : direct_buffer_data,
     ('PySide2', 3) : direct_buffer_data,
+    ('PythonQt', 3) : direct_buffer_data,
 }[qt.name(), sys.version_info.major]
 
 VALIDFORMATS_8BIT = tuple(
