@@ -47,33 +47,39 @@ VALIDFORMATS_32BIT = (
     QtGui.QImage.Format_ARGB32,
     QtGui.QImage.Format_ARGB32_Premultiplied)
 
+class ArrayInterfaceAroundQImage(object):
+    __slots__ = ('__qimage', '__array_interface__')
+
+    def __init__(self, image, strides1):
+        self.__qimage = image
+
+        strides0 = image.bytesPerLine()
+
+        self.__array_interface__ = dict(
+            shape = (image.height(), image.width()),
+            typestr = "|u%d" % strides1,
+            data = getdata(image),
+            strides = (strides0, strides1),
+            version = 3,
+        )
+    
 def qimageview(image):
     if not isinstance(image, QtGui.QImage):
         raise TypeError("image argument must be a QImage instance")
 
-    shape = image.height(), image.width()
-    strides0 = image.bytesPerLine()
-
-    format = image.format()
-    if format in VALIDFORMATS_8BIT:
-        dtype = "|u1"
+    pixel_format = image.format()
+    if pixel_format in VALIDFORMATS_8BIT:
         strides1 = 1
-    elif format in VALIDFORMATS_32BIT:
-        dtype = "|u4"
+    elif pixel_format in VALIDFORMATS_32BIT:
         strides1 = 4
-    elif format == QtGui.QImage.Format_Invalid:
+    elif pixel_format == QtGui.QImage.Format_Invalid:
         raise ValueError("qimageview got invalid QImage")
     else:
-        raise ValueError("qimageview can only handle 8- or 32-bit QImages (format was %r)" % format)
+        raise ValueError("qimageview can only handle 8- or 32-bit QImages (format was %r)" % pixel_format)
 
-    image.__array_interface__ = {
-        'shape': shape,
-        'typestr': dtype,
-        'data': getdata(image),
-        'strides': (strides0, strides1),
-        'version': 3,
-    }
+    # introduce intermediate object referencing image
+    # and providing array interface:
+    temp = ArrayInterfaceAroundQImage(image, strides1)
 
-    result = np.asarray(image)
-    del image.__array_interface__
+    result = np.asarray(temp)
     return result
