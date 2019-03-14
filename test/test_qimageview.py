@@ -100,6 +100,16 @@ def test_odd_size_32bit():
     assert_equal(v[10,12], 42)
     assert_equal(v.strides[0], qimg.bytesPerLine())
 
+def test_odd_size_32bit_rgb():
+    qimg = QtGui.QImage(321, 240, QtGui.QImage.Format_RGB32)
+    qimg.fill(0)
+    v = _qimageview(qimg)
+    qimg.setPixel(12, 10, 42)
+    assert_equal(v.shape, (240, 321))
+    assert_equal(v[10,12], 42 | 0xff000000)
+    assert_equal(v.strides[0], qimg.bytesPerLine())
+    assert_equal(v.strides[1], 4)
+
 @raises(ValueError)
 def test_mono():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Mono)
