@@ -58,16 +58,16 @@ VALIDFORMATS_32BIT = (
 class ArrayInterfaceAroundQImage(object):
     __slots__ = ('__qimage', '__array_interface__')
 
-    def __init__(self, image, strides1):
+    def __init__(self, image, bytes_per_pixel):
         self.__qimage = image
 
-        strides0 = image.bytesPerLine()
+        bytes_per_line = image.bytesPerLine()
 
         self.__array_interface__ = dict(
             shape = (image.height(), image.width()),
-            typestr = "|u%d" % strides1,
+            typestr = "|u%d" % bytes_per_pixel,
             data = getdata(image),
-            strides = (strides0, strides1),
+            strides = (bytes_per_line, bytes_per_pixel),
             version = 3,
         )
     
@@ -77,9 +77,9 @@ def qimageview(image):
 
     pixel_format = image.format()
     if pixel_format in VALIDFORMATS_8BIT:
-        strides1 = 1
+        bytes_per_pixel = 1
     elif pixel_format in VALIDFORMATS_32BIT:
-        strides1 = 4
+        bytes_per_pixel = 4
     elif pixel_format == QtGui.QImage.Format_Invalid:
         raise ValueError("qimageview got invalid QImage")
     else:
@@ -87,7 +87,7 @@ def qimageview(image):
 
     # introduce intermediate object referencing image
     # and providing array interface:
-    temp = ArrayInterfaceAroundQImage(image, strides1)
+    temp = ArrayInterfaceAroundQImage(image, bytes_per_pixel)
 
     result = np.asarray(temp)
     return result
