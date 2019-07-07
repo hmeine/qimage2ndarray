@@ -46,14 +46,60 @@ getdata = {
     ('PythonQt', 3) : direct_buffer_data,
 }[qt.name(), sys.version_info.major]
 
+
+# how many bits do the different formats have?
+FORMATS_BITS = dict(
+    Format_Mono = 1,
+    Format_MonoLSB = 1,
+    Format_Indexed8 = 8,
+    Format_RGB32 = 32,
+    Format_ARGB32 = 32,
+    Format_ARGB32_Premultiplied = 32,
+    Format_RGB16 = 16,
+    Format_ARGB8565_Premultiplied = 24,
+    Format_RGB666 = 24,
+    Format_ARGB6666_Premultiplied = 24,
+    Format_RGB555 = 16,
+    Format_ARGB8555_Premultiplied = 24,
+    Format_RGB888 = 24,
+    Format_RGB444 = 16,
+    Format_ARGB4444_Premultiplied = 16,
+    Format_RGBX8888 = 32,
+    Format_RGBA8888 = 32,
+    Format_RGBA8888_Premultiplied = 32,
+    Format_BGR30 = 32,
+    Format_A2BGR30_Premultiplied = 32,
+    Format_RGB30 = 32,
+    Format_A2RGB30_Premultiplied = 32,
+    Format_Alpha8 = 8,
+    Format_Grayscale8 = 8,
+    Format_Grayscale16 = 16,
+    Format_RGBX64 = 64,
+    Format_RGBA64 = 64,
+    Format_RGBA64_Premultiplied = 64,
+)
+
+    
 VALIDFORMATS_8BIT = tuple(
     getattr(QtGui.QImage, name)
-    for name in ('Format_Indexed8', 'Format_Grayscale8')
-    if name in dir(QtGui.QImage))
-VALIDFORMATS_32BIT = (
-    QtGui.QImage.Format_RGB32,
-    QtGui.QImage.Format_ARGB32,
-    QtGui.QImage.Format_ARGB32_Premultiplied)
+    for name, bits in FORMATS_BITS.items()
+    if name in dir(QtGui.QImage) and bits == 8)
+VALIDFORMATS_16BIT = tuple(
+    getattr(QtGui.QImage, name)
+    for name, bits in FORMATS_BITS.items()
+    if name in dir(QtGui.QImage) and bits == 16)
+VALIDFORMATS_24BIT = tuple(
+    getattr(QtGui.QImage, name)
+    for name, bits in FORMATS_BITS.items()
+    if name in dir(QtGui.QImage) and bits == 24)
+VALIDFORMATS_32BIT = tuple(
+    getattr(QtGui.QImage, name)
+    for name, bits in FORMATS_BITS.items()
+    if name in dir(QtGui.QImage) and bits == 32)
+VALIDFORMATS_64BIT = tuple(
+    getattr(QtGui.QImage, name)
+    for name, bits in FORMATS_BITS.items()
+    if name in dir(QtGui.QImage) and bits == 64)
 
 class ArrayInterfaceAroundQImage(object):
     __slots__ = ('__qimage', '__array_interface__')
@@ -78,12 +124,18 @@ def qimageview(image):
     pixel_format = image.format()
     if pixel_format in VALIDFORMATS_8BIT:
         bytes_per_pixel = 1
+    elif pixel_format in VALIDFORMATS_16BIT:
+        bytes_per_pixel = 2
+#    elif pixel_format in VALIDFORMATS_24BIT:
+#        bytes_per_pixel = 3
     elif pixel_format in VALIDFORMATS_32BIT:
         bytes_per_pixel = 4
+    elif pixel_format in VALIDFORMATS_64BIT:
+        bytes_per_pixel = 8
     elif pixel_format == QtGui.QImage.Format_Invalid:
         raise ValueError("qimageview got invalid QImage")
     else:
-        raise ValueError("qimageview can only handle 8- or 32-bit QImages (format was %r)" % pixel_format)
+        raise ValueError("qimageview can only handle 8-, 16-, 32- or 64-bit QImages (format was %r)" % pixel_format)
 
     # introduce intermediate object referencing image
     # and providing array interface:
