@@ -5,6 +5,7 @@ from nose.tools import assert_equal
 from compat import setNumColors, numBytes
 
 
+# Format_Indexed8 = 3
 def test_raw_indexed8():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)
     setNumColors(qimg, 256)
@@ -17,12 +18,13 @@ def test_raw_indexed8():
     assert_equal(v[10,12], 42)
     assert_equal(v.nbytes, numBytes(qimg))
 
+# Format_RGB32 = 4
 def test_raw_rgb32():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
     qimg.fill(0)
     v = qimage2ndarray.raw_view(qimg)
     qimg.fill(23)
-    qimg.setPixel(12, 10, 42)
+    qimg.setPixel(12, 10, QtGui.qRgb(0,0,42))
     assert_equal(v.shape, (240, 320))
     assert_equal(v[10,10], 23 | 0xff000000)
     assert_equal(v[10,12], 42 | 0xff000000)
