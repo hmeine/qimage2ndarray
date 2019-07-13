@@ -30,6 +30,18 @@ def test_raw_rgb32():
     assert_equal(v[10,12], 42 | 0xff000000)
     assert_equal(v.nbytes, numBytes(qimg))
 
+# Format_RGB16 = 4
+def test_raw_rgb16():
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB16)
+    qimg.fill(0)
+    v = qimage2ndarray.raw_view(qimg)
+    qimg.fill(23)
+    qimg.setPixel(12, 10, QtGui.qRgb(0,0,91))
+    assert_equal(v.shape, (240, 320))
+    assert_equal(v[10,10], 23)
+    assert_equal(v[10,12], 91>>3)
+    assert_equal(v.nbytes, numBytes(qimg))
+
 # Format_Grayscale8 = 24 (Qt 5.5+)
 def test_raw_grayscale8():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Grayscale8)
