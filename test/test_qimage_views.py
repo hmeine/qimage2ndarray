@@ -54,6 +54,20 @@ def test_raw_grayscale8():
     assert_equal(v[10,12], 42)
     assert_equal(v.nbytes, numBytes(qimg))
 
+# Format_RGBA64 = 26 (Qt 5.12+)
+def test_raw_rgba64():
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGBA64)
+    qimg.fill(0)
+    v = qimage2ndarray.raw_view(qimg)
+    qimg.fill(1)
+    qimg.setPixel(12, 10, QtGui.qRgb(0x12,0x34,0x56))
+    assert_equal(v.shape, (240, 320))
+    assert_equal(v[10,10], 0x010100000000)
+    assert_equal(v[10,12], 0xffff565634341212)
+    assert_equal(v.nbytes, numBytes(qimg))
+
+#---------------------------------------------------------------------
+
 def test_byte_view_rgb32():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
     v = qimage2ndarray.byte_view(qimg)
