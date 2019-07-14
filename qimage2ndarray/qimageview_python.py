@@ -5,7 +5,7 @@ Over time, it became possible to get rid of the compiled extension on
 all supported backends, so this is now used for all Qt python bindings.
 '''
 
-import numpy as np, sys
+import numpy as np, sys, collections
 from qimage2ndarray.dynqt import qt, QtGui
 
 def PyQt_data(image):
@@ -47,58 +47,61 @@ getdata = {
 }[qt.name(), sys.version_info.major]
 
 
-# how many bits do the different formats have?
-FORMATS_BITS = dict(
-    Format_Mono = 1,
-    Format_MonoLSB = 1,
-    Format_Indexed8 = 8,
-    Format_RGB32 = 32,
-    Format_ARGB32 = 32,
-    Format_ARGB32_Premultiplied = 32,
-    Format_RGB16 = 16,
-    Format_ARGB8565_Premultiplied = 24,
-    Format_RGB666 = 24,
-    Format_ARGB6666_Premultiplied = 24,
-    Format_RGB555 = 16,
-    Format_ARGB8555_Premultiplied = 24,
-    Format_RGB888 = 24,
-    Format_RGB444 = 16,
-    Format_ARGB4444_Premultiplied = 16,
-    Format_RGBX8888 = 32,
-    Format_RGBA8888 = 32,
-    Format_RGBA8888_Premultiplied = 32,
-    Format_BGR30 = 32,
-    Format_A2BGR30_Premultiplied = 32,
-    Format_RGB30 = 32,
-    Format_A2RGB30_Premultiplied = 32,
-    Format_Alpha8 = 8,
-    Format_Grayscale8 = 8,
-    Format_Grayscale16 = 16,
-    Format_RGBX64 = 64,
-    Format_RGBA64 = 64,
-    Format_RGBA64_Premultiplied = 64,
+# what properties (e.g., how many bits) do the different formats have?
+QImageFormat = collections.namedtuple(
+    'QImageFormat', ('bits', 'rgb_order'))
+
+FORMATS = dict(
+    Format_Mono = QImageFormat(1, rgb_order = None),
+    Format_MonoLSB = QImageFormat(1, rgb_order = None),
+    Format_Indexed8 = QImageFormat(8, rgb_order = None),
+    Format_RGB32 = QImageFormat(32, rgb_order = 'big'),
+    Format_ARGB32 = QImageFormat(32, rgb_order = 'big'),
+    Format_ARGB32_Premultiplied = QImageFormat(32, rgb_order = 'big'),
+    Format_RGB16 = QImageFormat(16, rgb_order = None),
+    Format_ARGB8565_Premultiplied = QImageFormat(24, rgb_order = None),
+    Format_RGB666 = QImageFormat(24, rgb_order = None),
+    Format_ARGB6666_Premultiplied = QImageFormat(24, rgb_order = None),
+    Format_RGB555 = QImageFormat(16, rgb_order = None),
+    Format_ARGB8555_Premultiplied = QImageFormat(24, rgb_order = None),
+    Format_RGB888 = QImageFormat(24, rgb_order = 'rgb'),
+    Format_RGB444 = QImageFormat(16, rgb_order = None),
+    Format_ARGB4444_Premultiplied = QImageFormat(16, rgb_order = None),
+    Format_RGBX8888 = QImageFormat(32, rgb_order = 'rgb'),
+    Format_RGBA8888 = QImageFormat(32, rgb_order = 'rgb'),
+    Format_RGBA8888_Premultiplied = QImageFormat(32, rgb_order = 'rgb'),
+    Format_BGR30 = QImageFormat(32, rgb_order = None),
+    Format_A2BGR30_Premultiplied = QImageFormat(32, rgb_order = None),
+    Format_RGB30 = QImageFormat(32, rgb_order = None),
+    Format_A2RGB30_Premultiplied = QImageFormat(32, rgb_order = None),
+    Format_Alpha8 = QImageFormat(8, rgb_order = None),
+    Format_Grayscale8 = QImageFormat(8, rgb_order = None),
+    Format_Grayscale16 = QImageFormat(16, rgb_order = None),
+    Format_RGBX64 = QImageFormat(64, rgb_order = None),
+    Format_RGBA64 = QImageFormat(64, rgb_order = None),
+    Format_RGBA64_Premultiplied = QImageFormat(64, rgb_order = None),
 )
 
     
 VALIDFORMATS_8BIT = tuple(
     getattr(QtGui.QImage, name)
-    for name, bits in FORMATS_BITS.items()
+    for name, (bits, _) in FORMATS.items()
     if name in dir(QtGui.QImage) and bits == 8)
 VALIDFORMATS_16BIT = tuple(
     getattr(QtGui.QImage, name)
-    for name, bits in FORMATS_BITS.items()
+    for name, (bits, _) in FORMATS.items()
     if name in dir(QtGui.QImage) and bits == 16)
 VALIDFORMATS_24BIT = tuple(
     getattr(QtGui.QImage, name)
-    for name, bits in FORMATS_BITS.items()
+    for name, (bits, _) in FORMATS.items()
     if name in dir(QtGui.QImage) and bits == 24)
 VALIDFORMATS_32BIT = tuple(
     getattr(QtGui.QImage, name)
-    for name, bits in FORMATS_BITS.items()
+    for name, (bits, _) in FORMATS.items()
     if name in dir(QtGui.QImage) and bits == 32)
 VALIDFORMATS_64BIT = tuple(
     getattr(QtGui.QImage, name)
-    for name, bits in FORMATS_BITS.items()
+    for name, (bits, _) in FORMATS.items()
     if name in dir(QtGui.QImage) and bits == 64)
 
 class ArrayInterfaceAroundQImage(object):
