@@ -1,6 +1,6 @@
 from qimage2ndarray import _qimageview
 from qimage2ndarray.dynqt import qt, QtGui
-import numpy
+import sys, numpy
 
 from nose.tools import raises, assert_equal
 from compat import setNumColors, numBytes
@@ -66,19 +66,19 @@ def test_RGB32():
     qimg.fill(0)
     v = _qimageview(qimg)
     qimg.fill(23)
-    qimg.setPixel(12, 10, 42)
+    qimg.setPixel(12, 10, QtGui.qRgb(0x12,0x34,0x56))
     assert_equal(v.shape, (240, 320))
     assert_equal(v[10,10], 23 | 0xff000000)
-    assert_equal(v[10,12], 42 | 0xff000000)
+    assert_equal(v[10,12], 0xff123456 if sys.byteorder == 'little' else 0x563412ff)
     assert_equal(v.nbytes, numBytes(qimg))
 
 def test_ARGB32():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_ARGB32)
     qimg.fill(0)
     v = _qimageview(qimg)
-    qimg.setPixel(12, 10, 42)
+    qimg.setPixel(12, 10, QtGui.qRgb(0x12,0x34,0x56))
     assert_equal(v.shape, (240, 320))
-    assert_equal(v[10,12], 42)
+    assert_equal(v[10,12], 0xff123456 if sys.byteorder == 'little' else 0x563412ff)
     assert_equal(v.nbytes, numBytes(qimg))
 
 def test_odd_size_8bit():
