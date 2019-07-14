@@ -81,6 +81,26 @@ def test_ARGB32():
     assert_equal(v[10,12], 0xff123456 if sys.byteorder == 'little' else 0x563412ff)
     assert_equal(v.nbytes, numBytes(qimg))
 
+def test_RGBX8888():
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGBX8888)
+    qimg.fill(0)
+    v = _qimageview(qimg)
+    qimg.fill(23)
+    qimg.setPixel(12, 10, QtGui.qRgb(0x12,0x34,0x56))
+    assert_equal(v.shape, (240, 320))
+    assert_equal(v[10,10], 23 | 0xff000000)
+    assert_equal(v[10,12], 0x123456ff if sys.byteorder == 'big' else 0xff563412)
+    assert_equal(v.nbytes, numBytes(qimg))
+
+def test_RGBA8888():
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGBA8888)
+    qimg.fill(0)
+    v = _qimageview(qimg)
+    qimg.setPixel(12, 10, QtGui.qRgb(0x12,0x34,0x56))
+    assert_equal(v.shape, (240, 320))
+    assert_equal(v[10,12], 0x123456ff if sys.byteorder == 'big' else 0xff563412)
+    assert_equal(v.nbytes, numBytes(qimg))
+
 def test_RGBX64():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGBX64)
     qimg.fill(QtGui.qRgb(0, 0, 0))
