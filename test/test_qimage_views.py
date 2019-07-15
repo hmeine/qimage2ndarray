@@ -91,14 +91,15 @@ def test_byte_view_indexed():
 
 def test_rgb_view():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
-    qimg.fill(23)
+    qimg.fill(QtGui.qRgb(23,0,0))
     v = qimage2ndarray.rgb_view(qimg)
     qimg.setPixel(12, 10, QtGui.qRgb(12,34,56))
+    assert_equal(list(v[10,10]), [23,0,0])
     assert_equal(list(v[10,12]), [12,34,56])
 
 def test_alpha_view():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_ARGB32)
-    qimg.fill(23)
+    qimg.fill(0)
     v = qimage2ndarray.alpha_view(qimg)
     qimg.setPixel(12, 10, QtGui.qRgb(12,34,56))
     assert_equal(v[10,12], 255)
