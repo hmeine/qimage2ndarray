@@ -10,19 +10,59 @@ from . import qrgb_polyfill as _polyfill
 __version__ = "1.8"
 
 
+# Format_ARGB32 uses uint32 pixels in 0xAARRGGBB format;
+# hence, the memory layout depends on the machine endianess
 if _sys.byteorder == 'little':
     _bgra = (0, 1, 2, 3)
 else:
     _bgra = (3, 2, 1, 0)
 
-_bgra_fields = {'b': (_np.uint8, _bgra[0], 'blue'),
-                'g': (_np.uint8, _bgra[1], 'green'),
-                'r': (_np.uint8, _bgra[2], 'red'),
-                'a': (_np.uint8, _bgra[3], 'alpha')}
+_argb32_fields = dict(
+    b = (_np.uint8, _bgra[0], 'blue'),
+    g = (_np.uint8, _bgra[1], 'green'),
+    r = (_np.uint8, _bgra[2], 'red'),
+    a = (_np.uint8, _bgra[3], 'alpha'),
+)
 
-bgra_dtype = _np.dtype(_bgra_fields)
+argb32_dtype = bgra_dtype = _np.dtype(_argb32_fields)
 """Complex dtype offering the named fields 'r','g','b', and 'a' and
-corresponding long names, conforming to QImage_'s 32-bit memory layout."""
+corresponding long names, conforming to QImage_'s
+Format_ARGB32 memory layout."""
+
+_rgb888_fields = dict(
+    r = (_np.uint8, 0, 'red'),
+    g = (_np.uint8, 1, 'green'),
+    b = (_np.uint8, 2, 'blue'),
+)
+
+rgb888_dtype = _np.dtype(_rgb888_fields)
+"""Complex dtype offering the named fields 'r','g','b' and
+corresponding long names, conforming to QImage_'s
+Format_RGB888 memory layout."""
+
+_rgba8888_fields = dict(
+    r = (_np.uint8, 0, 'red'),
+    g = (_np.uint8, 1, 'green'),
+    b = (_np.uint8, 2, 'blue'),
+    a = (_np.uint8, 3, 'alpha'),
+)
+
+rgba8888_dtype = _np.dtype(_rgba8888_fields)
+"""Complex dtype offering the named fields 'r','g','b', and 'a' and
+corresponding long names, conforming to QImage_'s
+Format_RGBA8888 memory layout."""
+
+_rgba64_fields = dict(
+    r = (_np.uint16, 0, 'red'),
+    g = (_np.uint16, 1, 'green'),
+    b = (_np.uint16, 2, 'blue'),
+    a = (_np.uint16, 3, 'alpha'),
+)
+
+rgba64_dtype = _np.dtype(_rgba64_fields)
+"""Complex dtype offering the named fields 'r','g','b', and 'a' and
+corresponding long names, conforming to QImage_'s
+Format_RGBA64 memory layout."""
 
 try:
     _basestring = basestring
