@@ -7,7 +7,7 @@ from .dynqt import qt as _qt_driver
 from .qimageview_python import qimageview as _qimageview
 from . import qrgb_polyfill as _polyfill
 
-__version__ = "1.8"
+__version__ = "1.8.1"
 
 
 if _sys.byteorder == 'little':

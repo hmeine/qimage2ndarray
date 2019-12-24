@@ -60,6 +60,9 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
+Version 1.8.1:
+  - support normalization of boolean arrays
+
 Version 1.8:
   - improve exception when calling `imread` on non-existing file
   - improved pure-python implementation working with PythonQt as well
