@@ -20,6 +20,18 @@ def test_gray2qimage():
     assert_equal(hex(qImg.pixel(10,14)), hex(QtGui.qRgb(0,0,0)))
     assert_equal(hex(qImg.pixel(10,13)), hex(QtGui.qRgb(0,0,0)))
 
+def test_bool2qimage_normalize():
+    a = numpy.zeros((240, 320), dtype = bool)
+    a[12,10] = 1
+    # normalization should scale to 0/255
+    # (not raise a numpy exception, see issue #17)
+    qImg = qimage2ndarray.gray2qimage(a, normalize = True)
+    assert not qImg.isNull()
+    assert_equal(qImg.width(), 320)
+    assert_equal(qImg.height(), 240)
+    assert_equal(hex(qImg.pixel(10,12)), hex(QtGui.qRgb(255,255,255)))
+    assert_equal(hex(qImg.pixel(0,0)), hex(QtGui.qRgb(0,0,0)))
+
 def test_gray2qimage_normalize():
     a = numpy.zeros((240, 320), dtype = float)
     a[12,10] = 42.42
