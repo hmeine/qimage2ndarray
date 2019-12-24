@@ -1,12 +1,10 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>qimage2ndarray &#8212; qimage2ndarray 1.8 documentation</title>
+    <meta charset="utf-8" />
+    <title>qimage2ndarray &#8212; qimage2ndarray 1.8.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -28,7 +26,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.8 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.8.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -48,36 +46,31 @@ Python using <a class="reference external" href="http://www.riverbankcomputing.c
 <p>Similar code was found in Qwt and floating around on mailing lists,
 but qimage2ndarray has the following unique feature set:</p>
 <ul>
-<li><p class="first">Supports conversion of scalar and RGB data, with arbitrary dtypes
+<li><p>Supports conversion of scalar and RGB data, with arbitrary dtypes
 and memory layout, with and without alpha channels, into QImages
-(e.g. for display or saving using Qt).</p>
-</li>
-<li><p class="first">qimage2ndarray makes it possible to create <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">ndarrays</a> that are
+(e.g. for display or saving using Qt).</p></li>
+<li><p>qimage2ndarray makes it possible to create <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">ndarrays</a> that are
 <em>views</em> into a given <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>’s memory.</p>
 <p>This allows for very efficient data handling and makes it possible
 to modify Qt image data in-place (e.g. for brightness/gamma or alpha
 mask modifications).</p>
 </li>
-<li><p class="first">qimage2ndarray is stable and unit-tested:</p>
+<li><p>qimage2ndarray is stable and unit-tested:</p>
 <ul class="simple">
-<li>proper reference counting even with views (<a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.base.html">ndarray.base</a> points to
-the underlying <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>)</li>
-<li>handles non-standard widths and respects QImage’s 32-bit row
-alignment</li>
-<li>tested with Python 2 and Python 3, and various Qt wrappers</li>
+<li><p>proper reference counting even with views (<a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.base.html">ndarray.base</a> points to
+the underlying <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>)</p></li>
+<li><p>handles non-standard widths and respects QImage’s 32-bit row
+alignment</p></li>
+<li><p>tested with Python 2 and Python 3, and various Qt wrappers</p></li>
 </ul>
 </li>
-<li><p class="first"><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/maskedarray.generic.html">Masked arrays</a> are also supported and are converted into QImages
-with transparent pixels.</p>
-</li>
-<li><p class="first">Supports <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.recarray.html">recarrays</a> (and comes with an appropriate dtype) for
-convenient access to RGB(A) channels (see <code class="xref py py-func docutils literal notranslate"><span class="pre">recarray_view()</span></code>).</p>
-</li>
-<li><p class="first">Supports value scaling / normalization to 0..255 for convenient
-display of arbitrary NumPy arrays.</p>
-</li>
-<li><p class="first">Recent additions are convenient image loading / saving methods</p>
-</li>
+<li><p><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/maskedarray.generic.html">Masked arrays</a> are also supported and are converted into QImages
+with transparent pixels.</p></li>
+<li><p>Supports <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.recarray.html">recarrays</a> (and comes with an appropriate dtype) for
+convenient access to RGB(A) channels (see <code class="xref py py-func docutils literal notranslate"><span class="pre">recarray_view()</span></code>).</p></li>
+<li><p>Supports value scaling / normalization to 0..255 for convenient
+display of arbitrary NumPy arrays.</p></li>
+<li><p>Recent additions are convenient image loading / saving methods</p></li>
 </ul>
 <p>qimage2ndarray works with both Python 2.x and Python 3.x on all major
 platforms, and with different Python wrappers of Qt (PyQt4 and PyQt5,
@@ -89,83 +82,74 @@ using <a class="reference external" href="http://git-scm.com">Git</a>:</p>
 </div>
 <div class="section" id="changelog">
 <h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Version 1.8:</dt>
-<dd><ul class="first last simple">
-<li>improve exception when calling <cite>imread</cite> on non-existing file</li>
-<li>improved pure-python implementation working with PythonQt as well</li>
+<dl class="simple">
+<dt>Version 1.8.1:</dt><dd><ul class="simple">
+<li><p>support normalization of boolean arrays</p></li>
 </ul>
 </dd>
-<dt>Version 1.7:</dt>
-<dd><ul class="first last simple">
-<li>add support for PySide2</li>
-<li>changed default driver from PyQt4 to PyQt5</li>
+<dt>Version 1.8:</dt><dd><ul class="simple">
+<li><p>improve exception when calling <cite>imread</cite> on non-existing file</p></li>
+<li><p>improved pure-python implementation working with PythonQt as well</p></li>
 </ul>
 </dd>
-<dt>Version 1.6:</dt>
-<dd><ul class="first last simple">
-<li>finally, also support PySide on Python 3 (closing last known issue)</li>
+<dt>Version 1.7:</dt><dd><ul class="simple">
+<li><p>add support for PySide2</p></li>
+<li><p>changed default driver from PyQt4 to PyQt5</p></li>
 </ul>
 </dd>
-<dt>Version 1.5.1:</dt>
-<dd><ul class="first last simple">
-<li>small installation and documentation fixes</li>
+<dt>Version 1.6:</dt><dd><ul class="simple">
+<li><p>finally, also support PySide on Python 3 (closing last known issue)</p></li>
 </ul>
 </dd>
-<dt>Version 1.5:</dt>
-<dd><ul class="first last simple">
-<li>PyQt5 support</li>
+<dt>Version 1.5.1:</dt><dd><ul class="simple">
+<li><p>small installation and documentation fixes</p></li>
 </ul>
 </dd>
-<dt>Version 1.4:</dt>
-<dd><ul class="first last simple">
-<li><em>pure python</em> version of qimage2ndarray</li>
-<li>PySide support (Python 2 only yet)</li>
-<li>added <code class="xref py py-func docutils literal notranslate"><span class="pre">imsave()</span></code></li>
+<dt>Version 1.5:</dt><dd><ul class="simple">
+<li><p>PyQt5 support</p></li>
 </ul>
 </dd>
-<dt>Version 1.3.1:</dt>
-<dd><ul class="first last simple">
-<li>restored compatibility with NumPy 1.6 (lost in 1.2)</li>
+<dt>Version 1.4:</dt><dd><ul class="simple">
+<li><p><em>pure python</em> version of qimage2ndarray</p></li>
+<li><p>PySide support (Python 2 only yet)</p></li>
+<li><p>added <code class="xref py py-func docutils literal notranslate"><span class="pre">imsave()</span></code></p></li>
 </ul>
 </dd>
-<dt>Version 1.3:</dt>
-<dd><ul class="first last simple">
-<li>added <code class="xref py py-func docutils literal notranslate"><span class="pre">imread()</span></code></li>
-<li>added implicit loading in view functions</li>
+<dt>Version 1.3.1:</dt><dd><ul class="simple">
+<li><p>restored compatibility with NumPy 1.6 (lost in 1.2)</p></li>
 </ul>
 </dd>
-<dt>Version 1.2:</dt>
-<dd><ul class="first last simple">
-<li>support Python 3.x (in addition to Python 2.x, same codebase)</li>
-<li>adapted to NumPy 1.7 API</li>
-<li>move documentation away from uni-hamburg.de, too</li>
+<dt>Version 1.3:</dt><dd><ul class="simple">
+<li><p>added <code class="xref py py-func docutils literal notranslate"><span class="pre">imread()</span></code></p></li>
+<li><p>added implicit loading in view functions</p></li>
 </ul>
 </dd>
-<dt>Version 1.1:</dt>
-<dd><ul class="first last simple">
-<li>gracefully handle empty normalization range</li>
-<li>improved compilation support (on Windows and OS X)</li>
-<li>small optimizations</li>
-<li>support alternative Qt bindings (PythonQt, used by MeVisLab)</li>
-<li>update URLs/email to move away from uni-hamburg.de</li>
+<dt>Version 1.2:</dt><dd><ul class="simple">
+<li><p>support Python 3.x (in addition to Python 2.x, same codebase)</p></li>
+<li><p>adapted to NumPy 1.7 API</p></li>
+<li><p>move documentation away from uni-hamburg.de, too</p></li>
 </ul>
 </dd>
-<dt>Version 1.0:</dt>
-<dd><ul class="first last simple">
-<li>Let array2qimage support 2 channels (gray + alpha)</li>
-<li>Fixed installation on OS X (where Qt libs come as “Frameworks”)</li>
+<dt>Version 1.1:</dt><dd><ul class="simple">
+<li><p>gracefully handle empty normalization range</p></li>
+<li><p>improved compilation support (on Windows and OS X)</p></li>
+<li><p>small optimizations</p></li>
+<li><p>support alternative Qt bindings (PythonQt, used by MeVisLab)</p></li>
+<li><p>update URLs/email to move away from uni-hamburg.de</p></li>
 </ul>
 </dd>
-<dt>Version 0.2:</dt>
-<dd><ul class="first last simple">
-<li>Fixed endianness issues (tested on PowerPC arch)</li>
-<li>Simplified installation on Windows (e.g. with Qt DLLs bundled with PyQt)</li>
+<dt>Version 1.0:</dt><dd><ul class="simple">
+<li><p>Let array2qimage support 2 channels (gray + alpha)</p></li>
+<li><p>Fixed installation on OS X (where Qt libs come as “Frameworks”)</p></li>
 </ul>
 </dd>
-<dt>Version 0.1:</dt>
-<dd><ul class="first last simple">
-<li>Initial Relase</li>
+<dt>Version 0.2:</dt><dd><ul class="simple">
+<li><p>Fixed endianness issues (tested on PowerPC arch)</p></li>
+<li><p>Simplified installation on Windows (e.g. with Qt DLLs bundled with PyQt)</p></li>
+</ul>
+</dd>
+<dt>Version 0.1:</dt><dd><ul class="simple">
+<li><p>Initial Relase</p></li>
 </ul>
 </dd>
 </dl>
@@ -175,16 +159,16 @@ using <a class="reference external" href="http://git-scm.com">Git</a>:</p>
 <p>There are two opposite directions of conversion, discussed in the next
 subsections:</p>
 <ol class="arabic simple">
-<li><a class="reference internal" href="#converting-qimages-into-numpy-ndarrays">Converting QImages into numpy.ndarrays</a>.</li>
-<li><a class="reference internal" href="#converting-ndarrays-into-qimages">Converting ndarrays into QImages</a>.</li>
+<li><p><a class="reference internal" href="#converting-qimages-into-numpy-ndarrays">Converting QImages into numpy.ndarrays</a>.</p></li>
+<li><p><a class="reference internal" href="#converting-ndarrays-into-qimages">Converting ndarrays into QImages</a>.</p></li>
 </ol>
 <p>The first task is supported by a family of functions that create
 <em>views</em> into the corresponding <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a> memory, while the second task
 will always copy the image data (usually converting it into the
 appropriate type or value range).</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The reason for this is that <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">ndarrays</a> are much more flexible than
+<p class="admonition-title">Note</p>
+<p>The reason for this is that <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">ndarrays</a> are much more flexible than
 <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImages</a>, and while it is possible – even using pure python – to
 create QImages that are views into an ndarray’s memory, this will
 only work if the latter fulfills certain strict requirements
@@ -202,7 +186,7 @@ views.</p>
 using <a class="reference internal" href="#qimage2ndarray.raw_view" title="qimage2ndarray.raw_view"><code class="xref py py-func docutils literal notranslate"><span class="pre">raw_view()</span></code></a>.</p>
 <dl class="function">
 <dt id="qimage2ndarray.recarray_view">
-<code class="descname">recarray_view</code><span class="sig-paren">(</span><em>qimage</em><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.recarray_view" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">recarray_view</code><span class="sig-paren">(</span><em class="sig-param">qimage</em><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.recarray_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.recarray.html">recarray</a> view of a given 32-bit color <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>’s
 memory.</p>
 <p>The result is a 2D array with a complex record dtype, offering the
@@ -211,7 +195,7 @@ Thus, each color components can be accessed either via string
 indexing or via attribute lookup (through <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.recarray.html">numpy.recarray</a>):</p>
 <p>For your convenience, <cite>qimage</cite> may also be a filename, see
 <a class="reference internal" href="#loading-and-saving-images">Loading and Saving Images</a> in the documentation.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PyQt4.QtGui</span> <span class="k">import</span> <span class="n">QImage</span><span class="p">,</span> <span class="n">qRgb</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">PyQt4.QtGui</span> <span class="kn">import</span> <span class="n">QImage</span><span class="p">,</span> <span class="n">qRgb</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qimg</span> <span class="o">=</span> <span class="n">QImage</span><span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="n">QImage</span><span class="o">.</span><span class="n">Format_ARGB32</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qimg</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">qRgb</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">56</span><span class="p">))</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -230,28 +214,26 @@ indexing or via attribute lookup (through <a class="reference external" href="ht
 <span class="go">True</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>qimage</strong> (<a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a> with 32-bit pixel type) – image whose memory shall be accessed via NumPy</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarray</a> with shape (height, width) and dtype <a class="reference internal" href="#qimage2ndarray.bgra_dtype" title="qimage2ndarray.bgra_dtype"><code class="xref py py-data docutils literal notranslate"><span class="pre">bgra_dtype</span></code></a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>qimage</strong> (<a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a> with 32-bit pixel type) – image whose memory shall be accessed via NumPy</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarray</a> with shape (height, width) and dtype <a class="reference internal" href="#qimage2ndarray.bgra_dtype" title="qimage2ndarray.bgra_dtype"><code class="xref py py-data docutils literal notranslate"><span class="pre">bgra_dtype</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="data">
 <dt id="qimage2ndarray.bgra_dtype">
-<code class="descname">bgra_dtype</code><em class="property"> = dtype([(('blue', 'b'), 'u1'), (('green', 'g'), 'u1'), (('red', 'r'), 'u1'), (('alpha', 'a'), 'u1')])</em><a class="headerlink" href="#qimage2ndarray.bgra_dtype" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">bgra_dtype</code><em class="property"> = dtype([(('blue', 'b'), 'u1'), (('green', 'g'), 'u1'), (('red', 'r'), 'u1'), (('alpha', 'a'), 'u1')])</em><a class="headerlink" href="#qimage2ndarray.bgra_dtype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Complex dtype offering the named fields ‘r’,’g’,’b’, and ‘a’ and
 corresponding long names, conforming to <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>’s 32-bit memory layout.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="qimage2ndarray.rgb_view">
-<code class="descname">rgb_view</code><span class="sig-paren">(</span><em>qimage</em><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.rgb_view" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">rgb_view</code><span class="sig-paren">(</span><em class="sig-param">qimage</em><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.rgb_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns RGB view of a given 32-bit color <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>’s memory.
 Similarly to byte_view(), the result is a 3D numpy.uint8 array,
 but reduced to the rgb dimensions (without alpha), and reordered
@@ -266,26 +248,22 @@ sys.byteorder here, i.e. return native order for the machine the
 code is running on.</p>
 <p>For your convenience, <cite>qimage</cite> may also be a filename, see
 <a class="reference internal" href="#loading-and-saving-images">Loading and Saving Images</a> in the documentation.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>qimage</strong> (<a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a> with 32-bit pixel type) – image whose memory shall be accessed via NumPy</li>
-<li><strong>byteorder</strong> – specify order of channels in last axis</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qimage</strong> (<a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a> with 32-bit pixel type) – image whose memory shall be accessed via NumPy</p></li>
+<li><p><strong>byteorder</strong> – specify order of channels in last axis</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarray</a> with shape (height, width, 3) and dtype uint8</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarray</a> with shape (height, width, 3) and dtype uint8</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="qimage2ndarray.alpha_view">
-<code class="descname">alpha_view</code><span class="sig-paren">(</span><em>qimage</em><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.alpha_view" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">alpha_view</code><span class="sig-paren">(</span><em class="sig-param">qimage</em><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.alpha_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns alpha view of a given 32-bit color <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>’s memory.
 The result is a 2D numpy.uint8 array, equivalent to
 byte_view(qimage)[…,3].  The image must have 32 bit pixel size,
@@ -295,21 +273,19 @@ not enforced that the given qimage has a format that actually
 usually contains 255 everywhere.</p>
 <p>For your convenience, <cite>qimage</cite> may also be a filename, see
 <a class="reference internal" href="#loading-and-saving-images">Loading and Saving Images</a> in the documentation.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>qimage</strong> (<a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a> with 32-bit pixel type) – image whose memory shall be accessed via NumPy</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarray</a> with shape (height, width) and dtype uint8</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>qimage</strong> (<a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a> with 32-bit pixel type) – image whose memory shall be accessed via NumPy</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarray</a> with shape (height, width) and dtype uint8</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="qimage2ndarray.byte_view">
-<code class="descname">byte_view</code><span class="sig-paren">(</span><em>qimage</em><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.byte_view" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">byte_view</code><span class="sig-paren">(</span><em class="sig-param">qimage</em><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.byte_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns raw 3D view of the given <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>’s memory.  This will
 always be a 3-dimensional numpy.ndarray with dtype numpy.uint8.</p>
 <p>Note that for 32-bit images, the last dimension will be in the
@@ -324,41 +300,35 @@ sys.byteorder here, i.e. return native order for the machine the
 code is running on.</p>
 <p>For your convenience, <cite>qimage</cite> may also be a filename, see
 <a class="reference internal" href="#loading-and-saving-images">Loading and Saving Images</a> in the documentation.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>qimage</strong> (<a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>) – image whose memory shall be accessed via NumPy</li>
-<li><strong>byteorder</strong> – specify order of channels in last axis</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>qimage</strong> (<a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>) – image whose memory shall be accessed via NumPy</p></li>
+<li><p><strong>byteorder</strong> – specify order of channels in last axis</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarray</a> with shape (height, width, 1 or 4) and dtype uint8</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarray</a> with shape (height, width, 1 or 4) and dtype uint8</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="qimage2ndarray.raw_view">
-<code class="descname">raw_view</code><span class="sig-paren">(</span><em>qimage</em><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.raw_view" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">raw_view</code><span class="sig-paren">(</span><em class="sig-param">qimage</em><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.raw_view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns raw 2D view of the given <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>’s memory.  The result
 will be a 2-dimensional numpy.ndarray with an appropriately sized
 integral dtype.  (This function is not intented to be used
 directly, but used internally by the other – more convenient –
 view creation functions.)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>qimage</strong> (<a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>) – image whose memory shall be accessed via NumPy</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarray</a> with shape (height, width)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>qimage</strong> (<a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>) – image whose memory shall be accessed via NumPy</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarray</a> with shape (height, width)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -366,32 +336,32 @@ view creation functions.)</p>
 <h3>Converting ndarrays into QImages<a class="headerlink" href="#converting-ndarrays-into-qimages" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="qimage2ndarray.array2qimage">
-<code class="descname">array2qimage</code><span class="sig-paren">(</span><em>array</em><span class="optional">[</span>, <em>normalize</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.array2qimage" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">array2qimage</code><span class="sig-paren">(</span><em class="sig-param">array</em><span class="optional">[</span>, <em class="sig-param">normalize</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.array2qimage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a 2D or 3D numpy array into a 32-bit <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>.  The
 first dimension represents the vertical image axis; the optional
 third dimension is supposed to contain 1-4 channels:</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="32%" />
-<col width="68%" />
+<col style="width: 32%" />
+<col style="width: 68%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">#channels</th>
-<th class="head">interpretation</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>#channels</p></th>
+<th class="head"><p>interpretation</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>1</td>
-<td>scalar/gray</td>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>scalar/gray</p></td>
 </tr>
-<tr class="row-odd"><td>2</td>
-<td>scalar/gray + alpha</td>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>scalar/gray + alpha</p></td>
 </tr>
-<tr class="row-even"><td>3</td>
-<td>RGB</td>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>RGB</p></td>
 </tr>
-<tr class="row-odd"><td>4</td>
-<td>RGB + alpha</td>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>RGB + alpha</p></td>
 </tr>
 </tbody>
 </table>
@@ -400,76 +370,68 @@ if you want to convert to an (indexed) 8-bit image instead, use
 <cite>gray2qimage</cite> (which cannot support an alpha channel though).</p>
 <p>The parameter <cite>normalize</cite> can be used to normalize an image’s
 value range to 0..255:</p>
-<dl class="docutils">
-<dt><cite>normalize</cite> = (nmin, nmax):</dt>
-<dd>scale &amp; clip image values from nmin..nmax to 0..255</dd>
-<dt><cite>normalize</cite> = nmax:</dt>
-<dd>lets nmin default to zero, i.e. scale &amp; clip the range 0..nmax
-to 0..255</dd>
-<dt><cite>normalize</cite> = True:</dt>
-<dd>scale image values to 0..255 (same as passing (array.min(),
-array.max()))</dd>
+<dl class="simple">
+<dt><cite>normalize</cite> = (nmin, nmax):</dt><dd><p>scale &amp; clip image values from nmin..nmax to 0..255</p>
+</dd>
+<dt><cite>normalize</cite> = nmax:</dt><dd><p>lets nmin default to zero, i.e. scale &amp; clip the range 0..nmax
+to 0..255</p>
+</dd>
+<dt><cite>normalize</cite> = True:</dt><dd><p>scale image values to 0..255 (same as passing (array.min(),
+array.max()))</p>
+</dd>
 </dl>
 <p>If <cite>array</cite> contains masked values, the corresponding pixels will
 be transparent in the result.  Thus, the result will be of
 QImage.Format_ARGB32 if the input already contains an alpha
 channel (i.e. has shape (H,W,4)) or if there are masked pixels,
 and QImage.Format_RGB32 otherwise.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>array</strong> (2D or 3D <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarray</a> or <a class="reference external" href="maskedarrays">numpy.ma.array</a>) – image data which should be converted (copied) into a <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a></li>
-<li><strong>normalize</strong> (<em>bool</em><em>, </em><em>scalar</em><em>, or </em><em>pair</em>) – normalization parameter (see above, default: no value changing)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (2D or 3D <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarray</a> or <a class="reference external" href="maskedarrays">numpy.ma.array</a>) – image data which should be converted (copied) into a <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a></p></li>
+<li><p><strong>normalize</strong> (<em>bool</em><em>, </em><em>scalar</em><em>, or </em><em>pair</em>) – normalization parameter (see above, default: no value changing)</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a> with RGB32 or ARGB32 format</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a> with RGB32 or ARGB32 format</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="qimage2ndarray.gray2qimage">
-<code class="descname">gray2qimage</code><span class="sig-paren">(</span><em>gray</em><span class="optional">[</span>, <em>normalize</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.gray2qimage" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">gray2qimage</code><span class="sig-paren">(</span><em class="sig-param">gray</em><span class="optional">[</span>, <em class="sig-param">normalize</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.gray2qimage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the 2D numpy array <cite>gray</cite> into a 8-bit, indexed <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a>
 with a gray colormap.  The first dimension represents the vertical
 image axis.</p>
 <p>The parameter <cite>normalize</cite> can be used to normalize an image’s
 value range to 0..255:</p>
-<dl class="docutils">
-<dt><cite>normalize</cite> = (nmin, nmax):</dt>
-<dd>scale &amp; clip image values from nmin..nmax to 0..255</dd>
-<dt><cite>normalize</cite> = nmax:</dt>
-<dd>lets nmin default to zero, i.e. scale &amp; clip the range 0..nmax
-to 0..255</dd>
-<dt><cite>normalize</cite> = True:</dt>
-<dd>scale image values to 0..255 (same as passing (gray.min(),
-gray.max()))</dd>
+<dl class="simple">
+<dt><cite>normalize</cite> = (nmin, nmax):</dt><dd><p>scale &amp; clip image values from nmin..nmax to 0..255</p>
+</dd>
+<dt><cite>normalize</cite> = nmax:</dt><dd><p>lets nmin default to zero, i.e. scale &amp; clip the range 0..nmax
+to 0..255</p>
+</dd>
+<dt><cite>normalize</cite> = True:</dt><dd><p>scale image values to 0..255 (same as passing (gray.min(),
+gray.max()))</p>
+</dd>
 </dl>
 <p>If the source array <cite>gray</cite> contains masked values, the result will
 have only 255 shades of gray, and one color map entry will be used
 to make the corresponding pixels transparent.</p>
 <p>A full alpha channel cannot be supported with indexed images;
 instead, use <cite>array2qimage</cite> to convert into a 32-bit QImage.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>gray</strong> – image data which should be converted (copied) into a <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a></li>
-<li><strong>normalize</strong> (<em>bool</em><em>, </em><em>scalar</em><em>, or </em><em>pair</em>) – normalization parameter (see above, default: no value changing)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gray</strong> – image data which should be converted (copied) into a <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a></p></li>
+<li><p><strong>normalize</strong> (<em>bool</em><em>, </em><em>scalar</em><em>, or </em><em>pair</em>) – normalization parameter (see above, default: no value changing)</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a> with RGB32 or ARGB32 format</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a> with RGB32 or ARGB32 format</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -477,19 +439,19 @@ instead, use <cite>array2qimage</cite> to convert into a 32-bit QImage.</p>
 <h3>Loading and Saving Images<a class="headerlink" href="#loading-and-saving-images" title="Permalink to this headline">¶</a></h3>
 <p>There are two ways to read images from disk directly into <cite>ndarrays</cite>:</p>
 <ol class="arabic simple">
-<li>The <a class="reference internal" href="#qimage2ndarray.imread" title="qimage2ndarray.imread"><code class="xref py py-func docutils literal notranslate"><span class="pre">imread()</span></code></a> function mimicks existing API in other
+<li><p>The <a class="reference internal" href="#qimage2ndarray.imread" title="qimage2ndarray.imread"><code class="xref py py-func docutils literal notranslate"><span class="pre">imread()</span></code></a> function mimicks existing API in other
 libraries, returning an ndarray whose dimensionality and shape
-depends on whether the image is a color or grayscale image.</li>
-<li>Also, the view functions (all five of them) can be passed a
+depends on whether the image is a color or grayscale image.</p></li>
+<li><p>Also, the view functions (all five of them) can be passed a
 filename instead of a qimage.  This can be more useful than
 <a class="reference internal" href="#qimage2ndarray.imread" title="qimage2ndarray.imread"><code class="xref py py-func docutils literal notranslate"><span class="pre">imread()</span></code></a>, e.g. in case you want to get a <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.recarray.html">recarray</a>
 (<a class="reference internal" href="#qimage2ndarray.recarray_view" title="qimage2ndarray.recarray_view"><code class="xref py py-func docutils literal notranslate"><span class="pre">recarray_view()</span></code></a>), just the alpha channel
 (<a class="reference internal" href="#qimage2ndarray.alpha_view" title="qimage2ndarray.alpha_view"><code class="xref py py-func docutils literal notranslate"><span class="pre">alpha_view()</span></code></a>), or the original ARGB image data
-(<a class="reference internal" href="#qimage2ndarray.byte_view" title="qimage2ndarray.byte_view"><code class="xref py py-func docutils literal notranslate"><span class="pre">byte_view()</span></code></a>).</li>
+(<a class="reference internal" href="#qimage2ndarray.byte_view" title="qimage2ndarray.byte_view"><code class="xref py py-func docutils literal notranslate"><span class="pre">byte_view()</span></code></a>).</p></li>
 </ol>
 <dl class="function">
 <dt id="qimage2ndarray.imread">
-<code class="descname">imread</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.imread" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">imread</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.imread" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience function that uses the <a class="reference external" href="http://qt-project.org/doc/qt-4.8/qimage.html">QImage</a> constructor to read an
 image from the given file and return an <cite>rgb_view</cite> of the result.
 This is intentionally similar to scipy.ndimage.imread (which uses
@@ -511,26 +473,22 @@ Note that only fully transparent pixels are masked
 <cite>QImage.save()</cite> for saving images to disk:</p>
 <dl class="function">
 <dt id="qimage2ndarray.imsave">
-<code class="descname">imsave</code><span class="sig-paren">(</span><em>filename</em>, <em>array</em><span class="optional">[</span>, <em>normalize</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.imsave" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">imsave</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">array</em><span class="optional">[</span>, <em class="sig-param">normalize</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#qimage2ndarray.imsave" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience function that uses QImage.save to save an image to the
 given file.  This is intentionally similar to scipy.misc.imsave.
 However, it supports different optional arguments:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>normalize</strong> – see <a class="reference internal" href="#qimage2ndarray.array2qimage" title="qimage2ndarray.array2qimage"><code class="xref py py-func docutils literal notranslate"><span class="pre">array2qimage()</span></code></a> (which is used internally)</li>
-<li><strong>format</strong> – image filetype (e.g. ‘PNG’),  (default: check filename’s suffix)</li>
-<li><strong>quality</strong> – see QImage.save (0 = small .. 100 = uncompressed, -1 = default compression)</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>normalize</strong> – see <a class="reference internal" href="#qimage2ndarray.array2qimage" title="qimage2ndarray.array2qimage"><code class="xref py py-func docutils literal notranslate"><span class="pre">array2qimage()</span></code></a> (which is used internally)</p></li>
+<li><p><strong>format</strong> – image filetype (e.g. ‘PNG’),  (default: check filename’s suffix)</p></li>
+<li><p><strong>quality</strong> – see QImage.save (0 = small .. 100 = uncompressed, -1 = default compression)</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">boolean success, see QImage.save</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>boolean success, see QImage.save</p>
+</dd>
+</dl>
 <p>This function has been added in version 1.4.</p>
 </dd></dl>
 
@@ -539,8 +497,8 @@ However, it supports different optional arguments:</p>
 <div class="section" id="indices-and-tables">
 <h2>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </div>
 </div>
@@ -574,13 +532,11 @@ However, it supports different optional arguments:</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -598,12 +554,12 @@ However, it supports different optional arguments:</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.8 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.8.1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2013, Hans Meine.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.2.
     </div>
   </body>
 </html>
