@@ -189,7 +189,10 @@ def _normalize255(array, normalize, clip = (0, 255)):
             array = array - nmin
 
         if nmax != nmin:
-            scale = 255. / (nmax - nmin)
+            if array.dtype == bool:
+                scale = 255.
+            else:
+                scale = 255. / (nmax - nmin)
             if scale != 1.0:
                 array = array * scale
 
