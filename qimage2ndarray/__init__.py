@@ -176,6 +176,9 @@ def recarray_view(qimage):
 
 def _normalize255(array, normalize, clip = (0, 255)):
     if normalize:
+        if array.dtype == 'bool':
+            array = array.astype(float)
+
         if normalize is True:
             normalize = array.min(), array.max()
             if clip == (0, 255):
