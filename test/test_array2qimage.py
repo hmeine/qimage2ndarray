@@ -22,7 +22,7 @@ def test_gray2qimage():
 
 def test_bool2qimage_normalize():
     a = numpy.zeros((240, 320), dtype = bool)
-    a[12,10] = 1
+    a[12,10] = True
     # normalization should scale to 0/255
     # (not raise a numpy exception, see issue #17)
     qImg = qimage2ndarray.gray2qimage(a, normalize = True)
@@ -31,6 +31,10 @@ def test_bool2qimage_normalize():
     assert_equal(qImg.height(), 240)
     assert_equal(hex(qImg.pixel(10,12)), hex(QtGui.qRgb(255,255,255)))
     assert_equal(hex(qImg.pixel(0,0)), hex(QtGui.qRgb(0,0,0)))
+    a[:] = True
+    qImg = qimage2ndarray.gray2qimage(a, normalize = True)
+    # for boolean arrays, I would assume True should always map to 255
+    assert_equal(hex(qImg.pixel(0,0)), hex(QtGui.qRgb(255,255,255)))
 
 def test_gray2qimage_normalize():
     a = numpy.zeros((240, 320), dtype = float)
