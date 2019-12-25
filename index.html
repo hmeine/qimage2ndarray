@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>qimage2ndarray &#8212; qimage2ndarray 1.8.1 documentation</title>
+    <title>qimage2ndarray &#8212; qimage2ndarray 1.8.2 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -26,7 +26,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.8.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.8.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -83,6 +83,10 @@ using <a class="reference external" href="http://git-scm.com">Git</a>:</p>
 <div class="section" id="changelog">
 <h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
 <dl class="simple">
+<dt>Version 1.8.2:</dt><dd><ul class="simple">
+<li><p>normalize boolean arrays to 0/255 by default</p></li>
+</ul>
+</dd>
 <dt>Version 1.8.1:</dt><dd><ul class="simple">
 <li><p>support normalization of boolean arrays</p></li>
 </ul>
@@ -376,8 +380,9 @@ value range to 0..255:</p>
 <dt><cite>normalize</cite> = nmax:</dt><dd><p>lets nmin default to zero, i.e. scale &amp; clip the range 0..nmax
 to 0..255</p>
 </dd>
-<dt><cite>normalize</cite> = True:</dt><dd><p>scale image values to 0..255 (same as passing (array.min(),
-array.max()))</p>
+<dt><cite>normalize</cite> = True:</dt><dd><p>scale image values to 0..255 (same as passing (gray.min(),
+gray.max()), except for boolean arrays, where False/True
+are mapped to 0/255)</p>
 </dd>
 </dl>
 <p>If <cite>array</cite> contains masked values, the corresponding pixels will
@@ -413,7 +418,8 @@ value range to 0..255:</p>
 to 0..255</p>
 </dd>
 <dt><cite>normalize</cite> = True:</dt><dd><p>scale image values to 0..255 (same as passing (gray.min(),
-gray.max()))</p>
+gray.max()), except for boolean arrays, where False/True
+are mapped to 0/255)</p>
 </dd>
 </dl>
 <p>If the source array <cite>gray</cite> contains masked values, the result will
@@ -554,7 +560,7 @@ However, it supports different optional arguments:</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.8.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.8.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
