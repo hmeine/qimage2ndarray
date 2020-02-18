@@ -43,7 +43,7 @@ but qimage2ndarray has the following unique feature set:
 * Supports value scaling / normalization to 0..255 for convenient
   display of arbitrary NumPy arrays.
 
-* Recent additions are convenient image loading / saving methods 
+* Recent additions are convenient image loading / saving methods.
 
 .. _masked arrays: http://docs.scipy.org/doc/numpy/reference/maskedarray.generic.html
 
