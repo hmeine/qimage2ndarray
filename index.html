@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>qimage2ndarray &#8212; qimage2ndarray 1.8.2 documentation</title>
+    <title>qimage2ndarray &#8212; qimage2ndarray 1.8.3 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -26,7 +26,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.8.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.8.3 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -70,7 +70,7 @@ with transparent pixels.</p></li>
 convenient access to RGB(A) channels (see <code class="xref py py-func docutils literal notranslate"><span class="pre">recarray_view()</span></code>).</p></li>
 <li><p>Supports value scaling / normalization to 0..255 for convenient
 display of arbitrary NumPy arrays.</p></li>
-<li><p>Recent additions are convenient image loading / saving methods</p></li>
+<li><p>Recent additions are convenient image loading / saving methods.</p></li>
 </ul>
 <p>qimage2ndarray works with both Python 2.x and Python 3.x on all major
 platforms, and with different Python wrappers of Qt (PyQt4 and PyQt5,
@@ -83,6 +83,10 @@ using <a class="reference external" href="http://git-scm.com">Git</a>:</p>
 <div class="section" id="changelog">
 <h2>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
 <dl class="simple">
+<dt>Version 1.8.3:</dt><dd><ul class="simple">
+<li><p>fix normalization potentially modifying input array</p></li>
+</ul>
+</dd>
 <dt>Version 1.8.2:</dt><dd><ul class="simple">
 <li><p>normalize boolean arrays to 0/255 by default</p></li>
 </ul>
@@ -560,7 +564,7 @@ However, it supports different optional arguments:</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.8.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">qimage2ndarray 1.8.3 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
