@@ -52,6 +52,23 @@ def test_gray2qimage_normalize():
     x = int(255 * 10.0 / 52.42)
     assert_equal(hex(qImg.pixel(10,14)), hex(QtGui.qRgb(x,x,x)))
 
+def test_arrayqimage_readonly_float_normalizing():
+    a = numpy.zeros((240, 320), dtype = float)
+    a[12,10] = 42.42
+    a[13,10] = -10
+    a.flags['WRITEABLE'] = False
+    qImg = qimage2ndarray.gray2qimage(a, normalize = True)
+
+def test_arrayqimage_readonly_float():
+    a = numpy.zeros((240, 320), dtype = float)
+    a.flags['WRITEABLE'] = False
+    qImg = qimage2ndarray.gray2qimage(a, normalize = False)
+
+def test_arrayqimage_readonly_uint8():
+    a = numpy.zeros((240, 320), dtype = numpy.uint8)
+    a.flags['WRITEABLE'] = False
+    qImg = qimage2ndarray.gray2qimage(a, normalize = False)
+
 def test_empty2qimage():
     a = numpy.ones((240, 320), dtype = float)
     qImg = qimage2ndarray.gray2qimage(a, normalize = True)
