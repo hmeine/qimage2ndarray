@@ -175,6 +175,10 @@ def recarray_view(qimage):
 
 
 def _normalize255(array, normalize, clip = (0, 255)):
+    # by default, we do not want to clip in-place
+    # (the input array should not be modified):
+    clip_target = None
+
     if normalize:
         if normalize is True:
             if array.dtype == bool:
@@ -190,18 +194,21 @@ def _normalize255(array, normalize, clip = (0, 255)):
 
         if nmin:
             array = array - nmin
+            clip_target = array
 
         if nmax != nmin:
             if array.dtype == bool:
                 scale = 255.
             else:
                 scale = 255. / (nmax - nmin)
+
             if scale != 1.0:
                 array = array * scale
+                clip_target = array
 
     if clip:
         low, high = clip
-        _np.clip(array, low, high, array)
+        array = _np.clip(array, low, high, clip_target)
 
     return array
 
