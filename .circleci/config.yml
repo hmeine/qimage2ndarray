@@ -4,6 +4,6 @@ jobs:
   build:
     executor: python/default
     steps:
-      run:
-        command: true
+      - run:
+          command: true
 
