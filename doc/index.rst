@@ -60,6 +60,9 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
+Version 1.8.3:
+  - fix normalization potentially modifying input array
+
 Version 1.8.2:
   - normalize boolean arrays to 0/255 by default
 
