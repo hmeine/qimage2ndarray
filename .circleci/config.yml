@@ -20,22 +20,6 @@ jobs:
             QT_API: pyqt5
           name: Test (PyQt5)
   
-  test-PyQt4:
-    executor: python/default
-    steps:
-      - checkout
-      - python/load-cache:
-          key: PyQt4
-      - run:
-          command: pip install numpy PyQt4 nose
-          name: Install Dependencies (PyQt4)
-      - python/save-cache
-      - run:
-          command: nosetests
-          environment:
-            QT_API: pyqt
-          name: Test (PyQt4)
-  
   test-PySide2:
     executor: python/default
     steps:
@@ -56,5 +40,4 @@ workflows:
   main:
     jobs:
       - test-PyQt5
-      - test-PyQt4
       - test-PySide2
