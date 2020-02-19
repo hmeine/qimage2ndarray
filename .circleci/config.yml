@@ -3,4 +3,7 @@ version: 2.1
 jobs:
   build:
     executor: python/default
-    steps: []
+    steps:
+      run:
+        command: true
+
