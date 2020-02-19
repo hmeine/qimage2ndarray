@@ -20,4 +20,4 @@ jobs:
 workflows:
   main:
     jobs:
-      - build-and-test
+      - test-PyQt5
