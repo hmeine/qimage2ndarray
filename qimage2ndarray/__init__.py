@@ -7,7 +7,7 @@ from .dynqt import qt as _qt_driver
 from .qimageview_python import qimageview as _qimageview
 from . import qrgb_polyfill as _polyfill
 
-__version__ = "1.8"
+__version__ = "1.8.3"
 
 
 # Format_ARGB32 uses uint32 pixels in 0xAARRGGBB format;
@@ -215,9 +215,16 @@ def recarray_view(qimage):
 
 
 def _normalize255(array, normalize, clip = (0, 255)):
+    # by default, we do not want to clip in-place
+    # (the input array should not be modified):
+    clip_target = None
+
     if normalize:
         if normalize is True:
-            normalize = array.min(), array.max()
+            if array.dtype == bool:
+                normalize = (False, True)
+            else:
+                normalize = array.min(), array.max()
             if clip == (0, 255):
                 clip = None
         elif _np.isscalar(normalize):
@@ -227,15 +234,21 @@ def _normalize255(array, normalize, clip = (0, 255)):
 
         if nmin:
             array = array - nmin
+            clip_target = array
 
         if nmax != nmin:
-            scale = 255. / (nmax - nmin)
+            if array.dtype == bool:
+                scale = 255.
+            else:
+                scale = 255. / (nmax - nmin)
+
             if scale != 1.0:
                 array = array * scale
+                clip_target = array
 
     if clip:
         low, high = clip
-        _np.clip(array, low, high, array)
+        array = _np.clip(array, low, high, clip_target)
 
     return array
 
@@ -257,7 +270,8 @@ def gray2qimage(gray, normalize = False):
 
     `normalize` = True:
       scale image values to 0..255 (same as passing (gray.min(),
-      gray.max()))
+      gray.max()), except for boolean arrays, where False/True
+      are mapped to 0/255)
 
     If the source array `gray` contains masked values, the result will
     have only 255 shades of gray, and one color map entry will be used
@@ -327,8 +341,9 @@ def array2qimage(array, normalize = False):
       to 0..255
 
     `normalize` = True:
-      scale image values to 0..255 (same as passing (array.min(),
-      array.max()))
+      scale image values to 0..255 (same as passing (gray.min(),
+      gray.max()), except for boolean arrays, where False/True
+      are mapped to 0/255)
 
     If `array` contains masked values, the corresponding pixels will
     be transparent in the result.  Thus, the result will be of

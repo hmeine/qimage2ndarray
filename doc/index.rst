@@ -43,7 +43,7 @@ but qimage2ndarray has the following unique feature set:
 * Supports value scaling / normalization to 0..255 for convenient
   display of arbitrary NumPy arrays.
 
-* Recent additions are convenient image loading / saving methods 
+* Recent additions are convenient image loading / saving methods.
 
 .. _masked arrays: http://docs.scipy.org/doc/numpy/reference/maskedarray.generic.html
 
@@ -59,6 +59,15 @@ __ http://www.opensource.org/licenses/bsd-license.php
 
 Changelog
 =========
+
+Version 1.8.3:
+  - fix normalization potentially modifying input array
+
+Version 1.8.2:
+  - normalize boolean arrays to 0/255 by default
+
+Version 1.8.1:
+  - support normalization of boolean arrays
 
 Version 1.8:
   - improve exception when calling `imread` on non-existing file

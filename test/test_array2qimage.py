@@ -20,6 +20,22 @@ def test_gray2qimage():
     assert_equal(hex(qImg.pixel(10,14)), hex(QtGui.qRgb(0,0,0)))
     assert_equal(hex(qImg.pixel(10,13)), hex(QtGui.qRgb(0,0,0)))
 
+def test_bool2qimage_normalize():
+    a = numpy.zeros((240, 320), dtype = bool)
+    a[12,10] = True
+    # normalization should scale to 0/255
+    # (not raise a numpy exception, see issue #17)
+    qImg = qimage2ndarray.gray2qimage(a, normalize = True)
+    assert not qImg.isNull()
+    assert_equal(qImg.width(), 320)
+    assert_equal(qImg.height(), 240)
+    assert_equal(hex(qImg.pixel(10,12)), hex(QtGui.qRgb(255,255,255)))
+    assert_equal(hex(qImg.pixel(0,0)), hex(QtGui.qRgb(0,0,0)))
+    a[:] = True
+    qImg = qimage2ndarray.gray2qimage(a, normalize = True)
+    # for boolean arrays, I would assume True should always map to 255
+    assert_equal(hex(qImg.pixel(0,0)), hex(QtGui.qRgb(255,255,255)))
+
 def test_gray2qimage_normalize():
     a = numpy.zeros((240, 320), dtype = float)
     a[12,10] = 42.42
@@ -35,6 +51,23 @@ def test_gray2qimage_normalize():
     assert_equal(hex(qImg.pixel(10,13)), hex(QtGui.qRgb(0,0,0)))
     x = int(255 * 10.0 / 52.42)
     assert_equal(hex(qImg.pixel(10,14)), hex(QtGui.qRgb(x,x,x)))
+
+def test_arrayqimage_readonly_float_normalizing():
+    a = numpy.zeros((240, 320), dtype = float)
+    a[12,10] = 42.42
+    a[13,10] = -10
+    a.flags['WRITEABLE'] = False
+    qImg = qimage2ndarray.gray2qimage(a, normalize = True)
+
+def test_arrayqimage_readonly_float():
+    a = numpy.zeros((240, 320), dtype = float)
+    a.flags['WRITEABLE'] = False
+    qImg = qimage2ndarray.gray2qimage(a, normalize = False)
+
+def test_arrayqimage_readonly_uint8():
+    a = numpy.zeros((240, 320), dtype = numpy.uint8)
+    a.flags['WRITEABLE'] = False
+    qImg = qimage2ndarray.gray2qimage(a, normalize = False)
 
 def test_empty2qimage():
     a = numpy.ones((240, 320), dtype = float)
