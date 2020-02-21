@@ -91,7 +91,7 @@ def raw_view(qimage):
 def byte_view(qimage, byteorder = 'little'):
     """Returns raw 3D view of the given QImage_'s memory.  This will
     always be a 3-dimensional numpy.ndarray with dtype numpy.uint8.
-    
+
     Note that for 32-bit images, the last dimension will be in the
     [B,G,R,A] order (if little endian) due to QImage_'s memory layout
     (the alpha channel will be present for Format_RGB32 images, too).
@@ -145,7 +145,8 @@ def rgb_view(qimage, byteorder = 'big'):
         byteorder = _sys.byteorder
     bytes = byte_view(qimage, byteorder)
     if bytes.shape[2] != 4:
-        raise ValueError("For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)")
+        raise ValueError("For rgb_view, the image must have 32 bit pixel size "
+                         "(use RGB32, ARGB32, or ARGB32_Premultiplied)")
 
     if byteorder == 'little':
         return bytes[...,:3] # strip A off BGRA
@@ -170,7 +171,8 @@ def alpha_view(qimage):
     :rtype: numpy.ndarray_ with shape (height, width) and dtype uint8"""
     bytes = byte_view(qimage, byteorder = None)
     if bytes.shape[2] != 4:
-        raise ValueError("For alpha_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)")
+        raise ValueError("For alpha_view, the image must have 32 bit pixel size "
+                         "(use RGB32, ARGB32, or ARGB32_Premultiplied)")
     return bytes[...,_bgra[3]]
 
 
@@ -209,7 +211,8 @@ def recarray_view(qimage):
     :rtype: numpy.ndarray_ with shape (height, width) and dtype :data:`bgra_dtype`"""
     raw = _qimage_or_filename_view(qimage)
     if raw.itemsize != 4:
-        raise ValueError("For rgb_view, the image must have 32 bit pixel size (use RGB32, ARGB32, or ARGB32_Premultiplied)")
+        raise ValueError("For rgb_view, the image must have 32 bit pixel size "
+                         "(use RGB32, ARGB32, or ARGB32_Premultiplied)")
     return raw.view(bgra_dtype, _np.recarray)
 
 
@@ -359,9 +362,12 @@ def array2qimage(array, normalize = False):
     if _np.ndim(array) == 2:
         array = array[...,None]
     elif _np.ndim(array) != 3:
-        raise ValueError("array2qimage can only convert 2D or 3D arrays (got %d dimensions)" % _np.ndim(array))
+        raise ValueError("array2qimage can only convert 2D or 3D arrays "
+                         "(got %d dimensions)" % _np.ndim(array))
     if array.shape[2] not in (1, 2, 3, 4):
-        raise ValueError("array2qimage expects the last dimension to contain exactly one (scalar/gray), two (gray+alpha), three (R,G,B), or four (R,G,B,A) channels")
+        raise ValueError("array2qimage expects the last dimension to contain "
+                         "exactly one (scalar/gray), two (gray+alpha), "
+                         "three (R,G,B), or four (R,G,B,A) channels")
 
     h, w, channels = array.shape
 
@@ -452,7 +458,7 @@ def imsave(filename, image, normalize = False, format = None, quality = -1):
     :param format: image filetype (e.g. 'PNG'),  (default: check filename's suffix)
     :param quality: see QImage.save (0 = small .. 100 = uncompressed, -1 = default compression)
     :returns: boolean success, see QImage.save
-    
+
     This function has been added in version 1.4.
     """
     qImage = array2qimage(image, normalize = normalize)
