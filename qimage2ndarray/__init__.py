@@ -115,7 +115,7 @@ def byte_view(qimage, byteorder = 'little'):
     raw = _qimage_or_filename_view(qimage)
     result = raw.view(_np.uint8).reshape(raw.shape + (-1, ))
     if byteorder and byteorder != _sys.byteorder:
-        result = result[...,::-1]
+        result = result[..., ::-1]
     return result
 
 
@@ -149,9 +149,10 @@ def rgb_view(qimage, byteorder = 'big'):
                          "(use RGB32, ARGB32, or ARGB32_Premultiplied)")
 
     if byteorder == 'little':
-        return bytes[...,:3] # strip A off BGRA
+        result = bytes[...,:3] # strip A off BGRA
     else:
-        return bytes[...,1:] # strip A off ARGB
+        result = bytes[...,1:] # strip A off ARGB
+    return result
 
 
 def alpha_view(qimage):
