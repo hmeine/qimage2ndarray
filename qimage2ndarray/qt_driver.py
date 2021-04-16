@@ -37,6 +37,7 @@ but are required in PyQt and PySide), one may e.g. write
 
 import sys, os
 
+
 def getprop_PythonQt(prop):
     """getprop(property_or_getter)
 
@@ -45,6 +46,7 @@ def getprop_PythonQt(prop):
     argument, which is assumed to be (the value of) a python property
     through which PythonQt exposes Qt properties."""
     return prop
+
 
 def getprop_other(getter):
     """getprop(property_or_getter)
@@ -56,10 +58,11 @@ def getprop_other(getter):
     and no calling must be done.)"""
     return getter()
 
+
 class QtDriver(object):
     DRIVERS = ('PyQt5', 'PyQt4', 'PySide', 'PySide2', 'PythonQt')
     DEFAULT = 'PyQt5'
-    
+
     @classmethod
     def detect_qt(cls):
         for drv in cls.DRIVERS:
@@ -83,8 +86,9 @@ class QtDriver(object):
             drv = os.environ.get('QT_API')
         if drv is None:
             drv = self.DEFAULT
+        # map ETS syntax
         drv = {'pyside': 'PySide', 'pyside2': 'PySide2',
-               'pyqt'  : 'PyQt4',  'pyqt5'  : 'PyQt5'}.get(drv, drv) # map ETS syntax
+               'pyqt': 'PyQt4', 'pyqt5': 'PyQt5'}.get(drv, drv)
         assert drv in self.DRIVERS
         self._drv = drv
 
@@ -112,8 +116,10 @@ class QtDriver(object):
             import sip
             for api in ('QVariant', 'QString'):
                 if sip.getapi(api) != 2:
-                    raise RuntimeError('%s API already set to V%d, but should be 2' % (api, sip.getapi(api)))
-            
+                    raise RuntimeError((
+                        '%s API already set to V%d, '
+                        'but should be 2') % (api, sip.getapi(api)))
+
     def importMod(self, mod):
         if self._drv == 'PyQt4':
             self._initPyQt4()

@@ -9,18 +9,22 @@ import sys
 import numpy as np
 from qimage2ndarray.dynqt import qt, QtGui
 
+
 def PyQt_data(image):
     # PyQt4/PyQt5's QImage.bits() returns a sip.voidptr that supports
     # conversion to string via asstring(size) or getting its base
     # address via int(...):
     return (int(image.bits()), False)
 
+
 def _re_buffer_address_match(buf_repr):
     import re
     _re_buffer_address = re.compile('<read-write buffer ptr 0x([0-9a-fA-F]*),')
+    # speed-up hack: replace ourselves with the bound method
     global _re_buffer_address_match
     _re_buffer_address_match = _re_buffer_address.match
     return _re_buffer_address_match(buf_repr)
+
 
 def PySide_data(image):
     # PySide's QImage.bits() returns a buffer object like this:
@@ -29,22 +33,24 @@ def PySide_data(image):
     assert ma, 'could not parse address from %r' % (image.bits(), )
     return (int(ma.group(1), 16), False)
 
+
 def direct_buffer_data(image):
     return image.bits()
+
 
 # I would have preferred a more pythonic (duck-typing-like) approach
 # based on introspection, but finding out which one of the above functions
 # works at runtime is quite hard
 getdata = {
-    ('PyQt4', 2) : PyQt_data,
-    ('PyQt5', 2) : PyQt_data,
-    ('PySide', 2) : PySide_data,
-    ('PySide2', 2) : PySide_data,
-    ('PyQt4', 3) : PyQt_data,
-    ('PyQt5', 3) : PyQt_data,
-    ('PySide', 3) : direct_buffer_data,
-    ('PySide2', 3) : direct_buffer_data,
-    ('PythonQt', 3) : direct_buffer_data,
+    ('PyQt4', 2): PyQt_data,
+    ('PyQt5', 2): PyQt_data,
+    ('PySide', 2): PySide_data,
+    ('PySide2', 2): PySide_data,
+    ('PyQt4', 3): PyQt_data,
+    ('PyQt5', 3): PyQt_data,
+    ('PySide', 3): direct_buffer_data,
+    ('PySide2', 3): direct_buffer_data,
+    ('PythonQt', 3): direct_buffer_data,
 }[qt.name(), sys.version_info.major]
 
 
@@ -60,6 +66,7 @@ class QImageFormat:
         for _name, qimage_format in FORMATS.items():
             if qimage_format.code == code:
                 return qimage_format
+
 
 FORMATS = dict(
     Format_Mono = QImageFormat(1),
@@ -96,6 +103,7 @@ for name, qimage_format in FORMATS.items():
     if name in dir(QtGui.QImage):
         qimage_format.code = getattr(QtGui.QImage, name)
 
+
 class ArrayInterfaceAroundQImage(object):
     __slots__ = ('__qimage', '__array_interface__')
 
@@ -111,7 +119,8 @@ class ArrayInterfaceAroundQImage(object):
             strides = (bytes_per_line, bytes_per_pixel),
             version = 3,
         )
-    
+
+
 def qimageview(image):
     if not isinstance(image, QtGui.QImage):
         raise TypeError("image argument must be a QImage instance")
@@ -119,10 +128,12 @@ def qimageview(image):
     pixel_format = image.format()
     if pixel_format == QtGui.QImage.Format_Invalid:
         raise ValueError("qimageview got invalid QImage")
-    
+
     qimage_format = QImageFormat.from_code(pixel_format)
     if qimage_format.bits not in (8, 16, 32, 64):
-        raise ValueError("qimageview can only handle 8-, 16-, 32- or 64-bit QImages (format was %r)" % pixel_format)
+        raise ValueError(
+            'qimageview can only handle 8-, 16-, 32- or 64-bit '
+            'QImages (format was %r)' % pixel_format)
 
     # introduce intermediate object referencing image
     # and providing array interface:

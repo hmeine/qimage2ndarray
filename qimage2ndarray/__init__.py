@@ -4,7 +4,7 @@ import numpy as _np
 from .dynqt import QtGui as _qt
 
 from .qimageview_python import qimageview as _qimageview
-from .qrgb_polyfill import install  as _install_polyfill
+from .qrgb_polyfill import _install_polyfill
 
 __version__ = "1.8.3"
 
@@ -71,10 +71,12 @@ except NameError:
     # 'basestring' undefined, must be Python 3
     _basestring = str
 
+
 def _qimage_or_filename_view(qimage):
     if isinstance(qimage, _basestring):
         qimage = _qt.QImage(qimage)
     return _qimageview(qimage)
+
 
 def raw_view(qimage):
     """Returns raw 2D view of the given QImage_'s memory.  The result
@@ -150,9 +152,9 @@ def rgb_view(qimage, byteorder = 'big'):
                          "(use RGB32, ARGB32, or ARGB32_Premultiplied)")
 
     if byteorder == 'little':
-        result = bytes[...,:3] # strip A off BGRA
+        result = bytes[..., :3]  # strip A off BGRA
     else:
-        result = bytes[...,1:] # strip A off ARGB
+        result = bytes[..., 1:]  # strip A off ARGB
     return result
 
 
@@ -173,9 +175,9 @@ def alpha_view(qimage):
     :rtype: numpy.ndarray_ with shape (height, width) and dtype uint8"""
     bytes = byte_view(qimage, byteorder = None)
     if bytes.shape[2] != 4:
-        raise ValueError("For alpha_view, the image must have 32 bit pixel size "
-                         "(use RGB32, ARGB32, or ARGB32_Premultiplied)")
-    return bytes[...,_bgra[3]]
+        raise ValueError("For alpha_view, the image must have 32 bit pixel "
+                         "size (use RGB32, ARGB32, or ARGB32_Premultiplied)")
+    return bytes[..., _bgra[3]]
 
 
 def recarray_view(qimage):
@@ -210,13 +212,13 @@ def recarray_view(qimage):
 
     :param qimage: image whose memory shall be accessed via NumPy
     :type qimage: QImage_ with 32-bit pixel type
-    :rtype: numpy.ndarray_ with shape (height, width) and dtype :data:`bgra_dtype`"""
+    :rtype: numpy.ndarray_ with shape (height, width)
+       and dtype :data:`bgra_dtype`"""
     raw = _qimage_or_filename_view(qimage)
     if raw.itemsize != 4:
         raise ValueError("For rgb_view, the image must have 32 bit pixel size "
                          "(use RGB32, ARGB32, or ARGB32_Premultiplied)")
     return raw.view(bgra_dtype, _np.recarray)
-
 
 
 def _normalize255(array, normalize, clip = (0, 255)):
@@ -291,23 +293,24 @@ def gray2qimage(gray, normalize = False):
     :type normalize: bool, scalar, or pair
     :rtype: QImage_ with RGB32 or ARGB32 format"""
     if _np.ndim(gray) != 2:
-        raise ValueError("gray2QImage can only convert 2D arrays" +
-                         " (try using array2qimage)" if _np.ndim(gray) == 3 else "")
+        raise ValueError(
+            'gray2QImage can only convert 2D arrays' + (
+                ' (try using array2qimage)' if _np.ndim(gray) == 3 else ''))
 
     h, w = gray.shape
     result = _qt.QImage(w, h, _qt.QImage.Format_Indexed8)
 
     if not _np.ma.is_masked(gray):
         for i in range(256):
-            result.setColor(i, _qt.qRgb(i,i,i))
+            result.setColor(i, _qt.qRgb(i, i, i))
 
         _qimageview(result)[:] = _normalize255(gray, normalize)
     else:
         # map gray value 1 to gray value 0, in order to make room for
         # transparent colormap entry:
-        result.setColor(0, _qt.qRgb(0,0,0))
+        result.setColor(0, _qt.qRgb(0, 0, 0))
         for i in range(2, 256):
-            result.setColor(i-1, _qt.qRgb(i,i,i))
+            result.setColor(i - 1, _qt.qRgb(i, i, i))
 
         _qimageview(result)[:] = _normalize255(gray, normalize, clip = (1, 255)) - 1
 
@@ -362,7 +365,7 @@ def array2qimage(array, normalize = False):
     :type normalize: bool, scalar, or pair
     :rtype: QImage_ with RGB32 or ARGB32 format"""
     if _np.ndim(array) == 2:
-        array = array[...,None]
+        array = array[..., None]
     elif _np.ndim(array) != 3:
         raise ValueError("array2qimage can only convert 2D or 3D arrays "
                          "(got %d dimensions)" % _np.ndim(array))
@@ -381,19 +384,19 @@ def array2qimage(array, normalize = False):
     array = _normalize255(array, normalize)
 
     if channels >= 3:
-        rgb_view(result)[:] = array[...,:3]
+        rgb_view(result)[:] = array[..., :3]
     else:
-        rgb_view(result)[:] = array[...,:1] # scalar data
+        rgb_view(result)[:] = array[..., :1]  # scalar data
 
     alpha = alpha_view(result)
 
     if channels in (2, 4):
-        alpha[:] = array[...,-1]
+        alpha[:] = array[..., -1]
     else:
         alpha[:] = 255
 
     if _np.ma.is_masked(array):
-        alpha[:]  *= _np.logical_not(_np.any(array.mask, axis = -1))
+        alpha[:] *= _np.logical_not(_np.any(array.mask, axis = -1))
 
     return result
 
@@ -426,7 +429,7 @@ def imread(filename, masked = False):
 
     isGray = qImage.isGrayscale()
     if isGray and qImage.depth() == 8:
-        return byte_view(qImage)[...,0]
+        return byte_view(qImage)[..., 0]
 
     hasAlpha = qImage.hasAlphaChannel()
 
@@ -439,12 +442,12 @@ def imread(filename, masked = False):
 
     result = rgb_view(qImage)
     if isGray:
-        result = result[...,0]
+        result = result[..., 0]
     if hasAlpha:
         if masked:
             mask = (alpha_view(qImage) == 0)
             if _np.ndim(result) == 3:
-                mask = _np.repeat(mask[...,None], 3, axis = 2)
+                mask = _np.repeat(mask[..., None], 3, axis = 2)
             result = _np.ma.masked_array(result, mask)
         else:
             result = _np.dstack((result, alpha_view(qImage)))
@@ -458,7 +461,8 @@ def imsave(filename, image, normalize = False, format = None, quality = -1):
 
     :param normalize: see :func:`array2qimage` (which is used internally)
     :param format: image filetype (e.g. 'PNG'),  (default: check filename's suffix)
-    :param quality: see QImage.save (0 = small .. 100 = uncompressed, -1 = default compression)
+    :param quality: see QImage.save (0 = small .. 100 = uncompressed,
+        -1 = default compression)
     :returns: boolean success, see QImage.save
 
     This function has been added in version 1.4.
