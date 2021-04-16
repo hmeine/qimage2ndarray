@@ -4,10 +4,12 @@ import numpy as _np
 from .dynqt import QtGui as _qt
 
 from .qimageview_python import qimageview as _qimageview
-from . import qrgb_polyfill as _polyfill
+from .qrgb_polyfill import install  as _install_polyfill
 
 __version__ = "1.8.3"
 
+
+_install_polyfill()
 
 # Format_ARGB32 uses uint32 pixels in 0xAARRGGBB format;
 # hence, the memory layout depends on the machine endianess

@@ -14,7 +14,8 @@ def qAlpha(rgba):
     return (rgba & 0xff000000) >> 24
 
 
-if not hasattr(QtGui, 'qRgb'):
-    QtGui.qRgb = qRgb
-    QtGui.qRgba = qRgba
-    QtGui.qAlpha = qAlpha
+def install():
+    if not hasattr(QtGui, 'qRgb'):
+        QtGui.qRgb = qRgb
+        QtGui.qRgba = qRgba
+        QtGui.qAlpha = qAlpha
