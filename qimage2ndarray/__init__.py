@@ -3,7 +3,6 @@ import numpy as _np
 
 from .dynqt import QtGui as _qt
 
-from .dynqt import qt as _qt_driver
 from .qimageview_python import qimageview as _qimageview
 from . import qrgb_polyfill as _polyfill
 
