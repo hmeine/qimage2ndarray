@@ -59,8 +59,8 @@ Contributors
 
 This package is written and maintained by Hans Meine <hans_meine@gmx.net>.
 
-I am grateful for feedback from Ullrich Köthe, PowerPC/endianness
-testing by Helge Kreutzmann and initial PyQt5 support by Rudolf Höfler.
+I am grateful for feedback from Ullrich KÃ¶the, PowerPC/endianness
+testing by Helge Kreutzmann and initial PyQt5 support by Rudolf HÃ¶fler.
 
 .. _browsed online: https://github.com/hmeine/qimage2ndarray
 .. _ndarray.base: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.base.html
