@@ -5,7 +5,8 @@ Over time, it became possible to get rid of the compiled extension on
 all supported backends, so this is now used for all Qt python bindings.
 '''
 
-import numpy as np, sys, collections
+import sys
+import numpy as np
 from qimage2ndarray.dynqt import qt, QtGui
 
 def PyQt_data(image):
