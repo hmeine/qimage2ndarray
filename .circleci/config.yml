@@ -38,7 +38,7 @@ jobs:
           name: Test (PySide2)
 
 workflows:
-  main:
+  unit-tests:
     jobs:
       - test-PyQt5:
           filters:
@@ -50,6 +50,8 @@ workflows:
             branches:
               ignore:
                 - gh-pages
+  linting:
+    jobs:
       - python-lint/lint:
           filters:
             branches:
