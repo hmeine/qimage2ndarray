@@ -65,15 +65,9 @@ rgba64_dtype = _np.dtype(_rgba64_fields)
 corresponding long names, conforming to QImage_'s
 Format_RGBA64 memory layout."""
 
-try:
-    _basestring = basestring
-except NameError:
-    # 'basestring' undefined, must be Python 3
-    _basestring = str
-
 
 def _qimage_or_filename_view(qimage):
-    if isinstance(qimage, _basestring):
+    if isinstance(qimage, str):
         qimage = _qt.QImage(qimage)
     return _qimageview(qimage)
 
