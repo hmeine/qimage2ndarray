@@ -49,4 +49,4 @@ workflows:
     jobs:
       - test-PyQt5
       - test-PySide2
-      - pylint/lint
+      - python-lint/lint
