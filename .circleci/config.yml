@@ -40,17 +40,17 @@ jobs:
 workflows:
   main:
     jobs:
-      - test-PyQt5
+      - test-PyQt5:
           filters:
             branches:
               ignore:
                 - gh-pages
-      - test-PySide2
+      - test-PySide2:
           filters:
             branches:
               ignore:
                 - gh-pages
-      - python-lint/lint
+      - python-lint/lint:
           filters:
             branches:
               ignore:
