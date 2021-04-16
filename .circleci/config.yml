@@ -39,6 +39,13 @@ jobs:
 
 workflows:
   main:
+    triggers:
+      - schedule:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+
     jobs:
       - test-PyQt5
       - test-PySide2
