@@ -35,9 +35,10 @@ jobs:
           environment:
             QT_API: pyside2
           name: Test (PySide2)
-  
+
 workflows:
   main:
     jobs:
       - test-PyQt5
       - test-PySide2
+      - pylint/lint
