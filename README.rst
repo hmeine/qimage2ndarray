@@ -1,3 +1,6 @@
+.. image:: https://circleci.com/gh/hmeine/qimage2ndarray.svg?style=shield
+    :target: https://app.circleci.com/pipelines/github/hmeine/qimage2ndarray?branch=master
+
 qimage2ndarray
 ==============
 
