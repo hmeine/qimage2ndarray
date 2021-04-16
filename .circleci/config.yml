@@ -39,14 +39,19 @@ jobs:
 
 workflows:
   main:
-    triggers:
-      - schedule:
+    jobs:
+      - test-PyQt5
           filters:
             branches:
               ignore:
                 - gh-pages
-
-    jobs:
-      - test-PyQt5
       - test-PySide2
+          filters:
+            branches:
+              ignore:
+                - gh-pages
       - python-lint/lint
+          filters:
+            branches:
+              ignore:
+                - gh-pages
