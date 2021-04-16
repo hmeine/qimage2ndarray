@@ -49,7 +49,7 @@ getdata = {
 
 
 # what properties (e.g., how many bits) do the different formats have?
-class QImageFormat(object):
+class QImageFormat:
     def __init__(self, bits, rgb_layout = None):
         self.code = None
         self.bits = bits
@@ -57,7 +57,7 @@ class QImageFormat(object):
 
     @staticmethod
     def from_code(code):
-        for name, qimage_format in FORMATS.items():
+        for _name, qimage_format in FORMATS.items():
             if qimage_format.code == code:
                 return qimage_format
 
@@ -95,7 +95,7 @@ FORMATS = dict(
 for name, qimage_format in FORMATS.items():
     if name in dir(QtGui.QImage):
         qimage_format.code = getattr(QtGui.QImage, name)
-    
+
 class ArrayInterfaceAroundQImage(object):
     __slots__ = ('__qimage', '__array_interface__')
 
