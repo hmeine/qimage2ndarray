@@ -60,7 +60,7 @@ def getprop_other(getter):
 
 
 class QtDriver(object):
-    DRIVERS = ('PyQt5', 'PyQt4', 'PySide', 'PySide2', 'PythonQt')
+    DRIVERS = ('PyQt5', 'PyQt4', 'PySide', 'PySide2', 'PySide6', 'PythonQt')
     DEFAULT = 'PyQt5'
 
     @classmethod
@@ -87,7 +87,7 @@ class QtDriver(object):
         if drv is None:
             drv = self.DEFAULT
         # map ETS syntax
-        drv = {'pyside': 'PySide', 'pyside2': 'PySide2',
+        drv = {'pyside': 'PySide', 'pyside2': 'PySide2', 'pyside6' : 'PySide6',
                'pyqt': 'PyQt4', 'pyqt5': 'PyQt5'}.get(drv, drv)
         assert drv in self.DRIVERS
         self._drv = drv
