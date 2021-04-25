@@ -36,6 +36,22 @@ jobs:
           environment:
             QT_API: pyside2
           name: Test (PySide2)
+  
+  test-PySide6:
+    executor: python/default
+    steps:
+      - checkout
+      - python/load-cache:
+          key: PySide6
+      - run:
+          command: pip install numpy PySide6 nose
+          name: Install Dependencies (PySide6)
+      - python/save-cache
+      - run:
+          command: nosetests
+          environment:
+            QT_API: pyside6
+          name: Test (PySide6)
 
 workflows:
   unit-tests:
@@ -46,6 +62,11 @@ workflows:
               ignore:
                 - gh-pages
       - test-PySide2:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+      - test-PySide6:
           filters:
             branches:
               ignore:
