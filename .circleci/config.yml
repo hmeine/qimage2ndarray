@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  python: circleci/python@0.2.1
-  python-lint: qventus/python-lint@0.0.6
+  python: circleci/python@2.0.1
+  python-lint: qventus/python-lint@0.0.7
 
 jobs:
   test-PyQt5:
