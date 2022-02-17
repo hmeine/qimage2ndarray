@@ -60,6 +60,11 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
+Version 1.9.0:
+  - first support for 64bit pixel types
+  - support PySide6
+  - code cleanups
+
 Version 1.8.3:
   - fix normalization potentially modifying input array
 

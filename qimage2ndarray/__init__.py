@@ -6,7 +6,7 @@ from .dynqt import QtGui as _qt
 from .qimageview_python import qimageview as _qimageview
 from .qrgb_polyfill import _install_polyfill
 
-__version__ = "1.8.3"
+__version__ = "1.9.0"
 
 
 _install_polyfill()
