@@ -12,11 +12,11 @@ jobs:
       - python/load-cache:
           key: PyQt5
       - run:
-          command: pip install numpy PyQt5 nose
+          command: pip install numpy PyQt5 pytest
           name: Install Dependencies (PyQt5)
       - python/save-cache
       - run:
-          command: nosetests
+          command: pytest
           environment:
             QT_API: pyqt5
           name: Test (PyQt5)
@@ -28,11 +28,11 @@ jobs:
       - python/load-cache:
           key: PySide2
       - run:
-          command: pip install numpy PySide2 nose
+          command: pip install numpy PySide2 pytest
           name: Install Dependencies (PySide2)
       - python/save-cache
       - run:
-          command: nosetests
+          command: pytest
           environment:
             QT_API: pyside2
           name: Test (PySide2)
@@ -44,11 +44,11 @@ jobs:
       - python/load-cache:
           key: PySide6
       - run:
-          command: pip install numpy PySide6 nose
+          command: pip install numpy PySide6 pytest
           name: Install Dependencies (PySide6)
       - python/save-cache
       - run:
-          command: nosetests
+          command: pytest
           environment:
             QT_API: pyside6
           name: Test (PySide6)
