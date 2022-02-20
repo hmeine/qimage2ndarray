@@ -1,7 +1,7 @@
 import qimage2ndarray, os, numpy
 
 from nose.tools import raises
-from nose.plugins.skip import SkipTest
+import pytest
 
 
 def _locate_test_image(basename):
@@ -106,7 +106,7 @@ def test_imread_against_scipy_ndimage():
     try:
         import scipy.ndimage
     except ImportError:
-        raise SkipTest
+        pytest.skip('scipy.ndimage not installed')
 
     for filename in all_test_images:
         a = scipy.ndimage.imread(filename)
@@ -118,7 +118,7 @@ def test_imread_against_scipy_misc():
     try:
         import scipy.misc
     except ImportError:
-        raise SkipTest
+        pytest.skip('scipy.misc not installed')
 
     for filename in all_test_images:
         a = scipy.misc.imread(filename)
@@ -130,7 +130,7 @@ def test_imread_against_matplotlib():
     try:
         import matplotlib.pyplot
     except ImportError:
-        raise SkipTest
+        pytest.skip('matplotlib not installed')
 
     for filename in all_test_images:
         a = matplotlib.pyplot.imread(filename)
