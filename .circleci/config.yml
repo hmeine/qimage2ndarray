@@ -9,12 +9,9 @@ jobs:
     executor: python/default
     steps:
       - checkout
-      - python/load-cache:
-          key: PyQt5
       - run:
           command: pip install numpy PyQt5 pytest
           name: Install Dependencies (PyQt5)
-      - python/save-cache
       - run:
           command: pytest
           environment:
@@ -25,12 +22,9 @@ jobs:
     executor: python/default
     steps:
       - checkout
-      - python/load-cache:
-          key: PySide2
       - run:
           command: pip install numpy PySide2 pytest
           name: Install Dependencies (PySide2)
-      - python/save-cache
       - run:
           command: pytest
           environment:
@@ -41,12 +35,9 @@ jobs:
     executor: python/default
     steps:
       - checkout
-      - python/load-cache:
-          key: PySide6
       - run:
           command: pip install numpy PySide6 pytest
           name: Install Dependencies (PySide6)
-      - python/save-cache
       - run:
           command: pytest
           environment:
