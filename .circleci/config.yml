@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   python: circleci/python@2.0.1
-  python-lint: qventus/python-lint@0.0.7
 
 jobs:
   test-PyQt5:
@@ -58,13 +57,6 @@ workflows:
               ignore:
                 - gh-pages
       - test-PySide6:
-          filters:
-            branches:
-              ignore:
-                - gh-pages
-  linting:
-    jobs:
-      - python-lint/lint:
           filters:
             branches:
               ignore:
