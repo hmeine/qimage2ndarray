@@ -20,7 +20,7 @@ setup(name = 'qimage2ndarray',
                             PyQt5 = 'PyQt5',
                             PySide = 'PySide',
                             PySide2 = 'PySide2'),
-      tests_require = 'nose',
+      tests_require = 'pytest',
       packages = ['qimage2ndarray'],
       long_description = """\
 qimage2ndarray is a small python extension for quickly converting
