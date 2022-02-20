@@ -62,6 +62,7 @@ Changelog
 
 Version 1.9.0:
   - first support for 64bit pixel types
+  - switched tests from nose to pytest
   - support PySide6
   - code cleanups
 
