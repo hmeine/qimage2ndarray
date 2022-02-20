@@ -1,6 +1,6 @@
 import qimage2ndarray, os, numpy
 
-from nose.tools import assert_equal, raises
+from nose.tools import raises
 from nose.plugins.skip import SkipTest
 
 
@@ -22,12 +22,12 @@ def test_imread_box():
 
     gray = qimage2ndarray.imread(filename)
 
-    assert_equal(gray.min(), 0)
-    assert_equal(gray.max(), 255)
+    assert gray.min() == 0
+    assert gray.max() == 255
 
-    assert_equal(numpy.ndim(gray), 2)
+    assert numpy.ndim(gray) == 2
 
-    assert_equal(gray.shape, (50, 111))
+    assert gray.shape == (50, 111)
 
     
 def test_imread_rgba():
@@ -35,12 +35,12 @@ def test_imread_rgba():
 
     rgb = qimage2ndarray.imread(filename)
 
-    assert_equal(rgb.min(), 0)
-    assert_equal(rgb.max(), 255)
+    assert rgb.min() == 0
+    assert rgb.max() == 255
 
-    assert_equal(numpy.ndim(rgb), 3)
+    assert numpy.ndim(rgb) == 3
 
-    assert_equal(rgb.shape, (50, 111, 4))
+    assert rgb.shape == (50, 111, 4)
 
     
 def test_imread_gray():
@@ -50,9 +50,9 @@ def test_imread_gray():
 
     assert 200 < gray.max() <= 255
 
-    assert_equal(numpy.ndim(gray), 2)
+    assert numpy.ndim(gray) == 2
 
-    assert_equal(gray.shape, (11, 16))
+    assert gray.shape == (11, 16)
 
 
 def test_imread_gray_alpha():
@@ -62,9 +62,9 @@ def test_imread_gray_alpha():
 
     assert 200 < gray.max() <= 255
 
-    assert_equal(numpy.ndim(gray), 3)
+    assert numpy.ndim(gray) == 3
 
-    assert_equal(gray.shape, (50, 111, 2))
+    assert gray.shape == (50, 111, 2)
 
 
 def test_imread_masked():
@@ -74,15 +74,15 @@ def test_imread_masked():
 
     assert 200 < gray.max() <= 255
 
-    assert_equal(numpy.ndim(gray), 2)
+    assert numpy.ndim(gray) == 2
 
-    assert_equal(gray.shape, (50, 111))
+    assert gray.shape == (50, 111)
 
     assert numpy.ma.is_masked(gray)
 
     masked_count = gray.mask.sum()
     assert 0 < masked_count < numpy.product(gray.shape)
-    assert_equal(masked_count, 1464)
+    assert masked_count == 1464
 
 
 def test_imread_masked_no_alpha():
@@ -92,9 +92,9 @@ def test_imread_masked_no_alpha():
 
     assert 200 < gray.max() <= 255
 
-    assert_equal(numpy.ndim(gray), 2)
+    assert numpy.ndim(gray) == 2
 
-    assert_equal(gray.shape, (11, 16))
+    assert gray.shape == (11, 16)
 
     assert not numpy.ma.is_masked(gray)
 
@@ -111,7 +111,7 @@ def test_imread_against_scipy_ndimage():
     for filename in all_test_images:
         a = scipy.ndimage.imread(filename)
         b = qimage2ndarray.imread(filename)
-        assert_equal(a.shape, b.shape)
+        assert a.shape == b.shape
         assert numpy.all(a == b)
 
 def test_imread_against_scipy_misc():
@@ -123,7 +123,7 @@ def test_imread_against_scipy_misc():
     for filename in all_test_images:
         a = scipy.misc.imread(filename)
         b = qimage2ndarray.imread(filename)
-        assert_equal(a.shape, b.shape)
+        assert a.shape == b.shape
         assert numpy.all(a == b)
 
 def test_imread_against_matplotlib():
@@ -135,7 +135,7 @@ def test_imread_against_matplotlib():
     for filename in all_test_images:
         a = matplotlib.pyplot.imread(filename)
         b = qimage2ndarray.imread(filename)
-        assert_equal(a.shape, b.shape)
+        assert a.shape == b.shape
         if a.max() == 1.0: # strange MPL API: only the PNG has 0..1.0 range
             a *= 255
         assert numpy.all(numpy.abs(a - b) < 1e-8)
