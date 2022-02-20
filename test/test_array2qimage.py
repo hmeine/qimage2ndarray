@@ -258,7 +258,7 @@ def test_rgb2qimage_normalize():
     assert qImg.width() == 320
     assert qImg.height() == 240
     assert qImg.format() == QtGui.QImage.Format_RGB32
-    assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(255,(255*30.0//52.42),(255*24//52.42)))
-    assert hex(qImg.pixel(10,13)) == hex(QtGui.qRgb(0,(255*30.0//52.42),(255*10//52.42)))
+    assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(255,int(255*30/52.42),int(255*24/52.42)))
+    assert hex(qImg.pixel(10,13)) == hex(QtGui.qRgb(0,int(255*30/52.42),int(255*10/52.42)))
     x = int(255 * 10.0 / 52.42)
     assert hex(qImg.pixel(10,14)) == hex(QtGui.qRgb(x,x,x))       # zero pixel
