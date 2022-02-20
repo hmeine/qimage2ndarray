@@ -13,7 +13,7 @@ jobs:
           command: pip install numpy PyQt5 pytest
           name: Install Dependencies (PyQt5)
       - run:
-          command: pytest
+          command: pip install . && pytest
           environment:
             QT_API: pyqt5
           name: Test (PyQt5)
@@ -26,7 +26,7 @@ jobs:
           command: pip install numpy PySide2 pytest
           name: Install Dependencies (PySide2)
       - run:
-          command: pytest
+          command: pip install . && pytest
           environment:
             QT_API: pyside2
           name: Test (PySide2)
@@ -39,7 +39,7 @@ jobs:
           command: pip install numpy PySide6 pytest
           name: Install Dependencies (PySide6)
       - run:
-          command: pytest
+          command: pip install . && pytest
           environment:
             QT_API: pyside6
           name: Test (PySide6)
