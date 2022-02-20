@@ -1,6 +1,5 @@
 import qimage2ndarray, os, numpy
 
-from nose.tools import raises
 import pytest
 
 
@@ -10,11 +9,11 @@ def _locate_test_image(basename):
     return result
 
 
-@raises(IOError)
 def test_imread_file_not_found():
     filename = 'non_existing_image_file.png'
 
-    qimage2ndarray.imread(filename)
+    with pytest.raises(IOError):
+        qimage2ndarray.imread(filename)
 
 
 def test_imread_box():

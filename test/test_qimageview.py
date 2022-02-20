@@ -2,8 +2,8 @@ from qimage2ndarray import _qimageview
 from qimage2ndarray.dynqt import qt, QtGui
 import sys, numpy
 
-from nose.tools import raises
 from compat import setNumColors, numBytes
+import pytest
 
 
 def test_viewcreation():
@@ -17,18 +17,18 @@ def test_viewcreation():
         assert (w, h) == (320, 240)
     v[239] = numpy.arange(320) # should not segfault
 
-@raises(TypeError)
 def test_qimageview_noargs():
-    v = _qimageview()
+    with pytest.raises(TypeError):
+        v = _qimageview()
 
-@raises(TypeError)
 def test_qimageview_manyargs():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)
-    v = _qimageview(qimg, 1)
+    with pytest.raises(TypeError):
+        v = _qimageview(qimg, 1)
 
-@raises(TypeError)
 def test_qimageview_wrongarg():
-    v = _qimageview(42)
+    with pytest.raises(TypeError):
+        v = _qimageview(42)
 
 def test_data_access():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)
@@ -150,12 +150,12 @@ def test_odd_size_32bit_rgb():
     assert v.strides[0] == qimg.bytesPerLine()
     assert v.strides[1] == 4
 
-@raises(ValueError)
 def test_mono():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Mono)
-    v = _qimageview(qimg)
+    with pytest.raises(ValueError):
+        v = _qimageview(qimg)
 
-@raises(ValueError)
 def test_rgb666():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB666)
-    v = _qimageview(qimg)
+    with pytest.raises(ValueError):
+        v = _qimageview(qimg)
