@@ -35,7 +35,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: pip install numpy PySide6 pytest
+          command: sudo apt install libegl1 && pip install numpy PySide6 pytest
           name: Install Dependencies (PySide6)
       - run:
           command: pip install . && pytest
