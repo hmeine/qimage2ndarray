@@ -2,7 +2,7 @@ from qimage2ndarray import _qimageview
 from qimage2ndarray.dynqt import qt, QtGui
 import sys, numpy
 
-from compat import setNumColors, numBytes
+from compat import setColorCount, sizeInBytes
 import pytest
 
 
@@ -32,26 +32,26 @@ def test_qimageview_wrongarg():
 
 def test_data_access():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)
-    setNumColors(qimg, 256)
+    setColorCount(qimg, 256)
     qimg.fill(42)
     v = _qimageview(qimg)
     assert v.shape == (240, 320)
     assert v[10,10] == 42
-    assert v.nbytes == numBytes(qimg)
+    assert v.nbytes == sizeInBytes(qimg)
 
 def test_being_view():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)
-    setNumColors(qimg, 256)
+    setColorCount(qimg, 256)
     qimg.fill(23)
     v = _qimageview(qimg)
     qimg.fill(42)
     assert v.shape == (240, 320)
     assert v[10,10] == 42
-    assert v.nbytes == numBytes(qimg)
+    assert v.nbytes == sizeInBytes(qimg)
 
 def test_coordinate_access():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)
-    setNumColors(qimg, 256)
+    setColorCount(qimg, 256)
     qimg.fill(0)
     v = _qimageview(qimg)
     qimg.fill(23)
@@ -59,7 +59,7 @@ def test_coordinate_access():
     assert v.shape == (240, 320)
     assert v[10,10] == 23
     assert v[10,12] == 42
-    assert v.nbytes == numBytes(qimg)
+    assert v.nbytes == sizeInBytes(qimg)
 
 def test_RGB32():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
@@ -70,7 +70,7 @@ def test_RGB32():
     assert v.shape == (240, 320)
     assert v[10,10] == 23 | 0xff000000
     assert v[10,12] == 0xff123456 if sys.byteorder == 'little' else 0x563412ff
-    assert v.nbytes == numBytes(qimg)
+    assert v.nbytes == sizeInBytes(qimg)
 
 def test_ARGB32():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_ARGB32)
@@ -79,7 +79,7 @@ def test_ARGB32():
     qimg.setPixel(12, 10, QtGui.qRgb(0x12,0x34,0x56))
     assert v.shape == (240, 320)
     assert v[10,12] == 0xff123456 if sys.byteorder == 'little' else 0x563412ff
-    assert v.nbytes == numBytes(qimg)
+    assert v.nbytes == sizeInBytes(qimg)
 
 def test_RGBX8888():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGBX8888)
@@ -90,7 +90,7 @@ def test_RGBX8888():
     assert v.shape == (240, 320)
     assert v[10,10] == 23 | 0xff000000
     assert v[10,12] == 0x123456ff if sys.byteorder == 'big' else 0xff563412
-    assert v.nbytes == numBytes(qimg)
+    assert v.nbytes == sizeInBytes(qimg)
 
 def test_RGBA8888():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGBA8888)
@@ -99,7 +99,7 @@ def test_RGBA8888():
     qimg.setPixel(12, 10, QtGui.qRgb(0x12,0x34,0x56))
     assert v.shape == (240, 320)
     assert v[10,12] == 0x123456ff if sys.byteorder == 'big' else 0xff563412
-    assert v.nbytes == numBytes(qimg)
+    assert v.nbytes == sizeInBytes(qimg)
 
 def test_RGBX64():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGBX64)
@@ -109,7 +109,7 @@ def test_RGBX64():
     assert v.shape == (240, 320)
     assert v[10,10] == 0xffff000000000000 if sys.byteorder == 'little' else 0xffff
     assert v[10,12] == 0xffff565634341212 if sys.byteorder == 'little' else 0x121234345656ffff
-    assert v.nbytes == numBytes(qimg)
+    assert v.nbytes == sizeInBytes(qimg)
 
 def test_RGBA64():
     qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGBX64)
@@ -119,11 +119,11 @@ def test_RGBA64():
     assert v.shape == (240, 320)
     assert v[10,10] == 0
     assert v[10,12] == 0xffff565634341212 if sys.byteorder == 'little' else 0x121234345656ffff
-    assert v.nbytes == numBytes(qimg)
+    assert v.nbytes == sizeInBytes(qimg)
 
 def test_odd_size_8bit():
     qimg = QtGui.QImage(321, 240, QtGui.QImage.Format_Indexed8)
-    setNumColors(qimg, 256)
+    setColorCount(qimg, 256)
     qimg.fill(0)
     v = _qimageview(qimg)
     qimg.setPixel(12, 10, 42)

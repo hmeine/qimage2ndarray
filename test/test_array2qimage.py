@@ -1,7 +1,7 @@
 import qimage2ndarray, numpy
 from qimage2ndarray.dynqt import QtGui
 
-from compat import numBytes, numColors
+from compat import sizeInBytes, colorCount
 
 
 def test_gray2qimage():
@@ -13,8 +13,8 @@ def test_gray2qimage():
     assert qImg.width() == 320
     assert qImg.height() == 240
     assert qImg.format() == QtGui.QImage.Format_Indexed8
-    assert a.nbytes == numBytes(qImg) * a.itemsize
-    assert numColors(qImg) == 256
+    assert a.nbytes == sizeInBytes(qImg) * a.itemsize
+    assert colorCount(qImg) == 256
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(42,42,42))
     assert hex(qImg.pixel(10,14)) == hex(QtGui.qRgb(0,0,0))
     assert hex(qImg.pixel(10,13)) == hex(QtGui.qRgb(0,0,0))
@@ -44,8 +44,8 @@ def test_gray2qimage_normalize():
     assert qImg.width() == 320
     assert qImg.height() == 240
     assert qImg.format() == QtGui.QImage.Format_Indexed8
-    assert a.nbytes == numBytes(qImg) * a.itemsize
-    assert numColors(qImg) == 256
+    assert a.nbytes == sizeInBytes(qImg) * a.itemsize
+    assert colorCount(qImg) == 256
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(255,255,255))
     assert hex(qImg.pixel(10,13)) == hex(QtGui.qRgb(0,0,0))
     x = int(255 * 10.0 / 52.42)
@@ -84,8 +84,8 @@ def test_gray2qimage_normalize_onlymax():
     assert qImg.width() == 320
     assert qImg.height() == 240
     assert qImg.format() == QtGui.QImage.Format_Indexed8
-    assert a.nbytes == numBytes(qImg) * a.itemsize
-    assert numColors(qImg) == 256
+    assert a.nbytes == sizeInBytes(qImg) * a.itemsize
+    assert colorCount(qImg) == 256
     x = int(255 * 42.42 / 80.0)
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(x,x,x))
     assert hex(qImg.pixel(10,13)) == hex(QtGui.qRgb(0,0,0))
@@ -100,8 +100,8 @@ def test_gray2qimage_normalize_domain():
     assert qImg.width() == 320
     assert qImg.height() == 240
     assert qImg.format() == QtGui.QImage.Format_Indexed8
-    assert a.nbytes == numBytes(qImg) * a.itemsize
-    assert numColors(qImg) == 256
+    assert a.nbytes == sizeInBytes(qImg) * a.itemsize
+    assert colorCount(qImg) == 256
     x = int(255 * 142.42 / 200.0)
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(x,x,x))
     x = int(255 *  90.0 / 200.0)
@@ -127,8 +127,8 @@ def test_gray2qimage_masked():
     assert qImg.width() == 320
     assert qImg.height() == 240
     assert qImg.format() == QtGui.QImage.Format_Indexed8
-    assert a.nbytes == numBytes(qImg) * a.itemsize
-    assert numColors(qImg) == 256
+    assert a.nbytes == sizeInBytes(qImg) * a.itemsize
+    assert colorCount(qImg) == 256
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(255,255,255))
     assert hex(qImg.pixel(10,13)) == hex(QtGui.qRgb(0,0,0))
     x = int(255 * 10.0 / 52.42)

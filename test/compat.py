@@ -1,27 +1,36 @@
 
 
-def setNumColors(qimage, color_count):
-    """Compatibility function btw. PyQt4 and PyQt5"""
+def setColorCount(qimage, color_count):
+    """Compatibility function btw. Qt4 and Qt5"""
 
     try:
+        qimage.setColorCount(color_count) # Qt 4.6 and later
+    except AttributeError:
         qimage.setNumColors(color_count)
-    except AttributeError:
-        qimage.setColorCount(color_count)
 
 
-def numBytes(qimage):
-    """Compatibility function btw. PyQt4 and PyQt5"""
+def colorCount(qimage):
+    """Compatibility function btw. Qt4 and Qt5"""
 
     try:
-        return qimage.numBytes()
+        return qimage.colorCount() # Qt 4.6 and later
     except AttributeError:
-        return qimage.byteCount()
-
-
-def numColors(qimage):
-    """Compatibility function btw. PyQt4 and PyQt5"""
-
-    try:
         return qimage.numColors()
+
+
+def sizeInBytes(qimage):
+    """Compatibility function btw. Qt4, Qt5, and Qt6"""
+
+    try:
+        return qimage.sizeInBytes() # Qt 5.10 and later
     except AttributeError:
-        return qimage.colorCount()
+        try:
+            return qimage.byteCount() # Qt 4.6 and later
+        except AttributeError:
+            return qimage.numBytes()
+
+
+# deprecated name for backwards compatibility
+setNumColors = setColorCount
+numColors = colorCount
+numBytes = sizeInBytes
