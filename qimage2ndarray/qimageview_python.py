@@ -11,7 +11,7 @@ from qimage2ndarray.dynqt import qt, QtGui
 
 
 def PyQt_data(image):
-    # PyQt4/PyQt5's QImage.bits() returns a sip.voidptr that supports
+    # PyQt{4,5,6}'s QImage.bits() returns a sip.voidptr that supports
     # conversion to string via asstring(size) or getting its base
     # address via int(...):
     return (int(image.bits()), False)
@@ -44,11 +44,13 @@ def direct_buffer_data(image):
 getdata = {
     ('PyQt4', 2): PyQt_data,
     ('PyQt5', 2): PyQt_data,
+    ('PyQt6', 2): PyQt_data,
     ('PySide', 2): PySide_data,
     ('PySide2', 2): PySide_data,
     ('PySide6', 2): PySide_data,
     ('PyQt4', 3): PyQt_data,
     ('PyQt5', 3): PyQt_data,
+    ('PyQt6', 3): PyQt_data,
     ('PySide', 3): direct_buffer_data,
     ('PySide2', 3): direct_buffer_data,
     ('PySide6', 3): direct_buffer_data,
@@ -102,8 +104,8 @@ FORMATS = dict(
 )
 
 for name, qimage_format in FORMATS.items():
-    if name in dir(QtGui.QImage):
-        qimage_format.code = getattr(QtGui.QImage, name)
+    if name in dir(QtGui.QImage.Format):
+        qimage_format.code = getattr(QtGui.QImage.Format, name)
 
 
 class ArrayInterfaceAroundQImage(object):
@@ -128,7 +130,7 @@ def qimageview(image):
         raise TypeError("image argument must be a QImage instance")
 
     pixel_format = image.format()
-    if pixel_format == QtGui.QImage.Format_Invalid:
+    if pixel_format == QtGui.QImage.Format.Format_Invalid:
         raise ValueError("qimageview got invalid QImage")
 
     qimage_format = QImageFormat.from_code(pixel_format)

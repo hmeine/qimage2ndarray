@@ -292,7 +292,7 @@ def gray2qimage(gray, normalize = False):
                 ' (try using array2qimage)' if _np.ndim(gray) == 3 else ''))
 
     h, w = gray.shape
-    result = _qt.QImage(w, h, _qt.QImage.Format_Indexed8)
+    result = _qt.QImage(w, h, _qt.QImage.Format.Format_Indexed8)
 
     if not _np.ma.is_masked(gray):
         for i in range(256):
@@ -349,9 +349,9 @@ def array2qimage(array, normalize = False):
 
     If `array` contains masked values, the corresponding pixels will
     be transparent in the result.  Thus, the result will be of
-    QImage.Format_ARGB32 if the input already contains an alpha
+    QImage.Format.Format_ARGB32 if the input already contains an alpha
     channel (i.e. has shape (H,W,4)) or if there are masked pixels,
-    and QImage.Format_RGB32 otherwise.
+    and QImage.Format.Format_RGB32 otherwise.
 
     :param array: image data which should be converted (copied) into a QImage_
     :type array: 2D or 3D numpy.ndarray_ or `numpy.ma.array <masked arrays>`_
@@ -371,7 +371,7 @@ def array2qimage(array, normalize = False):
     h, w, channels = array.shape
 
     hasAlpha = _np.ma.is_masked(array) or channels in (2, 4)
-    fmt = _qt.QImage.Format_ARGB32 if hasAlpha else _qt.QImage.Format_RGB32
+    fmt = _qt.QImage.Format.Format_ARGB32 if hasAlpha else _qt.QImage.Format.Format_RGB32
 
     result = _qt.QImage(w, h, fmt)
 
@@ -428,9 +428,9 @@ def imread(filename, masked = False):
     hasAlpha = qImage.hasAlphaChannel()
 
     if hasAlpha:
-        targetFormat = _qt.QImage.Format_ARGB32
+        targetFormat = _qt.QImage.Format.Format_ARGB32
     else:
-        targetFormat = _qt.QImage.Format_RGB32
+        targetFormat = _qt.QImage.Format.Format_RGB32
     if qImage.format() != targetFormat:
         qImage = qImage.convertToFormat(targetFormat)
 

@@ -7,7 +7,7 @@ import pytest
 
 
 def test_viewcreation():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format.Format_RGB32)
     v = _qimageview(qimg)
     assert v.shape == (240, 320)
     assert v.base is not None
@@ -22,7 +22,7 @@ def test_qimageview_noargs():
         v = _qimageview()
 
 def test_qimageview_manyargs():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format.Format_Indexed8)
     with pytest.raises(TypeError):
         v = _qimageview(qimg, 1)
 
@@ -31,7 +31,7 @@ def test_qimageview_wrongarg():
         v = _qimageview(42)
 
 def test_data_access():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format.Format_Indexed8)
     setColorCount(qimg, 256)
     qimg.fill(42)
     v = _qimageview(qimg)
@@ -40,7 +40,7 @@ def test_data_access():
     assert v.nbytes == sizeInBytes(qimg)
 
 def test_being_view():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format.Format_Indexed8)
     setColorCount(qimg, 256)
     qimg.fill(23)
     v = _qimageview(qimg)
@@ -50,7 +50,7 @@ def test_being_view():
     assert v.nbytes == sizeInBytes(qimg)
 
 def test_coordinate_access():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format.Format_Indexed8)
     setColorCount(qimg, 256)
     qimg.fill(0)
     v = _qimageview(qimg)
@@ -62,7 +62,7 @@ def test_coordinate_access():
     assert v.nbytes == sizeInBytes(qimg)
 
 def test_RGB32():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format.Format_RGB32)
     qimg.fill(0)
     v = _qimageview(qimg)
     qimg.fill(23)
@@ -73,7 +73,7 @@ def test_RGB32():
     assert v.nbytes == sizeInBytes(qimg)
 
 def test_ARGB32():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_ARGB32)
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format.Format_ARGB32)
     qimg.fill(0)
     v = _qimageview(qimg)
     qimg.setPixel(12, 10, QtGui.qRgb(0x12,0x34,0x56))
@@ -82,7 +82,7 @@ def test_ARGB32():
     assert v.nbytes == sizeInBytes(qimg)
 
 def test_RGBX8888():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGBX8888)
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format.Format_RGBX8888)
     qimg.fill(0)
     v = _qimageview(qimg)
     qimg.fill(23)
@@ -93,7 +93,7 @@ def test_RGBX8888():
     assert v.nbytes == sizeInBytes(qimg)
 
 def test_RGBA8888():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGBA8888)
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format.Format_RGBA8888)
     qimg.fill(0)
     v = _qimageview(qimg)
     qimg.setPixel(12, 10, QtGui.qRgb(0x12,0x34,0x56))
@@ -102,7 +102,7 @@ def test_RGBA8888():
     assert v.nbytes == sizeInBytes(qimg)
 
 def test_RGBX64():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGBX64)
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format.Format_RGBX64)
     qimg.fill(QtGui.qRgb(0, 0, 0))
     v = _qimageview(qimg)
     qimg.setPixel(12, 10, QtGui.qRgb(0x12,0x34,0x56))
@@ -112,7 +112,7 @@ def test_RGBX64():
     assert v.nbytes == sizeInBytes(qimg)
 
 def test_RGBA64():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGBX64)
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format.Format_RGBX64)
     qimg.fill(0)
     v = _qimageview(qimg)
     qimg.setPixel(12, 10, QtGui.qRgb(0x12,0x34,0x56))
@@ -122,7 +122,7 @@ def test_RGBA64():
     assert v.nbytes == sizeInBytes(qimg)
 
 def test_odd_size_8bit():
-    qimg = QtGui.QImage(321, 240, QtGui.QImage.Format_Indexed8)
+    qimg = QtGui.QImage(321, 240, QtGui.QImage.Format.Format_Indexed8)
     setColorCount(qimg, 256)
     qimg.fill(0)
     v = _qimageview(qimg)
@@ -132,7 +132,7 @@ def test_odd_size_8bit():
     assert v.strides[0] == qimg.bytesPerLine()
 
 def test_odd_size_32bit():
-    qimg = QtGui.QImage(321, 240, QtGui.QImage.Format_ARGB32)
+    qimg = QtGui.QImage(321, 240, QtGui.QImage.Format.Format_ARGB32)
     qimg.fill(0)
     v = _qimageview(qimg)
     qimg.setPixel(12, 10, 42)
@@ -141,7 +141,7 @@ def test_odd_size_32bit():
     assert v.strides[0] == qimg.bytesPerLine()
 
 def test_odd_size_32bit_rgb():
-    qimg = QtGui.QImage(321, 240, QtGui.QImage.Format_RGB32)
+    qimg = QtGui.QImage(321, 240, QtGui.QImage.Format.Format_RGB32)
     qimg.fill(0)
     v = _qimageview(qimg)
     qimg.setPixel(12, 10, 42)
@@ -151,11 +151,11 @@ def test_odd_size_32bit_rgb():
     assert v.strides[1] == 4
 
 def test_mono():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Mono)
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format.Format_Mono)
     with pytest.raises(ValueError):
         v = _qimageview(qimg)
 
 def test_rgb666():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB666)
+    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format.Format_RGB666)
     with pytest.raises(ValueError):
         v = _qimageview(qimg)

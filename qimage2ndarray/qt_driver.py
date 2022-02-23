@@ -16,7 +16,7 @@
 It will dynamically decide which one to use:
 
 * First, the environment variable QT_DRIVER is checked
-  (may be one of 'PyQt5', 'PyQt4', 'PySide', 'PythonQt').
+  (may be one of 'PyQt6', 'PyQt5', 'PyQt4', 'PySide', 'PythonQt').
 * If unset, previously imported binding modules are detected (in sys.modules).
 * If no bindings are loaded, the environment variable QT_API is checked
   (used by ETS and ipython, may be 'pyside' or 'pyqt').
@@ -60,8 +60,8 @@ def getprop_other(getter):
 
 
 class QtDriver(object):
-    DRIVERS = ('PyQt5', 'PyQt4', 'PySide', 'PySide2', 'PySide6', 'PythonQt')
-    DEFAULT = 'PyQt5'
+    DRIVERS = ('PyQt6', 'PyQt5', 'PyQt4', 'PySide', 'PySide2', 'PySide6', 'PythonQt')
+    DEFAULT = 'PyQt6'
 
     @classmethod
     def detect_qt(cls):
@@ -87,8 +87,8 @@ class QtDriver(object):
         if drv is None:
             drv = self.DEFAULT
         # map ETS syntax
-        drv = {'pyside': 'PySide', 'pyside2': 'PySide2', 'pyside6' : 'PySide6',
-               'pyqt': 'PyQt4', 'pyqt5': 'PyQt5'}.get(drv, drv)
+        drv = {'pyside': 'PySide', 'pyside2': 'PySide2', 'pyside6': 'PySide6',
+               'pyqt': 'PyQt4', 'pyqt5': 'PyQt5', 'pyqt6': 'PyQt6'}.get(drv, drv)
         assert drv in self.DRIVERS
         self._drv = drv
 
