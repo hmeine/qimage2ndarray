@@ -103,7 +103,7 @@ FORMATS = dict(
 )
 
 __format_enum_container = (
-    QtGui.QImage.Format if hasattr(QtGui.QImage, 'Format') else QtGui.QImage)
+    QtGui.QImage if 'Format_Indexed8' in dir(QtGui.QImage) else QtGui.QImage.Format)
 
 for name, qimage_format in FORMATS.items():
     if name in dir(__format_enum_container):
