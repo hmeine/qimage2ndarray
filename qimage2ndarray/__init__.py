@@ -2,6 +2,7 @@ import sys as _sys
 import numpy as _np
 
 from .dynqt import QtGui as _qt
+from .dynqt import QImage_Format as _QImage_Format
 
 from .qimageview_python import qimageview as _qimageview
 from .qrgb_polyfill import _install_polyfill
@@ -292,7 +293,7 @@ def gray2qimage(gray, normalize = False):
                 ' (try using array2qimage)' if _np.ndim(gray) == 3 else ''))
 
     h, w = gray.shape
-    result = _qt.QImage(w, h, _qt.QImage.Format_Indexed8)
+    result = _qt.QImage(w, h, _QImage_Format.Format_Indexed8)
 
     if not _np.ma.is_masked(gray):
         for i in range(256):
@@ -371,7 +372,7 @@ def array2qimage(array, normalize = False):
     h, w, channels = array.shape
 
     hasAlpha = _np.ma.is_masked(array) or channels in (2, 4)
-    fmt = _qt.QImage.Format_ARGB32 if hasAlpha else _qt.QImage.Format_RGB32
+    fmt = _QImage_Format.Format_ARGB32 if hasAlpha else _QImage_Format.Format_RGB32
 
     result = _qt.QImage(w, h, fmt)
 
@@ -428,9 +429,9 @@ def imread(filename, masked = False):
     hasAlpha = qImage.hasAlphaChannel()
 
     if hasAlpha:
-        targetFormat = _qt.QImage.Format_ARGB32
+        targetFormat = _QImage_Format.Format_ARGB32
     else:
-        targetFormat = _qt.QImage.Format_RGB32
+        targetFormat = _QImage_Format.Format_RGB32
     if qImage.format() != targetFormat:
         qImage = qImage.convertToFormat(targetFormat)
 

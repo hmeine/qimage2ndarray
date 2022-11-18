@@ -1,12 +1,12 @@
 import qimage2ndarray
-from qimage2ndarray.dynqt import QtGui
+from qimage2ndarray.dynqt import QtGui, QImage_Format
 
 from compat import setColorCount, sizeInBytes
 
 
 # Format_Indexed8 = 3
 def test_raw_indexed8():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)
+    qimg = QtGui.QImage(320, 240, QImage_Format.Format_Indexed8)
     setColorCount(qimg, 256)
     qimg.fill(0)
     v = qimage2ndarray.raw_view(qimg)
@@ -20,7 +20,7 @@ def test_raw_indexed8():
 
 # Format_RGB32 = 4
 def test_raw_rgb32():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
+    qimg = QtGui.QImage(320, 240, QImage_Format.Format_RGB32)
     qimg.fill(0)
     v = qimage2ndarray.raw_view(qimg)
     qimg.fill(23)
@@ -33,7 +33,7 @@ def test_raw_rgb32():
 
 # Format_RGB16 = 4
 def test_raw_rgb16():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB16)
+    qimg = QtGui.QImage(320, 240, QImage_Format.Format_RGB16)
     qimg.fill(0)
     v = qimage2ndarray.raw_view(qimg)
     qimg.fill(23)
@@ -46,7 +46,7 @@ def test_raw_rgb16():
 
 # Format_Grayscale8 = 24 (Qt 5.5+)
 def test_raw_grayscale8():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Grayscale8)
+    qimg = QtGui.QImage(320, 240, QImage_Format.Format_Grayscale8)
     qimg.fill(0)
     v = qimage2ndarray.raw_view(qimg)
     qimg.fill(1)
@@ -59,7 +59,7 @@ def test_raw_grayscale8():
 
 # Format_RGBA64 = 26 (Qt 5.12+)
 def test_raw_rgba64():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGBA64)
+    qimg = QtGui.QImage(320, 240, QImage_Format.Format_RGBA64)
     qimg.fill(0)
     v = qimage2ndarray.raw_view(qimg)
     qimg.fill(1)
@@ -74,7 +74,7 @@ def test_raw_rgba64():
 
 
 def test_byte_view_rgb32():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
+    qimg = QtGui.QImage(320, 240, QImage_Format.Format_RGB32)
     v = qimage2ndarray.byte_view(qimg)
     qimg.fill(23)
     qimg.setPixel(12, 10, 42)
@@ -85,7 +85,7 @@ def test_byte_view_rgb32():
 
 
 def test_byte_view_indexed():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_Indexed8)
+    qimg = QtGui.QImage(320, 240, QImage_Format.Format_Indexed8)
     setColorCount(qimg, 256)
     v = qimage2ndarray.byte_view(qimg)
     qimg.fill(23)
@@ -97,7 +97,7 @@ def test_byte_view_indexed():
 
 
 def test_rgb_view():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_RGB32)
+    qimg = QtGui.QImage(320, 240, QImage_Format.Format_RGB32)
     qimg.fill(QtGui.qRgb(23, 0, 0))
     v = qimage2ndarray.rgb_view(qimg)
     qimg.setPixel(12, 10, QtGui.qRgb(12, 34, 56))
@@ -106,7 +106,7 @@ def test_rgb_view():
 
 
 def test_alpha_view():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_ARGB32)
+    qimg = QtGui.QImage(320, 240, QImage_Format.Format_ARGB32)
     qimg.fill(0)
     v = qimage2ndarray.alpha_view(qimg)
     qimg.setPixel(12, 10, QtGui.qRgb(12, 34, 56))
@@ -115,7 +115,7 @@ def test_alpha_view():
 
 
 def test_recarray_view():
-    qimg = QtGui.QImage(320, 240, QtGui.QImage.Format_ARGB32)
+    qimg = QtGui.QImage(320, 240, QImage_Format.Format_ARGB32)
     qimg.fill(23)
     v = qimage2ndarray.recarray_view(qimg)
     qimg.setPixel(12, 10, QtGui.qRgb(12, 34, 56))

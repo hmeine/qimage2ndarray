@@ -7,7 +7,7 @@ all supported backends, so this is now used for all Qt python bindings.
 
 import sys
 import numpy as np
-from qimage2ndarray.dynqt import qt, QtGui
+from qimage2ndarray.dynqt import qt, QtGui, QImage_Format
 
 
 def PyQt_data(image):
@@ -102,12 +102,10 @@ FORMATS = dict(
     Format_RGBA64_Premultiplied = QImageFormatInfo(64),
 )
 
-__format_enum_container = (
-    QtGui.QImage if 'Format_Indexed8' in dir(QtGui.QImage) else QtGui.QImage.Format)
 
 for name, qimage_format in FORMATS.items():
-    if name in dir(__format_enum_container):
-        qimage_format.code = getattr(__format_enum_container, name)
+    if name in dir(QImage_Format):
+        qimage_format.code = getattr(QImage_Format, name)
 
 
 class ArrayInterfaceAroundQImage(object):
@@ -132,7 +130,7 @@ def qimageview(image):
         raise TypeError("image argument must be a QImage instance")
 
     pixel_format = image.format()
-    if pixel_format == QtGui.QImage.Format_Invalid:
+    if pixel_format == QImage_Format.Format_Invalid:
         raise ValueError("qimageview got invalid QImage")
 
     qimage_format = QImageFormatInfo.from_code(pixel_format)

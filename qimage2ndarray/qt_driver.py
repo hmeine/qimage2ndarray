@@ -35,7 +35,8 @@ but are required in PyQt and PySide), one may e.g. write
 `getprop(widget.width)`.
 """
 
-import sys, os
+import os
+import sys
 
 
 def getprop_PythonQt(prop):

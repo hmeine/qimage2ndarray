@@ -1,5 +1,5 @@
 import qimage2ndarray, numpy
-from qimage2ndarray.dynqt import QtGui
+from qimage2ndarray.dynqt import QtGui, QImage_Format
 
 from compat import sizeInBytes, colorCount
 
@@ -12,7 +12,7 @@ def test_gray2qimage():
     assert not qImg.isNull()
     assert qImg.width() == 320
     assert qImg.height() == 240
-    assert qImg.format() == QtGui.QImage.Format_Indexed8
+    assert qImg.format() == QImage_Format.Format_Indexed8
     assert a.nbytes == sizeInBytes(qImg) * a.itemsize
     assert colorCount(qImg) == 256
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(42,42,42))
@@ -43,7 +43,7 @@ def test_gray2qimage_normalize():
     assert not qImg.isNull()
     assert qImg.width() == 320
     assert qImg.height() == 240
-    assert qImg.format() == QtGui.QImage.Format_Indexed8
+    assert qImg.format() == QImage_Format.Format_Indexed8
     assert a.nbytes == sizeInBytes(qImg) * a.itemsize
     assert colorCount(qImg) == 256
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(255,255,255))
@@ -83,7 +83,7 @@ def test_gray2qimage_normalize_onlymax():
     assert not qImg.isNull()
     assert qImg.width() == 320
     assert qImg.height() == 240
-    assert qImg.format() == QtGui.QImage.Format_Indexed8
+    assert qImg.format() == QImage_Format.Format_Indexed8
     assert a.nbytes == sizeInBytes(qImg) * a.itemsize
     assert colorCount(qImg) == 256
     x = int(255 * 42.42 / 80.0)
@@ -99,7 +99,7 @@ def test_gray2qimage_normalize_domain():
     assert not qImg.isNull()
     assert qImg.width() == 320
     assert qImg.height() == 240
-    assert qImg.format() == QtGui.QImage.Format_Indexed8
+    assert qImg.format() == QImage_Format.Format_Indexed8
     assert a.nbytes == sizeInBytes(qImg) * a.itemsize
     assert colorCount(qImg) == 256
     x = int(255 * 142.42 / 200.0)
@@ -126,7 +126,7 @@ def test_gray2qimage_masked():
     assert not qImg.isNull()
     assert qImg.width() == 320
     assert qImg.height() == 240
-    assert qImg.format() == QtGui.QImage.Format_Indexed8
+    assert qImg.format() == QImage_Format.Format_Indexed8
     assert a.nbytes == sizeInBytes(qImg) * a.itemsize
     assert colorCount(qImg) == 256
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(255,255,255))
@@ -146,7 +146,7 @@ def test_scalar2qimage():
     assert not qImg.isNull()
     assert qImg.width() == 320
     assert qImg.height() == 240
-    assert qImg.format() == QtGui.QImage.Format_RGB32
+    assert qImg.format() == QImage_Format.Format_RGB32
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(42,42,42)) # max pixel
     assert hex(qImg.pixel(10,14)) == hex(QtGui.qRgb(0,0,0))    # zero pixel
     assert hex(qImg.pixel(10,13)) == hex(QtGui.qRgb(0,0,0))    # min pixel
@@ -160,7 +160,7 @@ def test_scalar2qimage_with_alpha():
     assert not qImg.isNull()
     assert qImg.width() == 320
     assert qImg.height() == 240
-    assert qImg.format() == QtGui.QImage.Format_ARGB32
+    assert qImg.format() == QImage_Format.Format_ARGB32
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgba(42,42,42,128)) # max pixel
     assert hex(qImg.pixel(10,14)) == hex(QtGui.qRgba(0,0,0,255))    # zero pixel
     assert hex(qImg.pixel(10,13)) == hex(QtGui.qRgba(0,0,0,0))      # min pixel
@@ -173,7 +173,7 @@ def test_scalar2qimage_normalize():
     assert not qImg.isNull()
     assert qImg.width() == 320
     assert qImg.height() == 240
-    assert qImg.format() == QtGui.QImage.Format_RGB32
+    assert qImg.format() == QImage_Format.Format_RGB32
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(255,255,255)) # max pixel
     assert hex(qImg.pixel(10,13)) == hex(QtGui.qRgb(0,0,0))       # min pixel
     x = int(255 * 10.0 / 52.42)
@@ -187,7 +187,7 @@ def test_scalar2qimage_normalize_onlymax():
     assert not qImg.isNull()
     assert qImg.width() == 320
     assert qImg.height() == 240
-    assert qImg.format() == QtGui.QImage.Format_RGB32
+    assert qImg.format() == QImage_Format.Format_RGB32
     x = int(255 * 42.42 / 80.0)
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(x,x,x)) # max pixel
     assert hex(qImg.pixel(10,13)) == hex(QtGui.qRgb(0,0,0)) # min pixel
@@ -201,7 +201,7 @@ def test_scalar2qimage_normalize_domain():
     assert not qImg.isNull()
     assert qImg.width() == 320
     assert qImg.height() == 240
-    assert qImg.format() == QtGui.QImage.Format_RGB32
+    assert qImg.format() == QImage_Format.Format_RGB32
     x = int(255 * 142.42 / 200.0)
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(x,x,x))
     x = int(255 *  90.0 / 200.0)
@@ -226,7 +226,7 @@ def test_scalar2qimage_masked():
     assert not qImg.isNull()
     assert qImg.width() == 320
     assert qImg.height() == 240
-    assert qImg.format() == QtGui.QImage.Format_ARGB32
+    assert qImg.format() == QImage_Format.Format_ARGB32
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(255,255,255))
     assert hex(qImg.pixel(10,13)) == hex(QtGui.qRgb(0,0,0))
     x = int(255 * 10.0 / 52.42)
@@ -244,7 +244,7 @@ def test_rgb2qimage():
     assert not qImg.isNull()
     assert qImg.width() == 320
     assert qImg.height() == 240
-    assert qImg.format() == QtGui.QImage.Format_RGB32
+    assert qImg.format() == QImage_Format.Format_RGB32
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(42,20,14))
     assert hex(qImg.pixel(10,13)) == hex(QtGui.qRgb(0,0,0))
     assert hex(qImg.pixel(10,14)) == hex(QtGui.qRgb(0,0,0))
@@ -257,7 +257,7 @@ def test_rgb2qimage_normalize():
     assert not qImg.isNull()
     assert qImg.width() == 320
     assert qImg.height() == 240
-    assert qImg.format() == QtGui.QImage.Format_RGB32
+    assert qImg.format() == QImage_Format.Format_RGB32
     assert hex(qImg.pixel(10,12)) == hex(QtGui.qRgb(255,int(255*30/52.42),int(255*24/52.42)))
     assert hex(qImg.pixel(10,13)) == hex(QtGui.qRgb(0,int(255*30/52.42),int(255*10/52.42)))
     x = int(255 * 10.0 / 52.42)
