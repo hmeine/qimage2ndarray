@@ -65,7 +65,7 @@ class QImageFormatInfo:
 
     @staticmethod
     def from_code(code):
-        for _name, qimage_format in FORMATS.items():
+        for qimage_format in FORMATS.values():
             if qimage_format.code == code:
                 return qimage_format
         raise KeyError('No QImageFormat found for code %r' % code)
