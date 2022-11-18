@@ -102,9 +102,12 @@ FORMATS = dict(
     Format_RGBA64_Premultiplied = QImageFormat(64),
 )
 
+__format_enum_container = (
+    QtGui.QImage.Format if hasattr(QtGui.QImage, 'Format') else QtGui.QImage)
+
 for name, qimage_format in FORMATS.items():
-    if name in dir(QtGui.QImage):
-        qimage_format.code = getattr(QtGui.QImage, name)
+    if name in dir(__format_enum_container):
+        qimage_format.code = getattr(__format_enum_container, name)
 
 
 class ArrayInterfaceAroundQImage(object):
