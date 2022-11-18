@@ -57,7 +57,7 @@ getdata = {
 
 
 # what properties (e.g., how many bits) do the different formats have?
-class QImageFormat:
+class QImageFormatInfo:
     def __init__(self, bits, rgb_layout = None):
         self.code = None
         self.bits = bits
@@ -72,34 +72,34 @@ class QImageFormat:
 
 
 FORMATS = dict(
-    Format_Mono = QImageFormat(1),
-    Format_MonoLSB = QImageFormat(1),
-    Format_Indexed8 = QImageFormat(8),
-    Format_RGB32 = QImageFormat(32, rgb_layout = 'argb32'),
-    Format_ARGB32 = QImageFormat(32, rgb_layout = 'argb32'),
-    Format_ARGB32_Premultiplied = QImageFormat(32, rgb_layout = 'argb32'),
-    Format_RGB16 = QImageFormat(16),
-    Format_ARGB8565_Premultiplied = QImageFormat(24),
-    Format_RGB666 = QImageFormat(24),
-    Format_ARGB6666_Premultiplied = QImageFormat(24),
-    Format_RGB555 = QImageFormat(16),
-    Format_ARGB8555_Premultiplied = QImageFormat(24),
-    Format_RGB888 = QImageFormat(24, rgb_layout = 'rgb888'),
-    Format_RGB444 = QImageFormat(16),
-    Format_ARGB4444_Premultiplied = QImageFormat(16),
-    Format_RGBX8888 = QImageFormat(32, rgb_layout = 'rgba8888'),
-    Format_RGBA8888 = QImageFormat(32, rgb_layout = 'rgba8888'),
-    Format_RGBA8888_Premultiplied = QImageFormat(32, rgb_layout = 'rgba8888'),
-    Format_BGR30 = QImageFormat(32),
-    Format_A2BGR30_Premultiplied = QImageFormat(32),
-    Format_RGB30 = QImageFormat(32),
-    Format_A2RGB30_Premultiplied = QImageFormat(32),
-    Format_Alpha8 = QImageFormat(8),
-    Format_Grayscale8 = QImageFormat(8),
-    Format_Grayscale16 = QImageFormat(16),
-    Format_RGBX64 = QImageFormat(64),
-    Format_RGBA64 = QImageFormat(64),
-    Format_RGBA64_Premultiplied = QImageFormat(64),
+    Format_Mono = QImageFormatInfo(1),
+    Format_MonoLSB = QImageFormatInfo(1),
+    Format_Indexed8 = QImageFormatInfo(8),
+    Format_RGB32 = QImageFormatInfo(32, rgb_layout = 'argb32'),
+    Format_ARGB32 = QImageFormatInfo(32, rgb_layout = 'argb32'),
+    Format_ARGB32_Premultiplied = QImageFormatInfo(32, rgb_layout = 'argb32'),
+    Format_RGB16 = QImageFormatInfo(16),
+    Format_ARGB8565_Premultiplied = QImageFormatInfo(24),
+    Format_RGB666 = QImageFormatInfo(24),
+    Format_ARGB6666_Premultiplied = QImageFormatInfo(24),
+    Format_RGB555 = QImageFormatInfo(16),
+    Format_ARGB8555_Premultiplied = QImageFormatInfo(24),
+    Format_RGB888 = QImageFormatInfo(24, rgb_layout = 'rgb888'),
+    Format_RGB444 = QImageFormatInfo(16),
+    Format_ARGB4444_Premultiplied = QImageFormatInfo(16),
+    Format_RGBX8888 = QImageFormatInfo(32, rgb_layout = 'rgba8888'),
+    Format_RGBA8888 = QImageFormatInfo(32, rgb_layout = 'rgba8888'),
+    Format_RGBA8888_Premultiplied = QImageFormatInfo(32, rgb_layout = 'rgba8888'),
+    Format_BGR30 = QImageFormatInfo(32),
+    Format_A2BGR30_Premultiplied = QImageFormatInfo(32),
+    Format_RGB30 = QImageFormatInfo(32),
+    Format_A2RGB30_Premultiplied = QImageFormatInfo(32),
+    Format_Alpha8 = QImageFormatInfo(8),
+    Format_Grayscale8 = QImageFormatInfo(8),
+    Format_Grayscale16 = QImageFormatInfo(16),
+    Format_RGBX64 = QImageFormatInfo(64),
+    Format_RGBA64 = QImageFormatInfo(64),
+    Format_RGBA64_Premultiplied = QImageFormatInfo(64),
 )
 
 __format_enum_container = (
@@ -135,7 +135,7 @@ def qimageview(image):
     if pixel_format == QtGui.QImage.Format_Invalid:
         raise ValueError("qimageview got invalid QImage")
 
-    qimage_format = QImageFormat.from_code(pixel_format)
+    qimage_format = QImageFormatInfo.from_code(pixel_format)
     if qimage_format.bits not in (8, 16, 32, 64):
         raise ValueError(
             'qimageview can only handle 8-, 16-, 32- or 64-bit '
