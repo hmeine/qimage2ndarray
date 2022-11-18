@@ -68,6 +68,7 @@ class QImageFormat:
         for _name, qimage_format in FORMATS.items():
             if qimage_format.code == code:
                 return qimage_format
+        raise KeyError('No QImageFormat found for code %r' % code)
 
 
 FORMATS = dict(
