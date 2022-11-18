@@ -11,7 +11,7 @@ from qimage2ndarray.dynqt import qt, QtGui, QImage_Format
 
 
 def PyQt_data(image):
-    # PyQt4/PyQt5's QImage.bits() returns a sip.voidptr that supports
+    # PyQt{4,5,6}'s QImage.bits() returns a sip.voidptr that supports
     # conversion to string via asstring(size) or getting its base
     # address via int(...):
     return (int(image.bits()), False)
@@ -49,6 +49,7 @@ getdata = {
     ('PySide6', 2): PySide_data,
     ('PyQt4', 3): PyQt_data,
     ('PyQt5', 3): PyQt_data,
+    ('PyQt6', 3): PyQt_data,
     ('PySide', 3): direct_buffer_data,
     ('PySide2', 3): direct_buffer_data,
     ('PySide6', 3): direct_buffer_data,
