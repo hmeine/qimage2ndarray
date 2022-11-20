@@ -44,6 +44,7 @@ def direct_buffer_data(image):
 getdata = {
     ('PyQt4', 2): PyQt_data,
     ('PyQt5', 2): PyQt_data,
+    ('PyQt6', 2): PyQt_data,
     ('PySide', 2): PySide_data,
     ('PySide2', 2): PySide_data,
     ('PySide6', 2): PySide_data,

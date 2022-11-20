@@ -350,9 +350,9 @@ def array2qimage(array, normalize = False):
 
     If `array` contains masked values, the corresponding pixels will
     be transparent in the result.  Thus, the result will be of
-    QImage.Format_ARGB32 if the input already contains an alpha
+    QImage.Format.Format_ARGB32 if the input already contains an alpha
     channel (i.e. has shape (H,W,4)) or if there are masked pixels,
-    and QImage.Format_RGB32 otherwise.
+    and QImage.Format.Format_RGB32 otherwise.
 
     :param array: image data which should be converted (copied) into a QImage_
     :type array: 2D or 3D numpy.ndarray_ or `numpy.ma.array <masked arrays>`_
