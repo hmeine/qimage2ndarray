@@ -60,6 +60,10 @@ __ http://www.opensource.org/licenses/bsd-license.php
 Changelog
 =========
 
+Version 1.10.0:
+  - fixes for PySide6 and for Qt6 in general
+  - first support for PyQt6
+
 Version 1.9.0:
   - first support for 64bit pixel types
   - switched tests from nose to pytest
