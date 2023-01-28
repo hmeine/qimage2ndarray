@@ -7,7 +7,7 @@ from .dynqt import QImage_Format as _QImage_Format
 from .qimageview_python import qimageview as _qimageview
 from .qrgb_polyfill import _install_polyfill
 
-__version__ = "1.9.0"
+__version__ = "1.10.0"
 
 
 _install_polyfill()
