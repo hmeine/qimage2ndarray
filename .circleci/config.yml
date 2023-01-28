@@ -17,6 +17,19 @@ jobs:
             QT_API: pyqt5
           name: Test (PyQt5)
   
+  test-PyQt6:
+    executor: python/default
+    steps:
+      - checkout
+      - run:
+          command: pip install numpy PyQt6 pytest
+          name: Install Dependencies (PyQt6)
+      - run:
+          command: pip install . && pytest
+          environment:
+            QT_API: pyqt6
+          name: Test (PyQt6)
+  
   test-PySide2:
     executor: python/default
     steps:
