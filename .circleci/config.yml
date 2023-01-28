@@ -64,6 +64,11 @@ workflows:
             branches:
               ignore:
                 - gh-pages
+      - test-PyQt6:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
       - test-PySide2:
           filters:
             branches:
