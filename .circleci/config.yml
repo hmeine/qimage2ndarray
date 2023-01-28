@@ -22,7 +22,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: pip install numpy PyQt6 pytest
+          command: sudo apt-get update && sudo apt-get install libegl1 libxkbcommon0 && pip install numpy PyQt6 pytest
           name: Install Dependencies (PyQt6)
       - run:
           command: pip install . && pytest
